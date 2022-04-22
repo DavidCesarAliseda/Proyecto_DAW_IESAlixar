@@ -1,0 +1,6 @@
+<!DOCTYPE html>
+<html sec:authorize="hasRole('ROLE_ADMIN')" th:replace="admin/admin_main">
+<html sec:authorize="hasRole('ROLE_USER')" th:replace="user/user_main">
+<html sec:authorize="!isAuthenticated()" th:replace="main">
+
+</html>
