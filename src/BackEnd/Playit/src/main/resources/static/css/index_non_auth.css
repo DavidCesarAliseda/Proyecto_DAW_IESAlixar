@@ -1,0 +1,64 @@
+body {
+    background: rgb(1, 1, 1);
+    background: -moz-linear-gradient(180deg, rgba(1, 1, 1, 1) 38%, rgba(66, 142, 185, 1) 100%);
+    background: -webkit-linear-gradient(180deg, rgba(1, 1, 1, 1) 38%, rgba(66, 142, 185, 1) 100%);
+    background: linear-gradient(180deg, rgba(1, 1, 1, 1) 38%, rgba(66, 142, 185, 1) 100%);
+    background-repeat: no-repeat;
+}
+
+#containr {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#loginbtn {
+    background-color: #428EB9;
+}
+
+#box {
+    width: 80%;
+    color: white;
+    /*background-color: rgba(0, 0, 0, 0.39);*/
+    background-color: azure;
+    padding: 2vw;
+    border-radius: 5px;
+    margin-top: 4vw;
+}
+
+#slogan {}
+
+#slogan p {
+    font-size: 2.6vw;
+    text-align: center;
+    /*margin: 0 0 8vh 0;*/
+}
+
+#slogan div {
+    text-align: center;
+    margin-top: 3vh;
+}
+
+#slogan button {
+    background-color: #428EB9;
+    border: 0;
+    border-radius: 5px;
+    color: white;
+    padding: 1vw;
+    font-size: 1.7vw;
+    text-transform: uppercase;
+}
+
+#slogan button:hover {
+    cursor: pointer;
+}
+
+#img {}
+
+
+
+@media screen and (max-width: 992px) {
+    #box {
+        margin-top: 0;
+    }
+}

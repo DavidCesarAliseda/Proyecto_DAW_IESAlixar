@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html sec:authorize="hasRole('ROLE_ADMIN')" th:replace="admin/admin_main">
-<html sec:authorize="hasRole('ROLE_USER')" th:replace="user/user_main">
-<html sec:authorize="!isAuthenticated()" th:replace="main">
+<html sec:authorize="hasRole('ROLE_USER')" th:insert="user/index_user.html :: user_index"></html>
+<html sec:authorize="hasRole('ROLE_ADMIN')" th:insert="admin/index_admin.html :: admin_index"></html>
+<html sec:authorize="!isAuthenticated()" th:insert="non_auth/non_auth_index.html :: non_auth_index"></html>
 
-</html>

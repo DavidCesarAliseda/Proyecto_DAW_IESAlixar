@@ -15,7 +15,7 @@ public class Usuario implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long id_usuario;
 	
 	@Column(name="nombre_usuario",unique=true, nullable=false)
 	private String userName;
@@ -36,15 +36,15 @@ public class Usuario implements Serializable{
 	private String role;
 	
 	public Usuario() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
-	public Long getId() {
-		return id;
+	public Long getId_usuario() {
+		return id_usuario;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setId_usuario(Long id) {
+		this.id_usuario = id;
 	}	
 
 	public String getUserName() {
@@ -94,5 +94,7 @@ public class Usuario implements Serializable{
 	public void setRole(String role) {
 		this.role = role;
 	}
+	
+	
 
 }

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" th:fragment="user_index">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link th:insert="link.html">
+<link rel="stylesheet" href="/css/index.css">
+
+</head>
+<header>
+
+	<nav>
+		<div class="nav-wrapper">
+			<a href="#!" class="brand-logo logo">Play<span>it<span></a>
+			<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i
+				class="material-icons">menu</i></a>
+			<ul class="valign-wrapper right hide-on-med-and-down"
+				style="height: 100%">
+				<li><a th:href="@{''}" class="material-icons valign-wrapper">movie</a></li>
+				<li><a th:href="@{''}" class="material-icons valign-wrapper">tv</a></li>
+				<li><a th:href="@{''}" class="material-icons valign-wrapper">list</a></li>
+				<li><a th:href="@{'/logout'}"
+					class="material-icons valign-wrapper">logout</a></li>
+			</ul>
+
+			<!-- 	Barra lateral movil -->
+			<ul class="sidenav" id="mobile-demo">
+				<li><a th:href="@{''}">Peliculas</a></li>
+				<li><a th:href="@{''}">Series</a></li>
+				<li><a th:href="@{''}">Listas</a></li>
+				<li><a th:href="@{'/logout'}">Logout</a></li>
+			</ul>
+		</div>
+	</nav>
+
+</header>
+
+<body>
+
+</body>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		var elems = document.querySelectorAll('.sidenav');
+		var instances = M.Sidenav.init(elems);
+	});
+</script>
+
+</html>

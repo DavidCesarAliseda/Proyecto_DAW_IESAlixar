@@ -1,0 +1,22 @@
+nav {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 1) 33%, rgba(0, 0, 0, 0.81) 100%) !important;
+}
+
+.logo {
+    margin-left: 1.6vw;
+    font-size: 3vw !important;
+    font-weight: bold;
+    font-family: 'Roboto Slab', Roboto;
+
+}
+
+.logo span {
+    color: #428EB9 !important;
+}
+
+@media screen and (max-width: 992px) {
+    .logo {
+        font-size: 5vw !important;
+        margin-left: 0;
+    }
+}

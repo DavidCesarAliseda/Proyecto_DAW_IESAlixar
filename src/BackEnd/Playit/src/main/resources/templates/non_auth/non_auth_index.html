@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" th:fragment="non_auth_index">
+
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link th:insert="link.html">
+
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/index_non_auth.css">
+
+
+
+</head>
+<header>
+	<nav>
+		<div class="nav-wrapper">
+			<a href="#!" class="brand-logo logo">Play<span>it<span></a>
+			<ul class="right">
+				<li><a th:href="@{'/login'}" class="waves-effect waves-light btn" id="loginbtn">Iniciar sesión</a></li>
+			</ul>
+		</div>
+	</nav>
+</header>
+
+<body>
+	<div id="containr">
+		<div id="box" class="row">
+			<section id="img" class="col s12 m12 l6">
+				<div class="carousel">
+					<a class="carousel-item" href="#one!"><img src="/img/index/lobezno.jpg"></a>
+					<a class="carousel-item" href="#two!"><img src="/img/index/niño.jpg"></a>
+					<a class="carousel-item" href="#three!"><img src="/img/index/thor.jpg"></a>
+					<a class="carousel-item" href="#four!"><img src="/img/index/bladerunner.jpg"></a>
+				</div>
+				<!-- <img class="responsive-img" src="/img/index/index_non_auth.jpg"> -->
+			</section>
+			<section id="slogan" class="col s12 m12 l6">
+				<p>¿Aún no eres miembro de la mejor página para administrar tus series y peliculas?</p>
+				<p>¿A que esperas? ¡Hazlo ya!</p>
+				<div>
+					<button>¡Únete ahora!</button>
+				</div>
+			</section>
+		</div>
+	</div>
+
+</body>
+
+<script>
+	document.addEventListener('DOMContentLoaded', function () {
+		var elems = document.querySelectorAll('.carousel');
+		var instances = M.Carousel.init(elems);
+	});
+</script>
+
+</html>
