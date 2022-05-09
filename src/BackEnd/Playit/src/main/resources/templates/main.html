@@ -1,0 +1,2 @@
+<html sec:authorize="hasRole('ROLE_USER')" th:insert="user/index_user.html :: user_index"></html>
+<html sec:authorize="hasRole('ROLE_ADMIN')" th:insert="admin/index_admin.html :: admin_index"></html>

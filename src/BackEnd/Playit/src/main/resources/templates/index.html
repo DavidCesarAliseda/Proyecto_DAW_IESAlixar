@@ -1,4 +1,63 @@
-<html sec:authorize="hasRole('ROLE_USER')" th:insert="user/index_user.html :: user_index"></html>
-<html sec:authorize="hasRole('ROLE_ADMIN')" th:insert="admin/index_admin.html :: admin_index"></html>
-<html sec:authorize="!isAuthenticated()" th:insert="non_auth/non_auth_index.html :: non_auth_index"></html>
+<!DOCTYPE html>
 
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link th:insert="link.html">
+
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/index_non_auth.css">
+
+</head>
+
+<body>
+	<header>
+		<div class="navbar-fixed">
+			<nav>
+				<div class="nav-wrapper">
+					<a href="#!" class="brand-logo logo">Play<span>it<span></a>
+				</div>
+			</nav>
+		</div>
+	</header>
+
+	<div class="container" id="container">
+		<div class="row center-align">
+			<div class="col m0 l2 "></div>
+			<div class="col s12 m12 l4 ">
+				<div class="card box">
+					<div class="card-content white-text">
+						<span class="card-title">¿Eres nuevo por aquí?</span>
+						<p>¿A que esperas para unirte?</p>
+					</div>
+					<div class="card-action">
+						<a th:href="@{''}">Crear cuenta</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="col s12 m12 l4 ">
+				<div class="card box">
+					<div class="card-content white-text">
+						<span class="card-title">¿Estas de vuelta?</span>
+						<p>¡Inicia sesión ahora!</p>
+					</div>
+					<div class="card-action">
+						<a th:href="@{'/login'}">Iniciar sesión</a>
+					</div>
+				</div>
+			</div>
+			<div class="col m0 l2 "></div>
+
+		</div>
+	</div>
+
+
+	<footer>
+		<div></div>
+	</footer>
+</body>
+
+</html>
