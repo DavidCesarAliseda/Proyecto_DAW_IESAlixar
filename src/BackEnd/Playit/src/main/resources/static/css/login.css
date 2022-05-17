@@ -83,3 +83,8 @@ a:visited {
 a:hover {
     font-weight: bold;
 }
+
+.red-text{
+	color: red;
+	margin-top: 0;
+}

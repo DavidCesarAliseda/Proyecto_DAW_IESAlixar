@@ -2,37 +2,43 @@
 <html lang="en">
 
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="">
-<meta name="author" content="">
-<title>Login</title>
-<link rel="stylesheet" href="">
-<link th:href="@{/css/login.css}" rel="stylesheet">
-
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<title>Login</title>
+	<link rel="stylesheet" href="/css/login.css">
 </head>
 
 <body>
 	<div id="container">
 		<div id="menu">
 			<p id="logo">
-				Play<span>it</span>
+				<a th:href="@{'/'}"> Play<span>it</span>
+				</a>
 			</p>
 			<div id="formulario">
-				<!-- <img th:src="@{/images/login.png}" width="136" height="136" class="center"> -->
+
 				<form th:action="@{/login}" method="post">
 					<div>
-                        <input type="text" id="username" name="username" placeholder="Usuario" required autofocus>
-                    </div>
-                    <div>
-                        <input type="password" name="password" placeholder="Contraseña" required>
-                    </div>
-                    <div>
-                        <p>¿No tienes cuenta?</p>
-                        <p><a href="#">¡Registrate ahora!</a></p>
-                    </div>
-                    <button type="submit">Entrar</button>
+						<input type="text" id="username" name="username" placeholder="Usuario" required autofocus>
+					</div>
+					<div>
+						<input type="password" name="password" placeholder="Contraseña" required>
+					</div>
+					<div>
+						<p>¿No tienes cuenta?</p>
+						<p>
+							<a th:href="@{'/formulario'}">¡Registrate ahora!</a>
+						</p>
+					</div>
+					<button type="submit">Entrar</button>
+					<div class="row">
+						<h3 class="red-text" th:if="${error!=null}">
+							Usuario y/o contraseña incorrectos.
+							</h6>
+					</div>
 				</form>
 
 			</div>

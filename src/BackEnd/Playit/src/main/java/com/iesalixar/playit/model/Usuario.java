@@ -1,6 +1,7 @@
 package com.iesalixar.playit.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,21 +18,24 @@ public class Usuario implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_usuario;
 	
-	@Column(name="nombre_usuario",unique=true, nullable=false)
+	@Column(name="nombre_usuario", nullable=false)
 	private String userName;
 	
 	@Column(nullable=false)
 	private String password;
 	
-	@Column(unique=true,nullable=false)
+	@Column(nullable=false)
 	private String email;
 	
 	@Column(nullable=false)
 	private String nombre;
 	
 	@Column(nullable=false)
-	private String apellido;
+	private String apellido1;
 	
+	@Column(nullable=false)
+	private String apellido2;
+
 	@Column(nullable=false)
 	private String role;
 	
@@ -78,13 +82,21 @@ public class Usuario implements Serializable{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
-	public String getApellido() {
-		return apellido;
+	
+	public String getApellido1() {
+		return apellido1;
 	}
 
-	public void setApellido(String apellidos) {
-		this.apellido = apellidos;
+	public void setApellido1(String apellido1) {
+		this.apellido1 = apellido1;
+	}
+
+	public String getApellido2() {
+		return apellido2;
+	}
+
+	public void setApellido2(String apellido2) {
+		this.apellido2 = apellido2;
 	}
 
 	public String getRole() {
@@ -93,6 +105,26 @@ public class Usuario implements Serializable{
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(apellido1, apellido2, email, id_usuario, nombre, password, role, userName);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		return Objects.equals(apellido1, other.apellido1) && Objects.equals(apellido2, other.apellido2)
+				&& Objects.equals(email, other.email) && Objects.equals(id_usuario, other.id_usuario)
+				&& Objects.equals(nombre, other.nombre) && Objects.equals(password, other.password)
+				&& Objects.equals(role, other.role) && Objects.equals(userName, other.userName);
 	}
 	
 	

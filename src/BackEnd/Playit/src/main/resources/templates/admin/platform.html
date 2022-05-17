@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link th:insert="link.html">
+</head>
+<body>
+	<div th:replace="admin/parts/header.html :: admin_header"></div>
+	<main>
+	
+	<button>
+			<a th:href="@{'/platform/add'}">Añadir plataforma</a>
+		</button>
+		<table>
+			<tr th:each="p : ${platforms}">
+				<td th:text="${p.getName()}"></td>
+				<td>
+					<a th:href="@{'/platform/edit?genreId='+${p.getPlatformId}}"><span class="material-symbols-outlined">edit</span></a>
+					<a th:href="@{'/platform/delete?genreId='+${p.getPlatformId}}"><span class="material-symbols-outlined">delete</span></a>
+				</td>
+			</tr>
+		</table>
+		<h4 class="center-align #2196f3 blue-text" th:if="${platforms.size()==0}">¡Oh No! ¡No
+			existe ninguna plataforma!</h4>
+		
+	
+	</main>
+</body>
+</html>

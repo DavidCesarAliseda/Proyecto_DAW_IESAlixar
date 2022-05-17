@@ -1,0 +1,158 @@
+html,
+body {
+    height: 100%;
+}
+
+#fondo {
+    height: 100%;
+    background: rgba(1, 1, 1, 0.644) !important;
+    background: -moz-linear-gradient(180deg, rgba(1, 1, 1, 0.685) 38%, rgba(66, 141, 185, 0.788) 100%) !important;
+    background: -webkit-linear-gradient(180deg, rgba(1, 1, 1, 0.685) 38%, rgba(66, 142, 185, 0.788) 100%) !important;
+    background: linear-gradient(180deg, rgba(1, 1, 1, 0.685) 38%, rgba(66, 142, 185, 0.788) 100%) !important;
+    background-repeat: no-repeat !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/*Header*/
+nav {
+    background: linear-gradient(180deg, rgba(0, 0, 0, 1) 33%, rgba(0, 0, 0, 0.81) 100%) !important;
+}
+
+.logo {
+    margin-left: 1.6vw;
+    font-size: 3vw !important;
+    font-weight: bold;
+    font-family: 'Roboto Slab', Roboto;
+}
+
+.logo span {
+    color: #428EB9 !important;
+}
+
+@media screen and (max-width: 992px) {
+    .logo {
+        font-size: 5vw !important;
+        margin-left: 0;
+    }
+}
+
+/*Container*/
+body {
+    background-image: url("/img/login/fondo.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
+#formulario {
+    /*     background-color: rgba(71, 71, 71, 0.822); */
+    /*    background-color: rgba(0, 0, 0, 0.650);*/
+    background-color: rgba(0, 0, 0, 0.680);
+    padding: 25px 25px 0 25px;
+}
+
+input[type="submit"] {
+    background-color: #428EB9;
+    border: 1px solid #428EB9;
+    color: rgb(214, 214, 214);
+    border-radius: 3px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+[type="checkbox"].filled-in:checked+span:not(.lever):after {
+    background-color: #428EB9 !important;
+    border: 2px solid #428EB9 !important;
+}
+
+/* label color */
+.input-field label {
+    color: rgb(214, 214, 214);
+}
+
+/* label focus color */
+.input-field input[type=text]:focus+label,
+.input-field input[type=password]:focus+label,
+.input-field input[type=email]:focus+label {
+    color: #428EB9 !important;
+}
+
+/* label underline focus color */
+.input-field input[type=text]:focus,
+.input-field input[type=password]:focus,
+.input-field input[type=email]:focus {
+    border-bottom: 1px solid #428EB9 !important;
+    box-shadow: 0 1px 0 0 #428EB9 !important;
+}
+
+/* invalid color */
+.input-field input[type=text].invalid,
+.input-field input[type=password].invalid,
+.input-field input[type=email].invalid {
+    border-bottom: 1px solid rgb(255, 0, 0);
+    box-shadow: 0 1px 0 0 rgb(255, 0, 0);
+}
+
+/* valid color */
+.input-field input[type=text].valid,
+.input-field input[type=password].valid,
+.input-field input[type=email].valid {
+    border-bottom: 1px solid #428EB9;
+    box-shadow: 0 1px 0 0 #428EB9;
+}
+
+.input-field input[type=text],
+.input-field input[type=password],
+.input-field input[type=email] {
+    color: rgb(214, 214, 214);
+}
+
+div>div>input:-internal-autofill-selected {
+    appearance: none !important;
+    background-color: none !important;
+    color: #428EB9 !important;
+}
+
+label span {
+    color: rgb(214, 214, 214);
+}
+
+/*Footer*/
+footer {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 33%, rgba(0, 0, 0, 0.81) 100%) !important;
+}
+
+footer ul {
+    display: flex;
+    justify-content: space-around;
+}
+
+footer a,
+footer a:visited {
+    color: #fff !important;
+}
+
+footer ul {
+    margin: 0;
+}
+
+footer a:hover {
+    font-weight: bold;
+}
+
+.error-msg {
+    color: red;
+    margin-top: 0;
+}

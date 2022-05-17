@@ -10,4 +10,5 @@ import com.iesalixar.playit.model.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
 
 	public Usuario findByUserName(String userName);
+	public Usuario findByEmail(String email);
 }

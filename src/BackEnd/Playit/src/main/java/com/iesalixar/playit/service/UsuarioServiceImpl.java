@@ -17,7 +17,7 @@ public class UsuarioServiceImpl implements UsuarioService{
 	@Override
 	public Usuario insertUsuario(Usuario usuario) {
 		
-		if (usuario!=null) {
+		if (usuario!=null && usuario.getId_usuario()==null) {
 			
 			return userRepo.save(usuario);
 		}
@@ -26,5 +26,12 @@ public class UsuarioServiceImpl implements UsuarioService{
 		
 	}
 
-	
+	@Override
+	public Usuario findUsuarioByEmail(String email) {
+		if(!email.equals("") && email!=null) {
+			return userRepo.findByEmail(email);
+		}
+		return null;
+	}
+
 }

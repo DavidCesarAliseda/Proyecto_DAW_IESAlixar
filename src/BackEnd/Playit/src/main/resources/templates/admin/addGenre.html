@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link th:insert="link.html">
+<link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+	<div th:replace="admin/parts/header.html :: admin_header"></div>
+	<main>
+		<form th:action="@{/genre/add}" method="post" th:object="${genre}">
+			<label for="nombre">Nombre</label> <input type="text" id="nombre"
+				name="nombre" th:field="*{name}" required>
+			<input type="submit" value="Crear género" />
+		</form>
+		
+		<h6 class="center-align" th:if="${error=='Existe'}"
+								th:text="${'El género '+genreName+' ya existe'}"></h6>
+	</main>
+</body>
+</html>

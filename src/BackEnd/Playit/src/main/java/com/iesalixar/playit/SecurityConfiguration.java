@@ -49,7 +49,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()
 		.antMatchers("/").permitAll()
 		.and()
-		.formLogin().loginPage("/login").successForwardUrl("/main");		
+		.formLogin().loginPage("/login").defaultSuccessUrl("/main");
+			
 	}
 	
 	/*
