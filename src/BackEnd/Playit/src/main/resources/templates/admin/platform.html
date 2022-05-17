@@ -16,6 +16,7 @@
 		</button>
 		<table>
 			<tr th:each="p : ${platforms}">
+				<td><img th:src="@{'/Recursos/'+${p.logo}}" style="width:5%"></td>
 				<td th:text="${p.getName()}"></td>
 				<td>
 					<a th:href="@{'/platform/edit?genreId='+${p.getPlatformId}}"><span class="material-symbols-outlined">edit</span></a>
@@ -25,8 +26,7 @@
 		</table>
 		<h4 class="center-align #2196f3 blue-text" th:if="${platforms.size()==0}">¡Oh No! ¡No
 			existe ninguna plataforma!</h4>
-		
-	
+
 	</main>
 </body>
 </html>

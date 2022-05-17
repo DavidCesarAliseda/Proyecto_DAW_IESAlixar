@@ -53,8 +53,9 @@ public class PlatformController {
 			@RequestParam(required = true, name="logo") MultipartFile logo, Model model){
 		
 		if(!logo.isEmpty()) {
-			Path directorioImagenes= Paths.get("src//main//resources//static/img");
-			String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
+			/*Path directorioImagenes= Paths.get("src//main//resources//static/img");
+			String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();*/
+			String rutaAbsoluta = "C://Users//david//Documents//Recursos";
 			
 			try {
 				byte [] bytesImg = logo.getBytes();
