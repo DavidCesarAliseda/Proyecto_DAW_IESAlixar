@@ -22,14 +22,13 @@ public class GenreController {
 	Genre genreAux;
 
 	@GetMapping("/genre")
-	public String genreGet(@RequestParam(required = false, name = "genreDeleted") String genreDeletedId, 
-			@RequestParam(required = false, name = "genreEdited") String genreEditedId ,Model model) {
-
+	public String genreGet(@RequestParam(required = false, name = "genreDeletedId") String genreDeletedId,
+			@RequestParam(required = false, name = "genreEditedId") String genreEditedId ,Model model) {
 		List<Genre> genres = genreService.getAllGenres();
-
+		
 		model.addAttribute("genres", genres);
-		model.addAttribute("genreDeletedId ", genreDeletedId);
-		model.addAttribute("genreEdited", genreEditedId);
+		model.addAttribute("genreEditedId", genreEditedId);
+		model.addAttribute("genreDeletedId", genreDeletedId);
 		return "/admin/genre";
 	}
 
@@ -48,7 +47,7 @@ public class GenreController {
 
 	@PostMapping("/genre/add")
 	public String addGenrePost(@ModelAttribute GenreDTO genre, Model model) {
-		System.out.println(genre.getName());
+		
 		Genre genreDB = new Genre();
 		genreDB.setName(genre.getName());
 
@@ -62,10 +61,10 @@ public class GenreController {
 
 	@GetMapping("/genre/delete")
 	public String deleteGenreGet(@RequestParam(required = false, name = "genreId") String id) {
-		System.out.println(id);
 		Genre genre = new Genre();
 		genre = genreService.deleteGenre(Long.parseLong(id));
-		return "redirect:/genre?genreDeleted=" + genre.getGenreId();
+		Long idGenre = genre.getGenreId();
+		return "redirect:/genre?genreDeletedId=" + idGenre ;
 	}
 
 	@GetMapping("/genre/edit")
@@ -82,13 +81,12 @@ public class GenreController {
 	@PostMapping("/genre/edit")
 	public String editGenrePost(@ModelAttribute GenreDTO genre, Model model) {
 		Genre genreDB = new Genre();
-		
-		System.out.println(genreAux.getGenreId());
+
 		genreDB.setGenreId(genreAux.getGenreId());
 		genreDB.setName(genre.getName());
 
 		if (genreService.addGenre(genreDB) != null) {
-			return "redirect:/genre?genreEdited=" + genreDB.getGenreId() ;
+			return "redirect:/genre?genreEditedId=" + genreDB.getGenreId() ;
 		}
 
 		return "redirect:/genre";

@@ -126,6 +126,15 @@ public class Usuario implements Serializable{
 				&& Objects.equals(nombre, other.nombre) && Objects.equals(password, other.password)
 				&& Objects.equals(role, other.role) && Objects.equals(userName, other.userName);
 	}
+
+	@Override
+	public String toString() {
+		return "Usuario [id_usuario=" + id_usuario + ", userName=" + userName + ", password=" + password + ", email="
+				+ email + ", nombre=" + nombre + ", apellido1=" + apellido1 + ", apellido2=" + apellido2 + ", role="
+				+ role + "]";
+	}
+	
+	
 	
 	
 

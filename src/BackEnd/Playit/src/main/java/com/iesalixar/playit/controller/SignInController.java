@@ -14,7 +14,7 @@ import com.iesalixar.playit.model.Usuario;
 import com.iesalixar.playit.service.UsuarioServiceImpl;
 
 @Controller
-public class FormController {
+public class SignInController {
 	
 	@Autowired
 	UsuarioServiceImpl userService;
@@ -32,7 +32,31 @@ public class FormController {
 	@PostMapping("/formulario")
 	public String userPost(@ModelAttribute UserDTO user, Model model) {
 		
-		if(userService.findUsuarioByEmail(user.getEmail())==null) {
+		String flagMail=" ";
+		String flagUserName=" ";
+		
+		if(userService.getUsuarioByEmail(user.getEmail())!=null && userService.getUsuarioByUserName(user.getUserName())!=null) {
+			return "redirect:/formulario?error=BothExist";
+		}else if(userService.getUsuarioByUserName(user.getUserName())!=null) {
+			return "redirect:/formulario?error=UserName";
+		}else if(userService.getUsuarioByEmail(user.getEmail())!=null) {
+			return "redirect:/formulario?error=EmailExist";
+		}else{
+			Usuario userDB = new Usuario();
+			userDB.setUserName(user.getUserName());
+			userDB.setNombre(user.getNombre());
+			userDB.setApellido1(user.getApellido1());
+			userDB.setApellido2(user.getApellido2());
+			userDB.setEmail(user.getEmail());
+			userDB.setPassword(passEncoder.encode(user.getPassword()));
+			userDB.setRole("ROLE_USER");
+			
+			if(userService.insertUsuario(userDB)==null) {
+				return "redirect:/formulario?error=UserExist";
+			}
+		}
+		
+		/*if(userService.findUsuarioByEmail(user.getEmail())==null) {
 			Usuario userDB = new Usuario();
 			userDB.setUserName(user.getUserName());
 			userDB.setNombre(user.getNombre());
@@ -47,7 +71,7 @@ public class FormController {
 			}
 		}else {
 			return "redirect:/formulario?error=EmailExist";
-		}
+		}*/
 		
 		return "login";
 	}

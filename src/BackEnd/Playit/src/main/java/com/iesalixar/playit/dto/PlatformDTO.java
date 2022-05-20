@@ -3,7 +3,7 @@ package com.iesalixar.playit.dto;
 public class PlatformDTO {
 
 	private String name;
-
+	
 	public PlatformDTO() {
 		
 	}

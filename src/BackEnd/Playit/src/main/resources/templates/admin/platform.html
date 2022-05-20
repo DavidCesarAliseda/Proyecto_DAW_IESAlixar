@@ -19,13 +19,16 @@
 				<td><img th:src="@{'/Recursos/'+${p.logo}}" style="width:5%"></td>
 				<td th:text="${p.getName()}"></td>
 				<td>
-					<a th:href="@{'/platform/edit?genreId='+${p.getPlatformId}}"><span class="material-symbols-outlined">edit</span></a>
-					<a th:href="@{'/platform/delete?genreId='+${p.getPlatformId}}"><span class="material-symbols-outlined">delete</span></a>
+					<a th:href="@{'/platform/edit?platformId='+${p.getPlatformId}}"><span class="material-symbols-outlined">edit</span></a>
+					<a th:href="@{'/platform/delete?platformId='+${p.getPlatformId}}"><span class="material-symbols-outlined">delete</span></a>
 				</td>
 			</tr>
 		</table>
+		<h5 class="center-align #2196f3 blue-text" th:if="${deletedId != null}" th:text="${'La plataforma ha sido eliminada correctamente. '}"></h5>
+		<h5 class="center-align #2196f3 blue-text" th:if="${editedId != null}" th:text="${'La plataforma ha sido editada correctamente. '}"></h5>
 		<h4 class="center-align #2196f3 blue-text" th:if="${platforms.size()==0}">¡Oh No! ¡No
 			existe ninguna plataforma!</h4>
+			
 
 	</main>
 </body>

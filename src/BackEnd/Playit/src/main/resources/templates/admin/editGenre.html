@@ -14,9 +14,6 @@
 				name="nombre" th:field="*{name}" required>
 			<input type="submit" value="Guardar género" />
 		</form>
-		
-		<h6 class="center-align" th:if="${error=='Existe'}"
-								th:text="${'El género '+genreName+' ya existe'}"></h6>
 	</main>
 </body>
 </html>
