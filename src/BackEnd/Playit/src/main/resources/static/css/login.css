@@ -1,90 +1,108 @@
+html,
 body {
-    background-image: url("/img/login/fondo.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-attachment: fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    color: white;
+	height: 100%;
+	margin: 0;
 }
 
+body {
+	background-image: url("/img/login/fondo.jpg");
+	background-repeat: no-repeat;
+	background-position: center;
+	background-attachment: fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+section {
+	height: 100%;
+	background: rgba(1, 1, 1, 0.644) !important;
+	background: -moz-linear-gradient(180deg, rgba(1, 1, 1, 0.685) 38%, rgba(66, 141, 185, 0.788) 100%) !important;
+	background: -webkit-linear-gradient(180deg, rgba(1, 1, 1, 0.685) 38%, rgba(66, 142, 185, 0.788) 100%) !important;
+	background: linear-gradient(180deg, rgba(1, 1, 1, 0.685) 38%, rgba(66, 142, 185, 0.788) 100%) !important;
+	background-repeat: no-repeat !important;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+
 #container {
-    display: flex;
-    justify-content: center;
-    align-content: center;
+	display: flex;
+	justify-content: center;
+	align-content: center;
 }
 
 #menu {
-    background-color: rgba(0, 0, 0, 0.856);
-    width: 28%;
-    margin-top: 8vw;
+	background-color: rgba(0, 0, 0, 0.756);
+	width: 28%;
+	/*margin-top: 8vw;*/
 }
 
 #logo {
-    font-size: 5vw;
-    font-weight: bold;
-    font-family: 'Roboto Slab', Roboto;
-    text-align: center;
-    margin-bottom: 2vw;
-    margin-top: 3.5vw;
+	font-size: 5vw;
+	font-weight: bold;
+	font-family: 'Roboto Slab', Roboto;
+	text-align: center;
+	margin-bottom: 2vw;
+	margin-top: 3.5vw;
 }
 
 #logo span {
-    color: #428EB9;
+	color: #428EB9;
 }
 
 form {
-    text-align: center;
+	text-align: center;
 }
 
 form div {
-    margin-bottom: 1.8vw;
+	margin-bottom: 1.8vw;
 }
 
 form input {
-    font-size: 1.2vw;
-    width: 58%;
-    padding: 0.3vw 0 0.3vw 0;
+	font-size: 1.2vw;
+	width: 58%;
+	padding: 0.3vw 0 0.3vw 0;
 }
 
 form p {
-    margin-top: 0;
-    margin-bottom: 0;
-    font-size: 1.3vw;
+	margin-top: 0;
+	margin-bottom: 0;
+	font-size: 1.3vw;
+	color: white;
 }
 
 form p:first-child {
-    margin-bottom: 0.3vw;
+	margin-bottom: 0.3vw;
 }
 
 form button {
-    font-size: 1.3vw;
-    width: 32%;
-    padding: 0.6vw;
-    margin-bottom: 3.5vw;
-    border-radius: 10px;
-    border: 0;
+	font-size: 1.3vw;
+	width: 32%;
+	padding: 0.6vw;
+	margin-bottom: 3.5vw;
+	border-radius: 10px;
+	border: 0;
 }
 
 form button:hover {
-    cursor: pointer;
-    font-weight: bold;
-    width: 40%;
+	cursor: pointer;
+	font-weight: bold;
+	width: 40%;
 }
 
-a,
-a:visited {
-    text-decoration: none;
-    color: white;
+a, a:visited {
+	text-decoration: none;
+	color: white;
 }
 
 a:hover {
-    font-weight: bold;
+	font-weight: bold;
 }
 
-.red-text{
+.red-text {
 	color: red;
 	margin-top: 0;
 }

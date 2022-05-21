@@ -1,22 +1,29 @@
-html {
+html,
+body {
     height: 100%;
 }
 
 body {
-    min-height: 100%;
-    background: rgb(1, 1, 1);
-    background: -moz-linear-gradient(180deg, rgba(1, 1, 1, 1) 38%, rgba(66, 142, 185, 1) 100%);
-    background: -webkit-linear-gradient(180deg, rgba(1, 1, 1, 1) 38%, rgba(66, 142, 185, 1) 100%);
-    background: linear-gradient(180deg, rgba(1, 1, 1, 1) 38%, rgba(66, 142, 185, 1) 100%);
+    background-image: url("/img/login/fondo.jpg");
     background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#fondo {
+    height: 100%;
+    background: rgba(1, 1, 1, 0.644) !important;
+    background: -moz-linear-gradient(180deg, rgba(1, 1, 1, 0.685) 38%, rgba(66, 141, 185, 0.788) 100%) !important;
+    background: -webkit-linear-gradient(180deg, rgba(1, 1, 1, 0.685) 38%, rgba(66, 142, 185, 0.788) 100%) !important;
+    background: linear-gradient(180deg, rgba(1, 1, 1, 0.685) 38%, rgba(66, 142, 185, 0.788) 100%) !important;
+    background-repeat: no-repeat !important;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
-
-#container {
-    /*margin-top: 20vh;
-    margin-bottom: 20vh;*/
 }
 
 .container a {
@@ -29,6 +36,11 @@ body {
 }
 
 .container>div>div>div {
-    background-color: #47555eab;
+    background-color: #47555e00;
     border-radius: 5px !important;
+}
+
+
+.container>div>div>div {
+    background-color: #47555ed0 !important;
 }
