@@ -13,4 +13,6 @@ public interface UsuarioService {
 	public Usuario addUsuario(Usuario usuario);
 	public Usuario deleteUsuario(Long id);
 	public Usuario editUsuario(Usuario usuario);
+	public Usuario getUserById(Long id);
+	public List<Usuario> getAllUsuariosByUserName(String userName);
 }

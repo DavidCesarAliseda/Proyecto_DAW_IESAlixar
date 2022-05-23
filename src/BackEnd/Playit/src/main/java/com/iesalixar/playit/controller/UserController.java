@@ -27,15 +27,19 @@ public class UserController {
 	@Autowired
 	PasswordEncoder passEncoder;
 	
+	Usuario userAux;
+	
 	@GetMapping("/user")
 	public String userGet(@RequestParam(required = false, name = "userDeletedId") String userDeletedId,
 			@RequestParam(required = false, name = "userAdded") String userAdded,
+			@RequestParam(required = false, name = "userEdited") String userEdited,
 			Model model) {
 		model.addAttribute("userDeletedId", userDeletedId);
 		List<Usuario> users = userService.getAllUsuarios();
 		
 		model.addAttribute("users", users);
 		model.addAttribute("userAdded", userAdded);
+		model.addAttribute("userEdited", userEdited);
 		return "/admin/user";	
 	}
 	
@@ -77,6 +81,41 @@ public class UserController {
 		user = userService.deleteUsuario(Long.parseLong(id));
 		Long idGenre = user.getId_usuario();
 		return "redirect:/user?userDeletedId=" + idGenre ;
+	}
+	
+	@GetMapping("/user/edit")
+	public String editUserGet(@RequestParam(required = true, name = "userId") String id, 
+			@RequestParam(required = false, name = "error") String error,
+			Model model) {
+		userAux = new Usuario();
+		Usuario user = userService.getUserById(Long.parseLong(id));
+		
+		
+		userAux.setPassword(user.getPassword());
+		userAux.setId_usuario(user.getId_usuario());
+	
+		model.addAttribute("user", user);
+		model.addAttribute("error", error);
+		return "admin/editUser";
+	}
+
+	@PostMapping("/user/edit")
+	public String editUserPost(@ModelAttribute UserAdminDTO user, Model model) {
+		Usuario userDB = new Usuario();
+
+		userDB.setId_usuario(userAux.getId_usuario());
+		userDB.setPassword(userAux.getPassword());
+		userDB.setUserName(user.getUserName());
+		userDB.setNombre(user.getNombre());
+		userDB.setApellido1(user.getApellido1());
+		userDB.setApellido2(user.getApellido2());
+		userDB.setEmail(user.getEmail());
+		userDB.setRole(user.getRole());
+		if (userService.editUsuario(userDB) == null) {
+			return "redirect:/user/edit?error=exist&userId="+userDB.getId_usuario();
+		}
+
+		return "redirect:/user?userEdited=ok";
 	}
 
 	

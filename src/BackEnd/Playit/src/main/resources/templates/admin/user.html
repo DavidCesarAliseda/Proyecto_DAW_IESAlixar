@@ -44,10 +44,14 @@
 		<h5 class="center-align #2196f3 white-text"
 			th:if="${userDeletedId!=null}"
 			th:text="${'El usuario ha sido eliminado correctamente. '}"></h5>
-		<h5 class="center-align #2196f3 white-text"
+		<h5 class="center-align #2196f3 white-text" 
 			th:if="${userAdded=='ok'}"
 			th:text="${'El usuario ha sido añadido correctamente. '}"></h5>
-		<h4 class="center-align #2196f3 white-text" th:if="${users.size()==0}">¡Oh
+		<h5 class="center-align #2196f3 white-text"
+			th:if="${userEdited=='ok'}"
+			th:text="${'El usuario ha sido editado correctamente. '}"></h5>
+		<h4 class="center-align #2196f3 white-text" 
+			th:if="${users.size()==0}">¡Oh
 			No! ¡No existe ningún usuario!.</h4>
 	</main>
 </body>

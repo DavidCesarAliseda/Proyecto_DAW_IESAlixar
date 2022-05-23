@@ -1,6 +1,6 @@
 html,
 body {
-	height: 100%;
+	min-height: 100%;
 }
 
 body {
@@ -27,7 +27,7 @@ form div {
 	margin-top: 4vh;
 }
 
-input[type="text"] {
+input[type="text"], input[type="password"], input[type="email"] {
 	color: rgb(214, 214, 214) !important;
 }
 
