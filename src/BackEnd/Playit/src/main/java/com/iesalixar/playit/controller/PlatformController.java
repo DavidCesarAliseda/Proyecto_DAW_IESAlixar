@@ -6,6 +6,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,18 +31,24 @@ public class PlatformController {
 
 	@Autowired
 	PlatformServiceImpl platformService;
-	
+
 	Platform platformAux;
+
+	String userSession;
 
 	@GetMapping("/platform")
 	public String platfomrGet(@RequestParam(required = false, name = "deletedId") String deletedId,
-			@RequestParam(required = false, name = "editedId") String editedId,
-			Model model) {
+			@RequestParam(required = false, name = "editedId") String editedId, Model model, HttpServletRequest request,
+			HttpServletResponse response) {
+		HttpSession misession = (HttpSession) request.getSession();
+
+		System.out.println((String) misession.getAttribute("userOnSession"));
+		userSession = (String) misession.getAttribute("userOnSession");
 
 		List<Platform> platforms = platformService.getAllPlatforms();
-		if(deletedId != null) {
-		model.addAttribute("deletedId", deletedId);
-		System.out.println(deletedId);
+		if (deletedId != null) {
+			model.addAttribute("deletedId", deletedId);
+			System.out.println(deletedId);
 		}
 		model.addAttribute("platforms", platforms);
 		model.addAttribute("editedId", editedId);
@@ -47,12 +58,12 @@ public class PlatformController {
 	@GetMapping("/platform/add")
 	public String addPlatfomrGet(@RequestParam(required = false, name = "error") String error,
 			@RequestParam(required = false, name = "platformName") String nombre, Model model) {
-
+		System.out.println(userSession);
 		PlatformDTO platform = new PlatformDTO();
 		model.addAttribute("platform", platform);
 		model.addAttribute("error", error);
 		model.addAttribute("platformName", nombre);
-		
+
 		return "admin/addPlatform";
 	}
 
@@ -93,13 +104,13 @@ public class PlatformController {
 		Platform platform = new Platform();
 		platform = platformService.deletePlatform(Long.parseLong(id));
 		Long idPlatform = platform.getPlatformId();
-		return "redirect:/platform?deletedId=" + idPlatform ;
+		return "redirect:/platform?deletedId=" + idPlatform;
 	}
-	
+
 	/*
 	 * En el formualrio de editar tiene que aparecer la imagen.
-	 * */
-	
+	 */
+
 	@GetMapping("/platform/edit")
 	public String editPlatformGet(@RequestParam(required = true, name = "platformId") String id, Model model) {
 		platformAux = new Platform();
@@ -113,9 +124,9 @@ public class PlatformController {
 	}
 
 	@PostMapping("/platform/edit")
-	public String editPlatformPost(@ModelAttribute PlatformDTO platform, 
+	public String editPlatformPost(@ModelAttribute PlatformDTO platform,
 			@RequestParam(required = true, name = "logo") MultipartFile logo, Model model) {
-		
+
 		Platform platformDB = new Platform();
 		if (!logo.isEmpty()) {
 			/*
@@ -132,18 +143,15 @@ public class PlatformController {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}else {
+		} else {
 			platformDB.setLogo(platformAux.getLogo());
 		}
-		
-		
 
 		platformDB.setPlatformId(platformAux.getPlatformId());
 		platformDB.setName(platform.getName());
-		
 
 		if (platformService.addPlatform(platformDB) != null) {
-			return "redirect:/platform?editedId=" + platformDB.getPlatformId() ;
+			return "redirect:/platform?editedId=" + platformDB.getPlatformId();
 		}
 
 		return "redirect:/platform";

@@ -15,35 +15,25 @@ section {
 	justify-content: center;
 }
 
-table {
+form {
+	margin-top: 5vh;
 	color: white;
 	width: 50%;
-
 }
 
-table,
-tr {
-	border: 0;
-}
-
-tr {
-	border-bottom: 1px solid white;
-}
-
-span {
-	color: white;
-}
-
-main div:first-of-type {
+form div {
 	display: flex;
-	flex-direction: row;
 	justify-content: flex-end;
-	padding-top: 3vh;
-	padding-right: 1vw;
+	margin-top: 4vh;
 }
 
-button {
+input[type="text"] {
+	color: rgb(214, 214, 214) !important;
+}
+
+input[type="submit"] {
 	font-weight: bold;
-	letter-spacing: 1px;
-	padding: 4px;
+	color: rgb(28, 124, 180);
+	padding: 3px;
+	letter-spacing: 0.5px;
 }

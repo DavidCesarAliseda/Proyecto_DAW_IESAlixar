@@ -1,13 +1,12 @@
-html,
-body {
+html, body {
 	height: 100%;
 }
 
 body {
 	background: rgb(0, 0, 0);
 	background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%,
-			rgba(20, 63, 88, 1) 39%, rgba(20, 63, 88, 0.9275911048012955) 65%,
-			rgba(41, 131, 182, 1) 100%);
+		rgba(20, 63, 88, 1) 39%, rgba(20, 63, 88, 0.9275911048012955) 65%,
+		rgba(41, 131, 182, 1) 100%);
 }
 
 section {
@@ -18,11 +17,9 @@ section {
 table {
 	color: white;
 	width: 50%;
-
 }
 
-table,
-tr {
+table, tr {
 	border: 0;
 }
 
@@ -46,4 +43,20 @@ button {
 	font-weight: bold;
 	letter-spacing: 1px;
 	padding: 4px;
+}
+
+img {
+	max-width: 40% !important;
+}
+
+@media screen and (min-width: 576px) {
+	img {
+		max-width: 18% !important;
+	}
+}
+
+@media screen and (min-width: 992px) {
+	img {
+		max-width: 13% !important;
+	}
 }

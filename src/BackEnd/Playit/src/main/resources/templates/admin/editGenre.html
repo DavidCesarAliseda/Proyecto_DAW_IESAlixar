@@ -2,18 +2,23 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Editar género</title>
 <link th:insert="link.html">
 <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/admin/editGenre.css">
 </head>
 <body>
 <div th:replace="admin/parts/header.html :: admin_header"></div>
 	<main>
+	<section>
 		<form th:action="@{/genre/edit}" method="post" th:object="${genre}">
 			<label for="nombre">Nombre</label> <input type="text" id="nombre"
-				name="nombre" th:field="*{name}" required>
-			<input type="submit" value="Guardar género" />
+				name="nombre" th:field="*{name}" required placeholder="Género">
+			<div>
+					<input type="submit" value="Guardar género" />
+				</div>
 		</form>
+		</section>
 	</main>
 </body>
 </html>

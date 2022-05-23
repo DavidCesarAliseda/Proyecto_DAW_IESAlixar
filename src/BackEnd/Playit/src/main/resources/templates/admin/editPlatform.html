@@ -5,10 +5,12 @@
 <title>Insert title here</title>
 <link th:insert="link.html">
 <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/admin/editGenre.css">
 </head>
 <body>
 	<div th:replace="admin/parts/header.html :: admin_header"></div>
 	<main>
+	<section>
 		<form th:action="@{/platform/edit}" method="post" th:object="${platform}" enctype="multipart/form-data">
 			<label for="nombre">Nombre</label> <input type="text" id="nombre"
 				name="nombre" th:field="*{name}" required>
@@ -16,9 +18,11 @@
 			<label for="logo">Logo</label> </br>
 			<input type="file" id="logo"name="logo">
 			</br></br>
-			<input type="submit" value="Editar plataforma" />
-		</form>
-		
+				<div>
+					<input type="submit" value="Editar plataforma" />
+				</div>
+			</form>
+		</section>
 		<h6 class="center-align" th:if="${error == 'Existe'}"
 								th:text="${'La plataforma '+platformName+' ya existe'}"></h6>
 	</main>

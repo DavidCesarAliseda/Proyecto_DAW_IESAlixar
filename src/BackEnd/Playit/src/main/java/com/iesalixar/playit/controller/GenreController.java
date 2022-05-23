@@ -79,17 +79,18 @@ public class GenreController {
 	}
 
 	@PostMapping("/genre/edit")
-	public String editGenrePost(@ModelAttribute GenreDTO genre, Model model) {
+	public String editGenrePost(@ModelAttribute Genre genre, Model model) {
 		Genre genreDB = new Genre();
 
 		genreDB.setGenreId(genreAux.getGenreId());
 		genreDB.setName(genre.getName());
 
-		if (genreService.addGenre(genreDB) != null) {
-			return "redirect:/genre?genreEditedId=" + genreDB.getGenreId() ;
+		if (genreService.editGenre(genreDB) == null) {
+			System.out.println(genreDB.getGenreId());
+			return "redirect:/genre/edit?error=exist&genreId="+genreDB.getGenreId();
 		}
 
-		return "redirect:/genre";
+		return "redirect:/genre?msg=ok";
 	}
 
 }

@@ -71,10 +71,9 @@ public class GenreServiceImpl implements GenreService {
 
 	@Override
 	public Genre editGenre(Genre genreDB) {
-		if (genreDB != null && getGenreByName(genreDB.getName()) != null) {
-			Genre genre = genreRepo.save(genreDB);
-			return genre;
+		if(genreDB == null || getGenreByID(genreDB.getGenreId()) == null  || getGenreByName(genreDB.getName())!=null) {
+			return null;
 		}
-		return null;
+		return genreRepo.save(genreDB);
 	}
 }

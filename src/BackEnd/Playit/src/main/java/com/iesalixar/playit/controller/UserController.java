@@ -29,11 +29,13 @@ public class UserController {
 	
 	@GetMapping("/user")
 	public String userGet(@RequestParam(required = false, name = "userDeletedId") String userDeletedId,
+			@RequestParam(required = false, name = "userAdded") String userAdded,
 			Model model) {
 		model.addAttribute("userDeletedId", userDeletedId);
 		List<Usuario> users = userService.getAllUsuarios();
 		
 		model.addAttribute("users", users);
+		model.addAttribute("userAdded", userAdded);
 		return "/admin/user";	
 	}
 	
@@ -65,7 +67,7 @@ public class UserController {
 		if(userService.addUsuario(userDB) == null) {
 			return "redirect:/user/add/?error=Exist";
 		}
-		return "redirect:/user";
+		return "redirect:/user?userAdded=ok";
 	}
 
 	
