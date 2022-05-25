@@ -24,6 +24,7 @@ import com.iesalixar.playit.dto.GenreDTO;
 import com.iesalixar.playit.dto.PlatformDTO;
 import com.iesalixar.playit.model.Genre;
 import com.iesalixar.playit.model.Platform;
+import com.iesalixar.playit.service.CookiesServiceImpl;
 import com.iesalixar.playit.service.PlatformServiceImpl;
 
 @Controller
@@ -37,21 +38,15 @@ public class PlatformController {
 	String userSession;
 
 	@GetMapping("/platform")
-	public String platfomrGet(@RequestParam(required = false, name = "deletedId") String deletedId,
-			@RequestParam(required = false, name = "editedId") String editedId, Model model, HttpServletRequest request,
-			HttpServletResponse response) {
-		HttpSession misession = (HttpSession) request.getSession();
-
-		System.out.println((String) misession.getAttribute("userOnSession"));
-		userSession = (String) misession.getAttribute("userOnSession");
+	public String platfomrGet(@RequestParam(required = false, name = "deletedPlatform") String deletedPlatform,
+			@RequestParam(required = false, name = "editedPlatform") String editedPlatform, Model model,
+			HttpServletRequest request, HttpServletResponse response) {
 
 		List<Platform> platforms = platformService.getAllPlatforms();
-		if (deletedId != null) {
-			model.addAttribute("deletedId", deletedId);
-			System.out.println(deletedId);
-		}
+
+		model.addAttribute("deletedPlatform", deletedPlatform);
 		model.addAttribute("platforms", platforms);
-		model.addAttribute("editedId", editedId);
+		model.addAttribute("editedPlatform", editedPlatform);
 		return "admin/platform";
 	}
 
@@ -104,7 +99,7 @@ public class PlatformController {
 		Platform platform = new Platform();
 		platform = platformService.deletePlatform(Long.parseLong(id));
 		Long idPlatform = platform.getPlatformId();
-		return "redirect:/platform?deletedId=" + idPlatform;
+		return "redirect:/platform?deletedPlatform=ok";
 	}
 
 	/*
@@ -112,14 +107,16 @@ public class PlatformController {
 	 */
 
 	@GetMapping("/platform/edit")
-	public String editPlatformGet(@RequestParam(required = true, name = "platformId") String id, Model model) {
+	public String editPlatformGet(@RequestParam(required = true, name = "platformId") String id,
+			@RequestParam(required = false, name = "error") String error, Model model) {
 		platformAux = new Platform();
 
 		Platform platform = platformService.getPlatformByID(Long.parseLong(id));
 		platformAux.setPlatformId(platform.getPlatformId());
 		platformAux.setLogo(platform.getLogo());
 
-		model.addAttribute(platform);
+		model.addAttribute("platform", platform);
+		model.addAttribute("error", error);
 		return "admin/editPlatform";
 	}
 
@@ -150,11 +147,11 @@ public class PlatformController {
 		platformDB.setPlatformId(platformAux.getPlatformId());
 		platformDB.setName(platform.getName());
 
-		if (platformService.addPlatform(platformDB) != null) {
-			return "redirect:/platform?editedId=" + platformDB.getPlatformId();
+		if (platformService.editPlatform(platformDB) != null) {
+			return "redirect:/platform/edit?error=Existe&platformId="+platformDB.getPlatformId();
 		}
 
-		return "redirect:/platform";
+		return "redirect:/platform/editedPlatform=ok";
 	}
 
 }

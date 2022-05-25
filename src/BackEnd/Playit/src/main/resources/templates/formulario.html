@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sign in</title>
-<link th:insert="link.html">
+<link th:insert="parts/link.html">
 
 <link rel="stylesheet" href="/css/formulario.css">
 <script defer src="/js/formulario.js"></script>
@@ -31,56 +31,56 @@
 						<form th:object="${user}" th:action="@{/formulario}" method="post"
 							class="col s12">
 							<div class="row">
-								<div class="input-field col s6">
-									<input placeholder="Nombre de usuario" id="nombre_usuario"
+								<div class="input-field col s6 inline">
+									<input id="nombre_usuario"
 										type="text" class="validate" required th:field="*{userName}">
 									<label for="nombre_usuario">Nombre de usuario</label>
 								</div>
 
 								<div class="input-field col s6">
-									<input placeholder="Nombre" id="nombre" type="text"
+									<input id="nombre" type="text"
 										class="validate" required th:field="*{nombre}"> <label
 										for="nombre">Nombre</label>
 								</div>
 							</div>
 
 							<div class="row">
-								<div class="input-field col s6">
-									<input placeholder="Primer apellido" id="apellido1" type="text"
+								<div class="input-field col s6 inline">
+									<input id="apellido1" type="text"
 										class="validate" required th:field="*{apellido1}"> <label
 										for="apellido1">Primer apellido</label>
 								</div>
 
-								<div class="input-field col s6">
-									<input placeholder="Segundo apellido" id="apellido2"
+								<div class="input-field col s6 inline">
+									<input id="apellido2"
 										type="text" class="validate" required th:field="*{apellido2}">
 									<label for="apellido2">Segundo apellido</label>
 								</div>
 							</div>
 
 							<div class="row">
-								<div class="input-field col s6">
-									<input placeholder="E-mail" id="email" type="email"
+								<div class="input-field col s6 inline">
+									<input id="email" type="email"
 										class="validate" required th:field="*{email}"> <label
 										for="email">E-mail</label>
 								</div>
 
-								<div class="input-field col s6">
-									<input placeholder="E-mail" id="email2" type="email"
+								<div class="input-field col s6 inline">
+									<input id="email2" type="email"
 										class="validate" required> <label for="email2">Repetir
 										e-mail</label>
 								</div>
 							</div>
 
 							<div class="row">
-								<div class="input-field col s6">
-									<input placeholder="Contraseña" id="password" type="password"
+								<div class="input-field col s6 inline">
+									<input id="password" type="password"
 										class="validate" required th:field="*{password}"> <label
 										for="password">Contraseña</label>
 								</div>
 
-								<div class="input-field col s6">
-									<input placeholder="Contraseña" id="password2" type="password"
+								<div class="input-field col s6 inline">
+									<input id="password2" type="password"
 										class="validate" required> <label for="password2">Repetir
 										contraseña</label>
 								</div>

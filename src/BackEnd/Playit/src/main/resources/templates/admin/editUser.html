@@ -1,33 +1,33 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-<meta charset="ISO-8859-1">
-<title>Editar usuario</title>
-<link th:insert="link.html">
-<link rel="stylesheet" href="/css/index.css">
-<link rel="stylesheet" href="/css/admin/edit.css">
+	<meta charset="UTF-8">
+	<title>Editar usuario</title>
+	<link th:insert="parts/link.html">
+	<link rel="stylesheet" href="/css/index.css">
+	<link rel="stylesheet" href="/css/admin/edit.css">
+
 </head>
+
 <body>
-	<div th:replace="admin/parts/header.html :: admin_header"></div>
+	<div th:replace="parts/header.html :: admin_header"></div>
 	<main>
 		<section>
 			<form th:action="@{/user/edit}" method="post" th:object="${user}">
 
-				<label for="userName">Nombre de usuario:</label> <input type="text"
-					id="userName" name="userName" th:field="*{userName}" required>
+				<label for="userName">Nombre de usuario:</label> <input type="text" id="userName" name="userName"
+					th:field="*{userName}" required>
 
-				<label for="nombre">Nombre:</label> <input type="text" id="nombre"
-					name="nombre" th:field="*{nombre}" required> <label
-					for="apellido1">Primer apellido:</label> <input type="text" id=""
-					name="apellido1" th:field="*{apellido1}" required> <label
-					for="apellido2">Segundo apellido:</label> <input type="text"
-					id="apellido2" name="apellido2" th:field="*{apellido2}" required>
+				<label for="nombre">Nombre:</label> <input type="text" id="nombre" name="nombre" th:field="*{nombre}"
+					required> <label for="apellido1">Primer apellido:</label> <input type="text" id="" name="apellido1"
+					th:field="*{apellido1}" required> <label for="apellido2">Segundo apellido:</label> <input
+					type="text" id="apellido2" name="apellido2" th:field="*{apellido2}" required>
 
-				<label for="email">E-mail:</label> <input type="email" id="email"
-					name="email" th:field="*{email}" required> 
+				<label for="email">E-mail:</label> <input type="email" id="email" name="email" th:field="*{email}"
+					required>
 
-				<div class="input-field col s12"
-					style="display: flex; justify-content: flex-start;">
+				<div class="input-field col s12" style="display: flex; justify-content: flex-start;">
 					<select th:field="*{role}">
 						<option th:value="'ROLE_USER'" th:text="Estandard"></option>
 						<option th:value="'ROLE_ADMIN'" th:text="Administrador"></option>
@@ -39,16 +39,12 @@
 				</div>
 			</form>
 		</section>
-		<h5 class="center-align #2196f3 white-text"
-			th:if="${error=='exist'}"
+		<h5 class="center-align #2196f3 white-text" th:if="${error=='exist'}"
 			th:text="${'El usuario con este nombre de usuario o email ya existe. '}"></h5>
-		
+
 	</main>
 </body>
-<script>
-	document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('select');
-    var instances = M.FormSelect.init(elems);
-  });
-</script>
+<script th:replace="parts/scripts.html :: select"></script>
+<script th:replace="parts/scripts.html :: sidenav"></script>
+
 </html>

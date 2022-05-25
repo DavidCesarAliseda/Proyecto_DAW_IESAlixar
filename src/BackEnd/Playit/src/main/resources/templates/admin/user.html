@@ -8,14 +8,16 @@
 <title>Usuarios</title>
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link th:insert="link.html">
+<link th:insert="parts/link.html">
 <link rel="stylesheet" href="/css/index.css">
-<link rel="stylesheet" href="/css/admin/user.css">
+<link rel="stylesheet" href="/css/admin/general.css">
+
+
 </head>
 
 <body>
 
-	<div th:replace="admin/parts/header.html :: admin_header"></div>
+	<div th:replace="parts/header.html :: admin_header"></div>
 	<main>
 		<div>
 			<button>
@@ -44,16 +46,14 @@
 		<h5 class="center-align #2196f3 white-text"
 			th:if="${userDeletedId!=null}"
 			th:text="${'El usuario ha sido eliminado correctamente. '}"></h5>
-		<h5 class="center-align #2196f3 white-text" 
-			th:if="${userAdded=='ok'}"
+		<h5 class="center-align #2196f3 white-text" th:if="${userAdded=='ok'}"
 			th:text="${'El usuario ha sido añadido correctamente. '}"></h5>
 		<h5 class="center-align #2196f3 white-text"
 			th:if="${userEdited=='ok'}"
 			th:text="${'El usuario ha sido editado correctamente. '}"></h5>
-		<h4 class="center-align #2196f3 white-text" 
-			th:if="${users.size()==0}">¡Oh
+		<h4 class="center-align #2196f3 white-text" th:if="${users.size()==0}">¡Oh
 			No! ¡No existe ningún usuario!.</h4>
 	</main>
 </body>
-
+<script th:replace="parts/scripts.html :: sidenav"></script>
 </html>

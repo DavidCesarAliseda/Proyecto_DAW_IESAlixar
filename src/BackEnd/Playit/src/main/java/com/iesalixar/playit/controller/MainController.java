@@ -3,7 +3,6 @@ package com.iesalixar.playit.controller;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -23,15 +22,14 @@ public class MainController {
 	
 	@RequestMapping("/main")
 	public String main(Model model, HttpServletRequest request, HttpServletResponse response) {
-		HttpSession misession= request.getSession(true);
-		
-		
+				
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		JPAUserDetails user = (JPAUserDetails) auth.getPrincipal();
-		System.out.println(user.getUsername());
 		model.addAttribute("user", user.getUsername());
 		
-		misession.setAttribute("userOnSession",user.getUsername());
+		Cookie userOnSession = new Cookie("userId", usuarioService.getUsuarioByUserName(user.getUsername()).getId_usuario().toString());
+		response.addCookie(userOnSession);
+
 		return "main";
 	}
 }

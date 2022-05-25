@@ -8,7 +8,7 @@
 <title>Zona de administrador</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<link th:insert="link.html">
+<link th:insert="parts/link.html">
 <link rel="stylesheet" href="/css/index.css">
 <link rel="stylesheet" href="/css/admin/main_admin.css">
 
@@ -16,7 +16,7 @@
 
 
 <body>
-	<div th:replace="admin/parts/header.html :: admin_header"></div>
+	<div th:replace="parts/header.html :: admin_header"></div>
 
 	<main>
 		<h4 class="center-align" th:text="${'Bienvenid@ a la zona del administrador '+user}"></h4>
@@ -25,12 +25,6 @@
 		</div>
 	</main>
 </body>
-
-<script>
-	document.addEventListener('DOMContentLoaded', function () {
-		var elems = document.querySelectorAll('.sidenav');
-		var instances = M.Sidenav.init(elems);
-	});
-</script>
+<script th:replace="parts/scripts.html :: sidenav"></script>
 
 </html>

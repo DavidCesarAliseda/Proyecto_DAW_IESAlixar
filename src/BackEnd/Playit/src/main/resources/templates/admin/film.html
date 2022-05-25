@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Películas</title>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link th:insert="parts/link.html">
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/admin/general.css">
+</head>
+
+<body>
+	<div th:replace="parts/header.html :: admin_header"></div>
+	<main>
+
+		<div>
+			<button>
+				<a th:href="@{'/film/add'}">Añadir película</a>
+			</button>
+		</div>
+		<section>
+			<table th:if="${films.size()!=0}">
+				<tr>
+					<th>Título</th>
+					<th>Fecha de estreno</th>
+					<th>País</th>
+				</tr>
+				<tr th:each="f : ${films}">
+					<td th:text="${f.getTitle()}"></td>
+					<td th:text="${f.getPremiere()}"></td>
+					<td th:text="${f.getCountry()}"></td>
+					<td><a th:href="@{'/film/edit?filmId='+${f.getContentId()}}"><span
+							class="material-symbols-outlined">edit</span></a> <a
+						th:href="@{'/film/delete?filmId='+${f.getContentId()}}"><span
+							class="material-symbols-outlined">delete</span></a></td>
+				</tr>
+			</table>
+		</section>
+		<h4 class="center-align #2196f3 blue-text" th:if="${films.size()==0}">¡Oh
+			No! ¡No existe ninguna pelicula!</h4>
+		<h5 class="center-align #2196f3 white-text" th:if="${deletedFilm=='ok'}"
+			th:text="${'La pelicula ha sido eliminada'}"></h5>
+		<h5 class="center-align #2196f3 white-text" th:if="${editedFilm=='ok'}"
+			th:text="${'La pelicula has sido editada correctamente'}"></h5>
+		<h5 class="center-align #2196f3 white-text" th:if="${addedFilm=='ok'}"
+			th:text="${'La pelicula ha sido añadida correctamente'}"></h5>
+
+	</main>
+</body>
+<script th:replace="parts/scripts.html :: sidenav"></script>
+</html>

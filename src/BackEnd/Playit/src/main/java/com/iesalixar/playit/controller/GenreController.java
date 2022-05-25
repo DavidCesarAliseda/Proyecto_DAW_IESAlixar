@@ -87,7 +87,7 @@ public class GenreController {
 
 		if (genreService.editGenre(genreDB) == null) {
 			System.out.println(genreDB.getGenreId());
-			return "redirect:/genre/edit?error=exist&genreId="+genreDB.getGenreId();
+			return "redirect:/genre/edit?error=Exist&genreId="+genreDB.getGenreId();
 		}
 
 		return "redirect:/genre?msg=ok";

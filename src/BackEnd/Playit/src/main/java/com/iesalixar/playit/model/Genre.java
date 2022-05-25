@@ -1,5 +1,7 @@
 package com.iesalixar.playit.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +11,8 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="genre")
-public class Genre {
-
+public class Genre implements Serializable{
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long genreId;

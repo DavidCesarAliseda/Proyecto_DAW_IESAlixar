@@ -1,13 +1,16 @@
-html,
-body {
+html, body {
 	min-height: 100%;
+}
+
+td, th, a{
+	font-family: 'Roboto Slab', Roboto !important;
 }
 
 body {
 	background: rgb(0, 0, 0);
 	background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%,
-			rgba(20, 63, 88, 1) 39%, rgba(20, 63, 88, 0.9275911048012955) 65%,
-			rgba(41, 131, 182, 1) 100%);
+		rgba(20, 63, 88, 1) 39%, rgba(20, 63, 88, 0.9275911048012955) 65%,
+		rgba(41, 131, 182, 1) 100%);
 }
 
 section {
@@ -21,13 +24,21 @@ form {
 	width: 50%;
 }
 
-form div {
-	display: flex;
-	justify-content: flex-end;
-	margin-top: 4vh;
+.row {
+	display: flex !important;
+	justify-content: center !important;
 }
 
-input[type="text"], input[type="password"], input[type="email"] {
+.row .col.m6 {
+	margin-left: 0 !important;
+}
+
+#crear{
+	display: flex !important;
+	justify-content: flex-end !important;
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="date"], textarea {
 	color: rgb(214, 214, 214) !important;
 }
 
@@ -36,4 +47,8 @@ input[type="submit"] {
 	color: rgb(28, 124, 180);
 	padding: 3px;
 	letter-spacing: 0.5px;
+}
+
+h6, h5, h4{
+	color: white;
 }

@@ -3,26 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <title>Crear género</title>
-<link th:insert="link.html">
+<link th:insert="parts/link.html">
 <link rel="stylesheet" href="/css/index.css">
 <link rel="stylesheet" href="/css/admin/add.css">
 </head>
 <body>
-	<div th:replace="admin/parts/header.html :: admin_header"></div>
+	<div th:replace="parts/header.html :: admin_header"></div>
 	<main>
 		<section>
 			<form th:action="@{/genre/add}" method="post" th:object="${genre}">
-				<label for="nombre">Nombre del género</label> <input type="text" id="nombre"
-					name="nombre" th:field="*{name}" required placeholder="Género"> 
-				<div>
+				<div class="row">
+					<div class="input-field col s12 m6 inline center-align">
+						<input id="nombre_usuario" type="text" class="validate"  th:field="*{name}" required> <label for="nombre_usuario">Nombre
+							del género</label>
+					</div>
+				</div>
+				<div class="row center-align" id="crear">
 					<input type="submit" value="Crear género" />
 				</div>
 			</form>
 		</section>
 
-		<h6 class="center-align" th:if="${error=='Existe'}"
-			th:text="${'El género ya existe'}"></h6>
+		<h5 class="center-align" th:if="${error=='Existe'}"
+			th:text="${'El género ya existe'}"></h5>
 
 	</main>
 </body>
+<script th:replace="parts/scripts.html :: sidenav"></script>
 </html>

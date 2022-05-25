@@ -47,7 +47,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		/* URL con información sobre ANT MATCHERS
 		 * https://www.baeldung.com/spring-security-expressions */
 		http.authorizeRequests()
-		.antMatchers("/").permitAll()
+		.antMatchers("/", "/formulario","/login").not().authenticated()
+		.antMatchers("/main").authenticated()
+		.antMatchers("/film/*","/genre/*","/user/*","/platform/*").hasRole("ADMIN")
 		.and()
 		.formLogin().loginPage("/login").defaultSuccessUrl("/main");
 			

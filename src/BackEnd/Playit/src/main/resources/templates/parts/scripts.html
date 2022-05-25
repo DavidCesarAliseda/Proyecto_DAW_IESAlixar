@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+<script th:fragment="sidenav">
+	document.addEventListener('DOMContentLoaded', function () {
+		var elems = document.querySelectorAll('.sidenav');
+		var instances = M.Sidenav.init(elems);
+	});
+</script>
+<script th:fragment="select">
+	document.addEventListener('DOMContentLoaded', function () {
+		var elems = document.querySelectorAll('select');
+		var instances = M.FormSelect.init(elems);
+	});
+</script>
+</html>

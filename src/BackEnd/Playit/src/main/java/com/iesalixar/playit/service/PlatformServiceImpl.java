@@ -68,11 +68,10 @@ public class PlatformServiceImpl implements PlatformService {
 
 	@Override
 	public Platform editPlatform(Platform platformBD) {
-		if(platformBD!=null && getPlatformByName(platformBD.getName())!=null) {
-			Platform platform = platformRepo.save(platformBD);
-			return platform;
+		if(platformBD==null || getPlatformByName(platformBD.getName())!=null || getPlatformByID(platformBD.getPlatformId()) == null) {
+			return null;
 		}
-		return null;
+		return platformRepo.save(platformBD);
 	}
 
 }

@@ -3,6 +3,10 @@ body {
     height: 100%;
 }
 
+*{
+	font-family: 'Roboto Slab', Roboto;
+}
+
 body {
     background-image: url("/img/login/fondo.jpg");
     background-repeat: no-repeat;

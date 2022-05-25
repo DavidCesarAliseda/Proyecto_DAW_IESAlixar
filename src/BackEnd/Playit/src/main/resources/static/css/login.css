@@ -1,5 +1,4 @@
-html,
-body {
+html, body {
 	height: 100%;
 	margin: 0;
 }
@@ -18,15 +17,17 @@ body {
 section {
 	height: 100%;
 	background: rgba(1, 1, 1, 0.644) !important;
-	background: -moz-linear-gradient(180deg, rgba(1, 1, 1, 0.685) 38%, rgba(66, 141, 185, 0.788) 100%) !important;
-	background: -webkit-linear-gradient(180deg, rgba(1, 1, 1, 0.685) 38%, rgba(66, 142, 185, 0.788) 100%) !important;
-	background: linear-gradient(180deg, rgba(1, 1, 1, 0.685) 38%, rgba(66, 142, 185, 0.788) 100%) !important;
+	background: -moz-linear-gradient(180deg, rgba(1, 1, 1, 0.685) 38%,
+		rgba(66, 141, 185, 0.788) 100%) !important;
+	background: -webkit-linear-gradient(180deg, rgba(1, 1, 1, 0.685) 38%,
+		rgba(66, 142, 185, 0.788) 100%) !important;
+	background: linear-gradient(180deg, rgba(1, 1, 1, 0.685) 38%,
+		rgba(66, 142, 185, 0.788) 100%) !important;
 	background-repeat: no-repeat !important;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 }
-
 
 #container {
 	display: flex;
@@ -36,12 +37,12 @@ section {
 
 #menu {
 	background-color: rgba(0, 0, 0, 0.756);
-	width: 28%;
+	width: 50%;
 	/*margin-top: 8vw;*/
 }
 
 #logo {
-	font-size: 5vw;
+	font-size: 3rem;
 	font-weight: bold;
 	font-family: 'Roboto Slab', Roboto;
 	text-align: center;
@@ -62,15 +63,15 @@ form div {
 }
 
 form input {
-	font-size: 1.2vw;
-	width: 58%;
+	font-size: 0.9rem;
+	width: 70%;
 	padding: 0.3vw 0 0.3vw 0;
 }
 
 form p {
 	margin-top: 0;
 	margin-bottom: 0;
-	font-size: 1.3vw;
+	font-size: 0.8rem;
 	color: white;
 }
 
@@ -79,7 +80,7 @@ form p:first-child {
 }
 
 form button {
-	font-size: 1.3vw;
+	font-size: 0.8rem;
 	width: 32%;
 	padding: 0.6vw;
 	margin-bottom: 3.5vw;
@@ -105,4 +106,29 @@ a:hover {
 .red-text {
 	color: red;
 	margin-top: 0;
+}
+
+@media screen and (min-width: 576px) {
+	#menu {
+		width: 40%;
+	}
+}
+
+@media screen and (min-width: 992px) {
+	#logo {
+	font-size: 4rem;
+	
+}
+	#menu {
+		width: 28%;
+	}
+	form p, form input {
+	font-size: 1.2rem;
+}
+
+form button {
+	font-size: 1.1rem;
+
+}
+	
 }

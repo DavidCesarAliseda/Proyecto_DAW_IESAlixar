@@ -8,14 +8,13 @@
 <title>Géneros</title>
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-<link th:insert="link.html">
+<link th:insert="parts/link.html">
 <link rel="stylesheet" href="/css/index.css">
-<link rel="stylesheet" href="/css/admin/genre.css">
+<link rel="stylesheet" href="/css/admin/general.css">
 </head>
 
 <body>
-
-	<div th:replace="admin/parts/header.html :: admin_header"></div>
+	<div th:replace="parts/header.html :: admin_header"></div>
 	<main>
 
 		<div>
@@ -48,5 +47,5 @@
 
 	</main>
 </body>
-
+<script th:replace="parts/scripts.html :: sidenav"></script>
 </html>

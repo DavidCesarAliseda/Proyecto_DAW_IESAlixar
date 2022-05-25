@@ -1,5 +1,6 @@
 package com.iesalixar.playit.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -7,21 +8,24 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "content")
-public class Content {
-
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Content implements Serializable{
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long contentId;
 
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String title;
 
 	@Column(nullable = false)
-	private Date premiere;
+	private String premiere;
 
 	@Column(nullable = false)
 	private String duration;
@@ -58,11 +62,11 @@ public class Content {
 		this.title = title;
 	}
 
-	public Date getPremiere() {
+	public String getPremiere() {
 		return premiere;
 	}
 
-	public void setPremiere(Date premiere) {
+	public void setPremiere(String premiere) {
 		this.premiere = premiere;
 	}
 

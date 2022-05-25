@@ -1,6 +1,9 @@
-html, 
-body {
-	height: 100%;
+html, body {
+	min-height: 100%;
+}
+
+td, th, a {
+	font-family: 'Roboto Slab', Roboto !important;
 }
 
 body {
@@ -26,6 +29,11 @@ table, tr {
 
 tr {
 	border-bottom: 1px solid white;
+}
+
+table td:last-child {
+	display: flex;
+	justify-content: flex-end;
 }
 
 span {

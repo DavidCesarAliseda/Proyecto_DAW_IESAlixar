@@ -3,17 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Editar plataforma</title>
-<link th:insert="link.html">
+<link th:insert="parts/link.html">
 <link rel="stylesheet" href="/css/index.css">
 <link rel="stylesheet" href="/css/admin/edit.css">
 </head>
 <body>
-	<div th:replace="admin/parts/header.html :: admin_header"></div>
+	<div th:replace="parts/header.html :: admin_header"></div>
 	<main>
 	<section>
 		<form th:action="@{/platform/edit}" method="post" th:object="${platform}" enctype="multipart/form-data">
+		<div class="input-field col s12 m6 inline center-align">
 			<label for="nombre">Nombre</label> <input type="text" id="nombre"
-				name="nombre" th:field="*{name}" required>
+						name="nombre" th:field="*{name}" required>
+				</div>
 			</br></br>
 			<label for="logo">Logo</label> </br>
 			<input type="file" id="logo"name="logo">
@@ -23,8 +25,9 @@
 				</div>
 			</form>
 		</section>
-		<h6 class="center-align" th:if="${error == 'Existe'}"
-								th:text="${'La plataforma '+platformName+' ya existe'}"></h6>
+		<h5 class="center-align" th:if="${error == 'Existe'}"
+								th:text="${'La plataforma ya existe'}"></h5>
 	</main>
 </body>
+<script th:replace="parts/scripts.html :: sidenav"></script>
 </html>
