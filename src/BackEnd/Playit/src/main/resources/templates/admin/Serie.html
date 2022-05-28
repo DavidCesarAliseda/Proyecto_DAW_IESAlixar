@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Series</title>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link th:insert="parts/link.html">
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/admin/general.css">
+</head>
+
+<body>
+	<div th:replace="parts/header.html :: admin_header"></div>
+	<main>
+
+		<div>
+			<button>
+				<a th:href="@{'/serie/add'}">Añadir serie</a>
+			</button>
+		</div>
+		<section>
+			<table th:if="${series.size()!=0}">
+				<tr>
+					<th>Título</th>
+					<th>Fecha de estreno</th>
+					<th>País</th>
+				</tr>
+				<tr th:each="s : ${series}">
+					<td th:text="${s.getTitle()}"></td>
+					<td th:text="${s.getPremiere()}"></td>
+					<td th:text="${s.getCountry()}"></td>
+					<td><a th:href="@{'/serie/edit?serieId='+${s.getContentId()}}"><span
+							class="material-symbols-outlined">edit</span></a> <a
+						th:href="@{'/serie/delete?serieId='+${s.getContentId()}}"><span
+							class="material-symbols-outlined">delete</span></a></td>
+				</tr>
+			</table>
+		</section>
+		<h4 class="center-align #2196f3 blue-text" th:if="${series.size()==0}">¡Oh
+			No! ¡No existe ninguna serie!</h4>
+		<h5 class="center-align #2196f3 white-text" th:if="${deletedSerie=='ok'}"
+			th:text="${'La serie ha sido eliminada'}"></h5>
+		<h5 class="center-align #2196f3 white-text" th:if="${editedSerie=='ok'}"
+			th:text="${'La serie has sido editada correctamente'}"></h5>
+		<h5 class="center-align #2196f3 white-text" th:if="${addedSerie=='ok'}"
+			th:text="${'La serie ha sido añadida correctamente'}"></h5>
+
+	</main>
+</body>
+<script th:replace="parts/scripts.html :: sidenav"></script>
+</html>

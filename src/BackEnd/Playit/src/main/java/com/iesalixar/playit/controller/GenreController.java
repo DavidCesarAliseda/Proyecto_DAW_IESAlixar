@@ -23,12 +23,14 @@ public class GenreController {
 
 	@GetMapping("/genre")
 	public String genreGet(@RequestParam(required = false, name = "genreDeletedId") String genreDeletedId,
-			@RequestParam(required = false, name = "genreEditedId") String genreEditedId ,Model model) {
+			@RequestParam(required = false, name = "genreEdited") String genreEdited ,
+			@RequestParam(required = false, name = "adeddGenre") String adeddGenre ,Model model) {
 		List<Genre> genres = genreService.getAllGenres();
 		
 		model.addAttribute("genres", genres);
-		model.addAttribute("genreEditedId", genreEditedId);
 		model.addAttribute("genreDeletedId", genreDeletedId);
+		model.addAttribute("genreEdited", genreEdited);
+		model.addAttribute("adeddGenre", adeddGenre);
 		return "/admin/genre";
 	}
 
@@ -56,7 +58,7 @@ public class GenreController {
 			return "redirect:/genre/add?error=Existe&genreName=" + genre.getName();
 		}
 
-		return "redirect:/genre";
+		return "redirect:/genre?adeddGenre=ok";
 	}
 
 	@GetMapping("/genre/delete")
@@ -68,13 +70,15 @@ public class GenreController {
 	}
 
 	@GetMapping("/genre/edit")
-	public String editGenreGet(@RequestParam(required = true, name = "genreId") String id, Model model) {
+	public String editGenreGet(@RequestParam(required = true, name = "genreId") String id, 
+			@RequestParam(required = false, name = "error") String error,Model model) {
 		genreAux = new Genre();
 
 		Genre genre = genreService.getGenreByID(Long.parseLong(id));
 		genreAux.setGenreId(genre.getGenreId());
 
-		model.addAttribute(genre);
+		model.addAttribute("genre", genre);
+		model.addAttribute("error", error);
 		return "admin/editGenre";
 	}
 
@@ -90,7 +94,7 @@ public class GenreController {
 			return "redirect:/genre/edit?error=Exist&genreId="+genreDB.getGenreId();
 		}
 
-		return "redirect:/genre?msg=ok";
+		return "redirect:/genre?genreEdited=ok";
 	}
 
 }

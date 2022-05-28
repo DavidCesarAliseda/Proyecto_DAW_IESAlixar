@@ -2,6 +2,7 @@ package com.iesalixar.playit.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -33,7 +34,7 @@ public class Content implements Serializable{
 	@Column(nullable = false)
 	private String country;
 
-	@Column(nullable = false)
+	@Column(nullable = false, columnDefinition="text")
 	private String synopsis;
 
 	@Column(nullable = false)
@@ -108,6 +109,26 @@ public class Content implements Serializable{
 
 	public void setCover(String cover) {
 		this.cover = cover;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(contentId, country, cover, duration, premiere, synopsis, title, trailer);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Content other = (Content) obj;
+		return Objects.equals(contentId, other.contentId) && Objects.equals(country, other.country)
+				&& Objects.equals(cover, other.cover) && Objects.equals(duration, other.duration)
+				&& Objects.equals(premiere, other.premiere) && Objects.equals(synopsis, other.synopsis)
+				&& Objects.equals(title, other.title) && Objects.equals(trailer, other.trailer);
 	}
 
 	

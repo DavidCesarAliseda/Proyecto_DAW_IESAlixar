@@ -53,7 +53,7 @@ public class GenreServiceImpl implements GenreService {
 		if (id != null) {
 			Genre genre = genreRepo.getById(id);
 			genreRepo.delete(genre);
-			;
+			
 			return genre;
 		}
 		return null;

@@ -2,6 +2,7 @@ package com.iesalixar.playit.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,8 +28,8 @@ public class Person implements Serializable{
 	@Column(nullable = false)
 	private String surname2;
 
-	@Column(nullable = false)
-	private Date BirthDate;
+	@Column(nullable = false, columnDefinition="varchar(10)")
+	private String BirthDate;
 
 	public Person() {
 
@@ -66,12 +67,31 @@ public class Person implements Serializable{
 		this.surname2 = surname2;
 	}
 
-	public Date getBirthDate() {
+	public String getBirthDate() {
 		return BirthDate;
 	}
 
-	public void setBirthDate(Date birthDate) {
-		BirthDate = birthDate;
+	public void setBirthDate(String birthdate) {
+		BirthDate = birthdate;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(BirthDate, name, personId, surname1, surname2);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Person other = (Person) obj;
+		return Objects.equals(BirthDate, other.BirthDate) && Objects.equals(name, other.name)
+				&& Objects.equals(personId, other.personId) && Objects.equals(surname1, other.surname1)
+				&& Objects.equals(surname2, other.surname2);
 	}
 	
 	

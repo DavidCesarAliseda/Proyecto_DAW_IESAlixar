@@ -54,7 +54,7 @@ public class FilmServiceImpl implements FilmService{
 		if (id != null) {
 			Film film = filmRepo.getById(id);
 			filmRepo.delete(film);
-			;
+		
 			return film;
 		}
 		return null;

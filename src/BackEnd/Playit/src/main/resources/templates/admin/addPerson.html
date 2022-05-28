@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Crear persona</title>
+<link th:insert="parts/link.html">
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/admin/add.css">
+</head>
+<body>
+	<div th:replace="parts/header.html :: admin_header"></div>
+	<main>
+		<section>
+			<form th:action="@{/person/add}" method="post" th:object="${person}">
+
+				<div class="row">
+					<div class="input-field col s12 m6 inline center-align">
+						<input id="name" type="text" class="validate" th:field="*{name}"
+							required> <label for="name">Nombre</label>
+					</div>
+					<div class="input-field col s12 m6 inline center-align">
+						<input id="birthdate" type="date" class="validate"
+							th:field="*{birthDate}" required> <label for="birthdate">Fecha
+							de nacimiento</label>
+					</div>
+				</div>
+
+
+				<div class="row">
+					<div class="input-field col s12 m6 inline center-align">
+						<input id="surname1" type="text" class="validate"
+							th:field="*{surname1}" required> <label for="surname1">Primer
+							apellido</label>
+					</div>
+					<div class="input-field col s12 m6 inline center-align">
+						<input id="surname2" type="text" class="validate"
+							th:field="*{surname2}" required> <label for="surname2">Segundo
+							apellido</label>
+					</div>
+				</div>
+
+				<div class="row center-align" id="crear">
+					<input type="submit" value="Crear persona" />
+				</div>
+			</form>
+		</section>
+
+		<h5 class="center-align" th:if="${error=='Exist'}"
+			th:text="${'La persona ya existe'}"></h5>
+
+	</main>
+</body>
+<script th:replace="parts/scripts.html :: sidenav"></script>
+</html>

@@ -6,34 +6,38 @@
 <link rel="stylesheet" href="/css/index.css">
 </head>
 <body>
-<header th:fragment="admin_header">
-		<nav>
-			<div class="nav-wrapper">
-				<a th:href="@{'/main'}" class="brand-logo logo">Play<span>it<span></a>
-				<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-				<ul class="right hide-on-med-and-down">
-					<li><a th:href="@{'/film'}">Películas</a></li>
-					<li><a th:href="@{''}">Capítulos</a></li>
-					<li><a th:href="@{''}">Series</a></li>
-					<li><a th:href="@{'/genre'}">Géneros</a></li>
-					<li><a th:href="@{'/user'}">Usuarios</a></li>
-					<li><a th:href="@{'/platform'}">Plataformas</a></li>
-					<li><a th:href="@{'/logout'}">Cerrar sesión</a></li>
-				</ul>
+	<header th:fragment="admin_header">
+		<div class="navbar-fixed">
+			<nav>
+				<div class="nav-wrapper">
+					<a th:href="@{'/main'}" class="brand-logo logo">Play<span>it<span></a>
+					<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i
+						class="material-icons">menu</i></a>
+					<ul class="right hide-on-med-and-down">
+						<li><a th:href="@{'/film'}">Películas</a></li>
+						<li><a th:href="@{''}">Capítulos</a></li>
+						<li><a th:href="@{'/serie'}">Series</a></li>
+						<li><a th:href="@{'/genre'}">Géneros</a></li>
+						<li><a th:href="@{'/user'}">Usuarios</a></li>
+						<li><a th:href="@{'/platform'}">Plataformas</a></li>
+						<li><a th:href="@{'/person'}">Personas</a></li>
+						<li><a th:href="@{'/logout'}">Cerrar sesión</a></li>
+					</ul>
 
-				<!-- 	Barra lateral movil -->
-				<ul class="sidenav" id="mobile-demo">
-					<li><a th:href="@{'/film'}">Películas</a></li>
-					<li><a th:href="@{''}">Series</a></li>
-					<li><a th:href="@{''}">Capítulos</a></li>
-					<li><a th:href="@{'/genre'}">Géneros</a></li>
-					<li><a th:href="@{'/user'}">Usuarios</a></li>
-					<li><a th:href="@{'/platform'}">Plataformas</a></li>
-					<li><a th:href="@{'/logout'}">Cerrar sesión</a></li>
-				</ul>
-			</div>
-		</nav>
-
+					<!-- 	Barra lateral movil -->
+					<ul class="sidenav" id="mobile-demo">
+						<li><a th:href="@{'/film'}">Películas</a></li>
+						<li><a th:href="@{''}">Capítulos</a></li>
+						<li><a th:href="@{'/serie'}">Series</a></li>
+						<li><a th:href="@{'/genre'}">Géneros</a></li>
+						<li><a th:href="@{'/user'}">Usuarios</a></li>
+						<li><a th:href="@{'/platform'}">Plataformas</a></li>
+						<li><a th:href="@{'/person'}">Personas</a></li>
+						<li><a th:href="@{'/logout'}">Cerrar sesión</a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
 	</header>
 </body>
 <script th:replace="parts/scripts.html :: sidenav"></script>

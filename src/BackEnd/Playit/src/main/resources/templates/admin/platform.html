@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 <head>
 <meta charset="UTF-8">
@@ -18,7 +19,7 @@
 			</button>
 		</div>
 		<section>
-			<table>
+			<table th:if="${platforms.size()!=0}">
 			<tr>
 			<th>Logo</th>
 			<th>Nombre de la plataforma</th>

@@ -7,26 +7,36 @@
 <link rel="stylesheet" href="/css/index.css">
 <link rel="stylesheet" href="/css/admin/edit.css">
 </head>
+<style>
+.row {
+  display: block !important;
+}
+</style>
 <body>
 	<div th:replace="parts/header.html :: admin_header"></div>
 	<main>
-	<section>
-		<form th:action="@{/platform/edit}" method="post" th:object="${platform}" enctype="multipart/form-data">
-		<div class="input-field col s12 m6 inline center-align">
-			<label for="nombre">Nombre</label> <input type="text" id="nombre"
-						name="nombre" th:field="*{name}" required>
+		<section>
+			<form th:action="@{/platform/edit}" method="post"
+				th:object="${platform}" enctype="multipart/form-data">
+				<div class="row">
+					<div class="input-field col s12 m9 inline" id="Nombre">
+						<label for="nombre">Nombre</label> <input type="text" id="nombre"
+							name="nombre" th:field="*{name}" required>
+					</div>
 				</div>
-			</br></br>
-			<label for="logo">Logo</label> </br>
-			<input type="file" id="logo"name="logo">
-			</br></br>
-				<div>
+
+				<div style="margin-left: 8px">
+					<label for="logo">Logo</label> </br> <input type="file" id="logo"
+						name="logo">
+				</div>
+
+				<div id="crear">
 					<input type="submit" value="Editar plataforma" />
 				</div>
 			</form>
 		</section>
 		<h5 class="center-align" th:if="${error == 'Existe'}"
-								th:text="${'La plataforma ya existe'}"></h5>
+			th:text="${'La plataforma ya existe'}"></h5>
 	</main>
 </body>
 <script th:replace="parts/scripts.html :: sidenav"></script>

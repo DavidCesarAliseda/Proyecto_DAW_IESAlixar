@@ -95,7 +95,7 @@ public class FilmController {
 		filmAux = new Film();
 
 		Film film = filmService.getFilmByID(Long.parseLong(id));
-		filmAux.setContentId(filmAux.getContentId());
+		filmAux.setContentId(film.getContentId());
 		filmAux.setCover(film.getCover());
 
 		model.addAttribute("film", film);
