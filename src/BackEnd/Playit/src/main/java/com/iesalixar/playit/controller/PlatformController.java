@@ -39,25 +39,24 @@ public class PlatformController {
 
 	@GetMapping("/platform")
 	public String platfomrGet(@RequestParam(required = false, name = "deletedPlatform") String deletedPlatform,
-			@RequestParam(required = false, name = "editedPlatform") String editedPlatform, Model model,
-			HttpServletRequest request, HttpServletResponse response) {
+			@RequestParam(required = false, name = "editedPlatform") String editedPlatform, 
+			@RequestParam(required = false, name = "addedPlatform") String addedPlatform,Model model) {
 
 		List<Platform> platforms = platformService.getAllPlatforms();
 
 		model.addAttribute("deletedPlatform", deletedPlatform);
 		model.addAttribute("platforms", platforms);
 		model.addAttribute("editedPlatform", editedPlatform);
+		model.addAttribute("addedPlatform", addedPlatform);
 		return "admin/platform";
 	}
 
 	@GetMapping("/platform/add")
-	public String addPlatfomrGet(@RequestParam(required = false, name = "error") String error,
-			@RequestParam(required = false, name = "platformName") String nombre, Model model) {
+	public String addPlatfomrGet(@RequestParam(required = false, name = "error") String error, Model model) {
 		System.out.println(userSession);
 		PlatformDTO platform = new PlatformDTO();
 		model.addAttribute("platform", platform);
 		model.addAttribute("error", error);
-		model.addAttribute("platformName", nombre);
 
 		return "admin/addPlatform";
 	}
@@ -88,10 +87,10 @@ public class PlatformController {
 		String namePlatform = platform.getName();
 		if (platformService.addPlatform(platformDB) == null) {
 			System.out.println(platform.getName());
-			return "redirect:/platform/add?error=Existe&platformName=" + namePlatform;
+			return "redirect:/platform/add?error=Existe";
 		}
 
-		return "redirect:/platform";
+		return "redirect:/platform/?addedPlatform=ok";
 	}
 
 	@GetMapping("/platform/delete")
@@ -147,11 +146,11 @@ public class PlatformController {
 		platformDB.setPlatformId(platformAux.getPlatformId());
 		platformDB.setName(platform.getName());
 
-		if (platformService.editPlatform(platformDB) != null) {
+		if (platformService.editPlatform(platformDB) == null) {
 			return "redirect:/platform/edit?error=Existe&platformId="+platformDB.getPlatformId();
 		}
 
-		return "redirect:/platform/editedPlatform=ok";
+		return "redirect:/platform?editedPlatform=ok";
 	}
 
 }

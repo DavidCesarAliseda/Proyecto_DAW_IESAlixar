@@ -48,7 +48,7 @@ public class SerieServiceImpl implements SerieService{
 	@Override
 	public Serie deleteSerie(Long id) {
 		if (id != null) {
-			Serie serie = serieRepo.getById(id);
+			Serie serie = serieRepo.findById(id).get();
 			serieRepo.delete(serie);
 	
 			return serie;
@@ -59,7 +59,7 @@ public class SerieServiceImpl implements SerieService{
 	@Override
 	public Serie getSerieByID(Long id) {
 		if (id != null) {
-			Serie Serie = serieRepo.getById(id);
+			Serie Serie = serieRepo.findById(id).get();
 			return Serie;
 		}
 		return null;
@@ -67,7 +67,7 @@ public class SerieServiceImpl implements SerieService{
 
 	@Override
 	public Serie editSerie(Serie serieDB) {
-		if(serieDB == null || getSerieByID(serieDB.getContentId()) == null || getSerieByTitle(serieDB.getTitle()) != null) {
+		if(serieDB == null || getSerieByID(serieDB.getContentId()) == null || serieRepo.findByTitleAndContentId(serieDB.getTitle(), serieDB.getContentId()) == null && getSerieByTitle(serieDB.getTitle())!=null) {
 			return null;
 		}
 		return serieRepo.save(serieDB);

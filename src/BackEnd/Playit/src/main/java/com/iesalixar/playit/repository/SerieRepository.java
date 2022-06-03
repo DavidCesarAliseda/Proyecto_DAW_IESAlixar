@@ -8,4 +8,5 @@ import com.iesalixar.playit.model.Serie;
 @Repository
 public interface SerieRepository extends JpaRepository<Serie, Long> {
 	public Serie findByTitle(String title);
+	public Serie findByTitleAndContentId(String title, Long contentId);
 }

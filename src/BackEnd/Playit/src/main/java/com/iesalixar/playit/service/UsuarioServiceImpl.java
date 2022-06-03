@@ -61,7 +61,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public Usuario deleteUsuario(Long id) {
 		if (id != null) {
-			Usuario user = userRepo.getById(id);
+			Usuario user = userRepo.findById(id).get();
 			userRepo.delete(user);
 
 			return user;
@@ -71,7 +71,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 	@Override
 	public Usuario editUsuario(Usuario usuarioDB) {
-		if (usuarioDB == null || getUserById(usuarioDB.getId_usuario()) == null || getUsuarioByUserName(usuarioDB.getUserName()) == null || getAllUsuariosByUserName(usuarioDB.getUserName()).size() > 0 ) {
+		if (usuarioDB == null || getUserById(usuarioDB.getId_usuario()) == null || getUsuarioByUserName(usuarioDB.getUserName()) == null) {
 			return null;
 
 		}
@@ -92,7 +92,7 @@ public class UsuarioServiceImpl implements UsuarioService {
 	public Usuario getUserById(Long id) {
 
 		if (id != null) {
-			Usuario user = userRepo.getById(id);
+			Usuario user = userRepo.findById(id).get();
 			return user;
 		}
 		return null;

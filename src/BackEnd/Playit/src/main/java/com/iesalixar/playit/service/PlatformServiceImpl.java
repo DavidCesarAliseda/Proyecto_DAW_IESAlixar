@@ -2,6 +2,7 @@ package com.iesalixar.playit.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -49,7 +50,7 @@ public class PlatformServiceImpl implements PlatformService {
 	public Platform deletePlatform(Long id) {
 		if (id != null) {
 
-			Platform platform = platformRepo.getById(id);
+			Platform platform = platformRepo.findById(id).get();
 			platformRepo.delete(platform);
 			return platform;
 		}
@@ -60,7 +61,7 @@ public class PlatformServiceImpl implements PlatformService {
 	@Override
 	public Platform getPlatformByID(Long id) {
 		if(id != null) {
-			Platform platform = platformRepo.getById(id);
+			Platform platform = platformRepo.findById(id).get();
 			return platform;
 		}
 		return null;
@@ -68,7 +69,7 @@ public class PlatformServiceImpl implements PlatformService {
 
 	@Override
 	public Platform editPlatform(Platform platformBD) {
-		if(platformBD==null || getPlatformByName(platformBD.getName())!=null || getPlatformByID(platformBD.getPlatformId()) == null) {
+		if(platformBD==null || getPlatformByID(platformBD.getPlatformId()) == null || getPlatformByName(platformBD.getName()) != null) {
 			return null;
 		}
 		return platformRepo.save(platformBD);

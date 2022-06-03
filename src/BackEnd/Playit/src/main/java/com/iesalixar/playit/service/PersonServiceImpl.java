@@ -2,11 +2,11 @@ package com.iesalixar.playit.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.iesalixar.playit.model.Genre;
 import com.iesalixar.playit.model.Person;
 import com.iesalixar.playit.repository.PersonRepository;
 
@@ -30,10 +30,11 @@ public class PersonServiceImpl implements PersonService{
 
 	@Override
 	public Person addPerson(Person personDB) {
-		if (personDB !=null && getPersonByName(personDB.getName()) == null && getPersonBySurname1(personDB.getSurname1()) == null && getPersonBySurname2(personDB.getSurname2()) == null) {
-			return personRepo.save(personDB);
+		Person person = personRepo.findByNameAndSurname1AndSurname2(personDB.getName(), personDB.getSurname1(), personDB.getSurname2());
+		if (personDB == null || getPersonByID(personDB.getPersonId()) != null || personDB.equalPerson(person) ) {
+			return null;
 		}
-		return null;
+		return personRepo.save(personDB);
 	}
 
 	@Override
@@ -68,7 +69,7 @@ public class PersonServiceImpl implements PersonService{
 	@Override
 	public Person deletePerson(Long id) {
 		if (id != null) {
-			Person person = personRepo.getById(id);
+			Person person = personRepo.findById(id).get();
 			personRepo.delete(person);
 			
 			return person;
@@ -79,17 +80,17 @@ public class PersonServiceImpl implements PersonService{
 	@Override
 	public Person getPersonByID(Long id) {
 		if (id != null) {
-			return personRepo.getById(id);
+			return personRepo.findById(id).get();
 		}
 		return null;
 	}
 
 	@Override
 	public Person editPerson(Person personDB) {
-		if(personDB != null && getPersonByID(personDB.getPersonId()) != null && (getPersonByName(personDB.getName()) == null 
-				|| getPersonBySurname1(personDB.getSurname1()) == null || getPersonBySurname2(personDB.getSurname2()) == null)) {
-			return personRepo.save(personDB);
+		Person person = personRepo.findByNameAndSurname1AndSurname2(personDB.getName(), personDB.getSurname1(), personDB.getSurname2());
+		if(personDB == null || getPersonByID(personDB.getPersonId()) == null || personDB.equalPerson(person)) {
+			return null;
 		}
-		return null;
+		return personRepo.save(personDB);
 	}
 }

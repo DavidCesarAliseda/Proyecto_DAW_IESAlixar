@@ -16,11 +16,14 @@
 				<label for="nombre">Nombre</label> <input type="text" id="nombre"
 					name="nombre" th:field="*{name}" required> </br> </br> <label
 					for="logo">Logo</label> </br> <input type="file" id="logo" name="logo">
-				</br> </br> <input type="submit" value="Crear plataforma" />
+				</br> </br> 
+				<div class="row center-align" id="crear">
+					<input type="submit" value="Crear plataforma" />
+				</div>
 			</form>
 		</section>
-		<h5 class="center-align" th:if="${error == 'Existe'}"
-			th:text="${'La plataforma '+platformName+' ya existe'}"></h5>
+		<h5 class="center-align white-text" th:if="${error == 'Existe'}"
+			th:text="${'La plataforma ya existe'}"></h5>
 	</main>
 </body>
 <script th:replace="parts/scripts.html :: sidenav"></script>

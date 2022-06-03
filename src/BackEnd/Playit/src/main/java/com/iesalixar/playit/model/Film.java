@@ -15,17 +15,17 @@ public class Film extends Content implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Column(nullable = false)
-	private String valoration;
+	private Long valoration;
 
 	public Film() {
 		
 	}
 
-	public String getValoration() {
+	public Long getValoration() {
 		return valoration;
 	}
 
-	public void setValoration(String valoration) {
+	public void setValoration(Long valoration) {
 		this.valoration = valoration;
 	}
 

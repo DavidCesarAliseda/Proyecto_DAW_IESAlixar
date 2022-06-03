@@ -55,7 +55,7 @@ public class GenreController {
 
 		if (genreService.addGenre(genreDB) == null) {
 			System.out.println(genre.getName());
-			return "redirect:/genre/add?error=Existe&genreName=" + genre.getName();
+			return "redirect:/genre/add?error=Exist&genreName=" + genre.getName();
 		}
 
 		return "redirect:/genre?adeddGenre=ok";

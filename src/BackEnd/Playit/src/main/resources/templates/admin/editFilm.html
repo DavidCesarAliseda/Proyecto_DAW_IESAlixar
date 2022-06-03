@@ -43,7 +43,7 @@
 							th:field="*{country}" required> <label for="country">Pais</label>
 					</div>
 					<div class="input-field col s12 m6 inline center-align">
-						<input id="valoration" type="text" class="validate"
+						<input id="valoration" type="number" class="validate"
 							th:field="*{valoration}" required> <label
 							for="valoration">Valoración</label>
 					</div>
@@ -68,7 +68,7 @@
 
 			</form>
 		</section>
-		<h5 class="center-align #2196f3 white-text" th:if="${error=='Exist'}" th:text="${'La pelicula ya existe'}"></h5>
+		<h5 class="center-align white-text" th:if="${error=='Exist'}" th:text="${'La pelicula ya existe'}"></h5>
 	</main>
 </body>
 <script th:replace="parts/scripts.html :: sidenav"></script>

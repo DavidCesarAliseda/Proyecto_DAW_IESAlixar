@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capitulos</title>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link th:insert="parts/link.html">
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/admin/general.css">
+</head>
+
+<body>
+	<div th:replace="parts/header.html :: admin_header"></div>
+	<main>
+
+		<div>
+			<button>
+				<a th:href="@{'/chapter/add'}">Añadir capítulo</a>
+			</button>
+		</div>
+		<section>
+			<table th:if="${chapters.size()!=0}">
+				<tr>
+					<th>Nombre</th>
+					<th>Número</th>
+					<th>Temporada</th>
+					<th>Serie</th>
+				</tr>
+				<tr th:each="c : ${chapters}">
+					<td th:text="${c.getName()}"></td>
+					<td th:text="${c.getNumber()}"></td>
+					<td th:text="${c.getSeason()}"></td>
+					<td th:text="${c.getSerie().getTitle()}"></td>
+					<td><a th:href="@{'/chapter/edit?chapterId='+${c.getChapterId()}}"><span
+							class="material-symbols-outlined">edit</span></a> <a
+						th:href="@{'/chapter/delete?chapterId='+${c.getChapterId()}}"><span
+							class="material-symbols-outlined">delete</span></a></td>
+				</tr>
+			</table>
+		</section>
+		<h5 class="center-align white-text"
+			th:if="${chapterDeletedId!=null}"
+			th:text="${'El capítulo ha sido eliminado correctamente. '}"></h5>
+		<h5 class="center-align white-text"
+			th:if="${chapterEdited=='ok'}"
+			th:text="${'El capítulo ha sido editado correctamente.'}"></h5>
+		<h5 class="center-align white-text"
+			th:if="${chapterAdded=='ok'}"
+			th:text="${'El capítulo ha sido añadido correctamente.'}"></h5>
+		<h4 class="center-align white-text" th:if="${chapters.size()==0}">¡Oh
+			No! ¡No existe ningún capítulo!.</h4>
+
+	</main>
+</body>
+<script th:replace="parts/scripts.html :: sidenav"></script>
+</html>

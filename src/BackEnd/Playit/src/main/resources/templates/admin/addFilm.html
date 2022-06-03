@@ -41,7 +41,7 @@
 						<label for="country">Pais</label>
 					</div>
 					<div class="input-field col s12 m6 inline center-align">
-						<input id="valoration" type="text" class="validate" th:field="*{valoration}" required>
+						<input id="valoration" type="number" class="validate" th:field="*{valoration}" required>
 						<label for="valoration">Valoración</label>
 					</div>
 				</div>
@@ -65,7 +65,7 @@
 			</form>
 		</section>
 
-		<h5 class="center-align" th:if="${error=='Exist'}"
+		<h5 class="center-align white-text" th:if="${error=='Exist'}"
 			th:text="${'La pelicula existe'}"></h5>
 
 	</main>

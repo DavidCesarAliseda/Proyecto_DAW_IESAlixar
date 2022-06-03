@@ -8,7 +8,7 @@ public class FilmDTO {
 	private String country;
 	private String synopsis;
 	private String trailer;
-	private String valoration;
+	private Long valoration;
 	
 	public FilmDTO() {
 		
@@ -63,11 +63,11 @@ public class FilmDTO {
 	}
 
 
-	public String getValoration() {
+	public Long getValoration() {
 		return valoration;
 	}
 
-	public void setValoration(String valoration) {
+	public void setValoration(Long valoration) {
 		this.valoration = valoration;
 	}
 	

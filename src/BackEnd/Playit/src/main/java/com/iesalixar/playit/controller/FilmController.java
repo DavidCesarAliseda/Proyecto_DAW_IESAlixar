@@ -43,12 +43,11 @@ public class FilmController {
 	}
 
 	@GetMapping("/film/add")
-	public String addFilmGet(@RequestParam(required = false, name = "error") String error,
-			@RequestParam(required = false, name = "addFilm") String addFilm, Model model) {
+	public String addFilmGet(@RequestParam(required = false, name = "error") String error, Model model) {
 
 		FilmDTO film = new FilmDTO();
 		model.addAttribute("film", film);
-		model.addAttribute("addFilm", addFilm);
+		model.addAttribute("error", error);
 		return "admin/addFilm";
 	}
 	
@@ -91,7 +90,8 @@ public class FilmController {
 	}
 	
 	@GetMapping("/film/edit")
-	public String editFilmGet(@RequestParam(required = true, name = "filmId") String id, Model model) {
+	public String editFilmGet(@RequestParam(required = true, name = "filmId") String id, 
+			@RequestParam(required = false, name = "error") String error, Model model) {
 		filmAux = new Film();
 
 		Film film = filmService.getFilmByID(Long.parseLong(id));
@@ -99,6 +99,7 @@ public class FilmController {
 		filmAux.setCover(film.getCover());
 
 		model.addAttribute("film", film);
+		model.addAttribute("error", error);
 		return "admin/editFilm";
 	}
 	
@@ -127,10 +128,16 @@ public class FilmController {
 		}
 
 		filmDB.setContentId(filmAux.getContentId());
-		filmDB.setTitle(filmAux.getTitle());
+		filmDB.setTitle(film.getTitle());
+		filmDB.setSynopsis(film.getSynopsis());
+		filmDB.setCountry(film.getCountry());
+		filmDB.setDuration(film.getDuration());
+		filmDB.setValoration(film.getValoration());
+		filmDB.setTrailer(film.getTrailer());
+		filmDB.setPremiere(film.getPremiere());
 
-		if (filmService.editFilm(filmDB) != null) {
-			return "redirect:/film?error=Exist&filmId="+filmDB.getContentId();
+		if (filmService.editFilm(filmDB) == null) {
+			return "redirect:/film/edit?error=Exist&filmId="+filmDB.getContentId();
 		}
 
 		return "redirect:/film?editedFilm=ok";

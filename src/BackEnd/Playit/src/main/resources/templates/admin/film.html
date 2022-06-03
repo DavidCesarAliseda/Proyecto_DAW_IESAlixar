@@ -40,13 +40,13 @@
 				</tr>
 			</table>
 		</section>
-		<h4 class="center-align #2196f3 blue-text" th:if="${films.size()==0}">¡Oh
+		<h4 class="center-align white-text" th:if="${films.size()==0}">¡Oh
 			No! ¡No existe ninguna pelicula!</h4>
-		<h5 class="center-align #2196f3 white-text" th:if="${deletedFilm=='ok'}"
+		<h5 class="center-align white-text" th:if="${deletedFilm=='ok'}"
 			th:text="${'La pelicula ha sido eliminada'}"></h5>
-		<h5 class="center-align #2196f3 white-text" th:if="${editedFilm=='ok'}"
+		<h5 class="center-align white-text" th:if="${editedFilm=='ok'}"
 			th:text="${'La pelicula has sido editada correctamente'}"></h5>
-		<h5 class="center-align #2196f3 white-text" th:if="${addedFilm=='ok'}"
+		<h5 class="center-align white-text" th:if="${addedFilm=='ok'}"
 			th:text="${'La pelicula ha sido añadida correctamente'}"></h5>
 
 	</main>

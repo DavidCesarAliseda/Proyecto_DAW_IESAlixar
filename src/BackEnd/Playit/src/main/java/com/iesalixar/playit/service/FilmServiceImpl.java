@@ -52,7 +52,7 @@ public class FilmServiceImpl implements FilmService{
 	@Override
 	public Film deleteFilm(Long id) {
 		if (id != null) {
-			Film film = filmRepo.getById(id);
+			Film film = filmRepo.findById(id).get();
 			filmRepo.delete(film);
 		
 			return film;
@@ -63,7 +63,7 @@ public class FilmServiceImpl implements FilmService{
 	@Override
 	public Film getFilmByID(Long id) {
 		if (id != null) {
-			Film film = filmRepo.getById(id);
+			Film film = filmRepo.findById(id).get();
 			return film;
 		}
 		return null;
@@ -71,7 +71,7 @@ public class FilmServiceImpl implements FilmService{
 
 	@Override
 	public Film editFilm(Film filmDB) {
-		if(filmDB == null || getFilmByID(filmDB.getContentId()) == null || getFilmByTitle(filmDB.getTitle()) != null) {
+		if(filmDB == null || getFilmByID(filmDB.getContentId()) == null || filmRepo.findByTitleAndContentId(filmDB.getTitle(), filmDB.getContentId()) == null && getFilmByTitle(filmDB.getTitle())!=null) {
 			return null;
 		}
 		return filmRepo.save(filmDB);

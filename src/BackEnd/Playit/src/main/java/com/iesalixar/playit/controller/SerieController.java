@@ -41,11 +41,11 @@ public class SerieController {
 
 	@GetMapping("/serie/add")
 	public String addSerieGet(@RequestParam(required = false, name = "error") String error,
-			@RequestParam(required = false, name = "addSerie") String addSerie, Model model) {
+			 Model model) {
 
 		SerieDTO serie = new SerieDTO();
 		model.addAttribute("serie", serie);
-		model.addAttribute("addSerie", addSerie);
+		model.addAttribute("error", error);
 		return "admin/addSerie";
 	}
 	
@@ -62,6 +62,7 @@ public class SerieController {
 
 			try {
 				byte[] bytesImg = cover.getBytes();
+				
 				Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + cover.getOriginalFilename());
 				Files.write(rutaCompleta, bytesImg);
 			} catch (IOException e) {
@@ -88,7 +89,8 @@ public class SerieController {
 	}
 	
 	@GetMapping("/serie/edit")
-	public String editSerieGet(@RequestParam(required = true, name = "serieId") String id, Model model) {
+	public String editSerieGet(@RequestParam(required = true, name = "serieId") String id,
+			@RequestParam(required = false, name = "error") String error, Model model) {
 		serieAux = new Serie();
 
 		Serie serie = serieService.getSerieByID(Long.parseLong(id));
@@ -96,6 +98,7 @@ public class SerieController {
 		serieAux.setCover(serie.getCover());
 
 		model.addAttribute("serie", serie);
+		model.addAttribute("error", error);
 		return "admin/editSerie";
 	}
 	
@@ -132,8 +135,8 @@ public class SerieController {
 		serieDB.setTrailer(serie.getTrailer());
 		serieDB.setPremiere(serie.getPremiere());
 
-		if (serieService.editSerie(serieDB) != null) {
-			return "redirect:/serie?error=Exist&serieId="+serieDB.getContentId();
+		if (serieService.editSerie(serieDB) == null) {
+			return "redirect:/serie/edit?error=Exist&serieId="+serieDB.getContentId();
 		}
 
 		return "redirect:/serie?editedSerie=ok";

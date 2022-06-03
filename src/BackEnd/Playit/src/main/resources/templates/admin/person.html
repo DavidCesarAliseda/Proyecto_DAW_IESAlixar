@@ -43,16 +43,16 @@
 				</tr>
 			</table>
 		</section>
-		<h5 class="center-align #2196f3 white-text"
+		<h5 class="center-align white-text"
 			th:if="${deletedPerson=='ok'}"
 			th:text="${'La persona ha sido eliminada correctamente. '}"></h5>
-		<h5 class="center-align #2196f3 white-text"
+		<h5 class="center-align white-text"
 			th:if="${addedPerson=='ok'}"
 			th:text="${'La persona ha sido añadida correctamente. '}"></h5>
-		<h5 class="center-align #2196f3 white-text"
+		<h5 class="center-align white-text"
 			th:if="${editedPerson=='ok'}"
 			th:text="${'La persona ha sido editada correctamente. '}"></h5>
-		<h4 class="center-align #2196f3 white-text"
+		<h4 class="center-align white-text"
 			th:if="${persons.size()==0}">¡Oh No! ¡No existe ningúna
 			persona!.</h4>
 	</main>

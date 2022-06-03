@@ -2,12 +2,15 @@ package com.iesalixar.playit.model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,7 +24,7 @@ public class Platform implements Serializable{
 	@Column(unique = true, nullable = false)
 	private String name;
 	
-	@Column(unique = false, nullable = true)
+	@Column(unique = true, nullable = false)
 	private String logo;
 
 	public Platform() {
@@ -52,25 +55,4 @@ public class Platform implements Serializable{
 		this.logo = logo;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(logo, name, platformId);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Platform other = (Platform) obj;
-		return Objects.equals(logo, other.logo) && Objects.equals(name, other.name)
-				&& Objects.equals(platformId, other.platformId);
-	}
-	
-	
-	
-	
 }

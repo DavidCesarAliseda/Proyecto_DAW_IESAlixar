@@ -36,16 +36,16 @@
 				</tr>
 			</table>
 		</section>
-		<h5 class="center-align #2196f3 blue-text"
+		<h5 class="center-align white-text"
 			th:if="${genreDeletedId!=null}"
 			th:text="${'El género ha sido eliminado correctamente. '}"></h5>
-		<h5 class="center-align #2196f3 blue-text"
+		<h5 class="center-align white-text"
 			th:if="${genreEdited=='ok'}"
 			th:text="${'El género ha sido editado correctamente.'}"></h5>
-		<h5 class="center-align #2196f3 blue-text"
+		<h5 class="center-align white-text"
 			th:if="${adeddGenre=='ok'}"
 			th:text="${'El género ha sido añadido correctamente.'}"></h5>
-		<h4 class="center-align #2196f3 blue-text" th:if="${genres.size()==0}">¡Oh
+		<h4 class="center-align white-text" th:if="${genres.size()==0}">¡Oh
 			No! ¡No existe ningún genero!.</h4>
 
 	</main>

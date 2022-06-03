@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Crear capítulo</title>
+<link th:insert="parts/link.html">
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/admin/add.css">
+</head>
+<body>
+	<div th:replace="parts/header.html :: admin_header"></div>
+	<main>
+		<section>
+			<form th:action="@{/chapter/add}" method="post"
+				th:object="${chapter}">
+				<div class="row">
+					<div class="input-field col s12 m6 inline center-align">
+						<input id="nombre_usuario" type="text" class="validate"
+							th:field="*{name}" required> <label for="nombre_usuario">Nombre</label>
+					</div>
+
+					<div class="input-field col s12 m6 inline center-align">
+						<input id="number" type="number" class="validate"
+							th:field="*{number}" required> <label for="number">Número</label>
+					</div>
+
+				</div>
+
+				<div class="row">
+
+					<div class="input-field col s12 m6 inline center-align">
+						<input id="season" type="number" class="validate"
+							th:field="*{season}" required> <label for="season">Número
+							de temporada</label>
+					</div>
+
+					<div class="input-field col s12 m6">
+						<select th:field="*{serieId}">
+							<option th:each="s : ${series}" th:value="${s.getContentId()}"
+								th:text="${s.getTitle()}"></option>
+						</select> <label>Serie</label>
+					</div>
+				</div>
+
+				<div class="row center-align" id="crear">
+					<input type="submit" value="Crear capítulo" />
+				</div>
+			</form>
+		</section>
+
+		<h5 class="center-align white-text" th:if="${error=='Exist'}"
+			th:text="${'El capítulo ya existe'}"></h5>
+
+	</main>
+</body>
+<script th:replace="parts/scripts.html :: select"></script>
+<script th:replace="parts/scripts.html :: sidenav"></script>
+</html>

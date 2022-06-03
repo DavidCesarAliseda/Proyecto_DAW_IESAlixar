@@ -1,9 +1,12 @@
 package com.iesalixar.playit.model;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,12 +14,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "content")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Content implements Serializable{
+public class Content implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,15 +41,15 @@ public class Content implements Serializable{
 	@Column(nullable = false)
 	private String country;
 
-	@Column(nullable = false, columnDefinition="text")
+	@Column(nullable = false, columnDefinition = "text")
 	private String synopsis;
 
 	@Column(nullable = false)
 	private String trailer;
 
-	@Column(nullable = false)
+	@Column(nullable = false, unique = true)
 	private String cover;
-
+	
 	public Content() {
 
 	}

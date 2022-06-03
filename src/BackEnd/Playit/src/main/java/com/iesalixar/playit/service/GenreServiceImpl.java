@@ -51,7 +51,7 @@ public class GenreServiceImpl implements GenreService {
 	public Genre deleteGenre(Long id) {
 
 		if (id != null) {
-			Genre genre = genreRepo.getById(id);
+			Genre genre = genreRepo.findById(id).get();
 			genreRepo.delete(genre);
 			
 			return genre;
@@ -63,7 +63,7 @@ public class GenreServiceImpl implements GenreService {
 	public Genre getGenreByID(Long id) {
 
 		if (id != null) {
-			Genre genre = genreRepo.getById(id);
+			Genre genre = genreRepo.findById(id).get();
 			return genre;
 		}
 		return null;
@@ -71,7 +71,7 @@ public class GenreServiceImpl implements GenreService {
 
 	@Override
 	public Genre editGenre(Genre genreDB) {
-		if(genreDB == null || getGenreByID(genreDB.getGenreId()) == null  || getGenreByName(genreDB.getName())!=null) {
+		if(genreDB == null || getGenreByID(genreDB.getGenreId()) == null || getGenreByName(genreDB.getName()) != null) {
 			return null;
 		}
 		return genreRepo.save(genreDB);

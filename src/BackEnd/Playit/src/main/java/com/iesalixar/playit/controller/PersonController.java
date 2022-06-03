@@ -72,13 +72,15 @@ public class PersonController {
 	}
 	
 	@GetMapping("/person/edit")
-	public String editPersonGet(@RequestParam(required = true, name = "personId") String personId, Model model) {
+	public String editPersonGet(@RequestParam(required = true, name = "personId") String personId, 
+			@RequestParam(required = false, name = "error") String error, Model model) {
 		personAux = new Person();
 
 		Person person = personService.getPersonByID(Long.parseLong(personId));
 		personAux.setPersonId(person.getPersonId());
 
-		model.addAttribute(person);
+		model.addAttribute("person", person);
+		model.addAttribute("error", error);
 		return "admin/editPerson";
 	}
 

@@ -3,12 +3,15 @@ package com.iesalixar.playit.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -94,5 +97,19 @@ public class Person implements Serializable{
 				&& Objects.equals(surname2, other.surname2);
 	}
 	
+	public boolean equalPerson(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Person other = (Person) obj;
+		return Objects.equals(name, other.name) && Objects.equals(surname1, other.surname1)
+				&& Objects.equals(surname2, other.surname2);
+	}
 	
+	
+
+
 }

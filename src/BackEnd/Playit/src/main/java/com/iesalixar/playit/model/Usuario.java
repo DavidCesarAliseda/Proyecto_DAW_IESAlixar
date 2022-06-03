@@ -1,13 +1,20 @@
 package com.iesalixar.playit.model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -38,6 +45,7 @@ public class Usuario implements Serializable{
 
 	@Column(nullable=false)
 	private String role;
+	
 	
 	public Usuario() {
 		
@@ -107,35 +115,6 @@ public class Usuario implements Serializable{
 		this.role = role;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(apellido1, apellido2, email, id_usuario, nombre, password, role, userName);
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Usuario other = (Usuario) obj;
-		return Objects.equals(apellido1, other.apellido1) && Objects.equals(apellido2, other.apellido2)
-				&& Objects.equals(email, other.email) && Objects.equals(id_usuario, other.id_usuario)
-				&& Objects.equals(nombre, other.nombre) && Objects.equals(password, other.password)
-				&& Objects.equals(role, other.role) && Objects.equals(userName, other.userName);
-	}
-
-	@Override
-	public String toString() {
-		return "Usuario [id_usuario=" + id_usuario + ", userName=" + userName + ", password=" + password + ", email="
-				+ email + ", nombre=" + nombre + ", apellido1=" + apellido1 + ", apellido2=" + apellido2 + ", role="
-				+ role + "]";
-	}
-	
-	
-	
-	
 
 }

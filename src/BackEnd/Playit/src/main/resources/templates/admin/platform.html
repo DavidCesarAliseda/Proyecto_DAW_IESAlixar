@@ -20,12 +20,13 @@
 		</div>
 		<section>
 			<table th:if="${platforms.size()!=0}">
-			<tr>
-			<th>Logo</th>
-			<th>Nombre de la plataforma</th>
-			</tr>
+				<tr>
+					<th>Logo</th>
+					<th>Nombre de la plataforma</th>
+				</tr>
 				<tr th:each="p : ${platforms}">
-					<td><img th:src="@{'/Recursos/'+${p.logo}}"  class="responsive-img" ></td>
+					<td><img th:src="@{'/Recursos/'+${p.logo}}"
+						class="responsive-img"></td>
 					<td th:text="${p.getName()}"></td>
 					<td><a
 						th:href="@{'/platform/edit?platformId='+${p.getPlatformId}}"><span
@@ -35,12 +36,16 @@
 				</tr>
 			</table>
 		</section>
-		<h5 class="center-align #2196f3 blue-text"
-			th:if="deletedPlatform == 'ok'"
+		<h5 class="center-align white-text"
+			th:if="${deletedPlatform == 'ok'}"
 			th:text="${'La plataforma ha sido eliminada correctamente. '}"></h5>
-		<h5 class="center-align #2196f3 blue-text" th:if="editedPlatform == 'ok'"
+		<h5 class="center-align white-text"
+			th:if="${editedPlatform == 'ok'}"
 			th:text="${'La plataforma ha sido editada correctamente. '}"></h5>
-		<h4 class="center-align #2196f3 blue-text"
+		<h5 class="center-align white-text"
+			th:if="${addedPlatform == 'ok'}"
+			th:text="${'La plataforma ha sido editada correctamente. '}"></h5>
+		<h4 class="center-align white-text"
 			th:if="${platforms.size()==0}">¡Oh No! ¡No existe ninguna
 			plataforma!</h4>
 

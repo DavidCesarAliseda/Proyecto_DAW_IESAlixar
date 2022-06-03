@@ -1,7 +1,7 @@
 package com.iesalixar.playit.dto;
 
 public class SerieDTO {
-	private String seasons;
+	private Long seasons;
 	private String title;
 	private String premiere;
 	private String duration;
@@ -13,11 +13,11 @@ public class SerieDTO {
 
 	}
 
-	public String getSeasons() {
+	public Long getSeasons() {
 		return seasons;
 	}
 
-	public void setSeasons(String seasons) {
+	public void setSeasons(Long seasons) {
 		this.seasons = seasons;
 	}
 
