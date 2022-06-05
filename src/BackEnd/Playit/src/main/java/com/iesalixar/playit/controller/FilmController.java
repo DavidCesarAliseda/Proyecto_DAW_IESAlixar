@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,16 +17,35 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.iesalixar.playit.dto.FilmDTO;
-import com.iesalixar.playit.dto.PlatformDTO;
+import com.iesalixar.playit.dto.PersonContentDTO;
 import com.iesalixar.playit.model.Film;
 import com.iesalixar.playit.model.Genre;
+import com.iesalixar.playit.model.Person;
+import com.iesalixar.playit.model.PersonContent;
+import com.iesalixar.playit.model.PersonContentKey;
 import com.iesalixar.playit.model.Platform;
 import com.iesalixar.playit.service.FilmServiceImpl;
+import com.iesalixar.playit.service.GenreServiceImpl;
+import com.iesalixar.playit.service.PersonContentServiceImpl;
+import com.iesalixar.playit.service.PersonServiceImpl;
+import com.iesalixar.playit.service.PlatformServiceImpl;
 
 @Controller
 public class FilmController {
 	@Autowired
 	FilmServiceImpl filmService;
+	
+	@Autowired
+	PlatformServiceImpl platformService;
+	
+	@Autowired
+	GenreServiceImpl genreService;
+	
+	@Autowired
+	PersonServiceImpl personService;
+	
+	@Autowired
+	PersonContentServiceImpl pcService;
 	
 	Film filmAux;
 
@@ -46,7 +66,10 @@ public class FilmController {
 	public String addFilmGet(@RequestParam(required = false, name = "error") String error, Model model) {
 
 		FilmDTO film = new FilmDTO();
+		List<Platform> platforms = platformService.getAllPlatforms();
+		
 		model.addAttribute("film", film);
+		model.addAttribute("platforms", platforms);
 		model.addAttribute("error", error);
 		return "admin/addFilm";
 	}
@@ -81,6 +104,8 @@ public class FilmController {
 		filmDB.setTrailer(film.getTrailer());
 		filmDB.setPremiere(film.getPremiere());
 		filmDB.setCover(cover.getOriginalFilename());
+		filmDB.setPlatform(platformService.getPlatformByID(film.getPlatformId()));
+		filmDB.setUrlPlatform(film.getUrlPlatform());
 		
 		if(filmService.addFilm(filmDB) == null) {
 			return "redirect:/film/add?error=Exist";
@@ -93,12 +118,28 @@ public class FilmController {
 	public String editFilmGet(@RequestParam(required = true, name = "filmId") String id, 
 			@RequestParam(required = false, name = "error") String error, Model model) {
 		filmAux = new Film();
-
+		
 		Film film = filmService.getFilmByID(Long.parseLong(id));
 		filmAux.setContentId(film.getContentId());
 		filmAux.setCover(film.getCover());
+		filmAux.setGenres(film.getGenres());
+		
+		List<Platform> platforms = platformService.getAllPlatforms();
+		
+		FilmDTO filmDTO = new FilmDTO();
+		
+		filmDTO.setTitle(film.getTitle());
+		filmDTO.setSynopsis(film.getSynopsis());
+		filmDTO.setCountry(film.getCountry());
+		filmDTO.setDuration(film.getDuration());
+		filmDTO.setValoration(film.getValoration());
+		filmDTO.setTrailer(film.getTrailer());
+		filmDTO.setPremiere(film.getPremiere());
+		filmDTO.setUrlPlatform(film.getUrlPlatform());
+		filmDTO.setPlatformId(film.getPlatform().getPlatformId());
 
-		model.addAttribute("film", film);
+		model.addAttribute("filmDTO", filmDTO);
+		model.addAttribute("platforms", platforms);
 		model.addAttribute("error", error);
 		return "admin/editFilm";
 	}
@@ -128,6 +169,7 @@ public class FilmController {
 		}
 
 		filmDB.setContentId(filmAux.getContentId());
+		filmDB.setGenres(filmAux.getGenres());
 		filmDB.setTitle(film.getTitle());
 		filmDB.setSynopsis(film.getSynopsis());
 		filmDB.setCountry(film.getCountry());
@@ -135,6 +177,8 @@ public class FilmController {
 		filmDB.setValoration(film.getValoration());
 		filmDB.setTrailer(film.getTrailer());
 		filmDB.setPremiere(film.getPremiere());
+		filmDB.setPlatform(platformService.getPlatformByID(film.getPlatformId()));
+		filmDB.setUrlPlatform(film.getUrlPlatform());
 
 		if (filmService.editFilm(filmDB) == null) {
 			return "redirect:/film/edit?error=Exist&filmId="+filmDB.getContentId();
@@ -149,4 +193,131 @@ public class FilmController {
 		film = filmService.deleteFilm(Long.parseLong(id));
 		return "redirect:/film?deletedFilm=ok";
 	}
+	
+	@GetMapping("/film/genres")
+	public String addGenreFilmGet(@RequestParam(required = true, name = "filmId") String id, 
+			@RequestParam(required = false, name = "error") String error, 
+			@RequestParam(required = false, name = "deletedFilm") String deletedFilm, Model model) {
+		
+		Film film = filmService.getFilmByID(Long.parseLong(id));
+		filmAux = new Film();
+		filmAux = film;
+		
+		List<Genre> genres = film.getGenres();
+		List<Genre> allGenres = genreService.getAllGenres();
+		
+		model.addAttribute("genres", genres);
+		model.addAttribute("deletedFilm", deletedFilm);
+		model.addAttribute("error", error);
+		model.addAttribute("allGenres", allGenres);
+		
+		
+		
+		return "admin/content/filmGenres";
+	}
+	
+	@PostMapping("/film/genres")
+	public String addGenreFilmPost(@RequestParam(required = true, name = "newGenre") String newGenre, Model model) {
+		Film filmDB = filmAux;
+		
+		List<Genre> genres = filmDB.getGenres();
+		Genre genre = genreService.getGenreByID(Long.parseLong(newGenre));
+		
+		if(genres.contains(genre)) {
+			return "redirect:/film/genres?error=Exist&filmId="+filmDB.getContentId();
+		}
+		
+		filmDB.addGenre(genreService.getGenreByID(Long.parseLong(newGenre)));
+		
+		if (filmService.editFilm(filmDB) == null) {
+			return "redirect:/film/genres?error=error&filmId="+filmDB.getContentId();
+		}
+		
+		return "redirect:/film/genres?genreAdded=ok&filmId="+filmDB.getContentId();
+	}
+	
+	@GetMapping("/film/genres/delete")
+	public String deleteGenreFilmGet(@RequestParam(required = false, name = "genreId") String id) {
+		Film filmDB = filmAux;
+		filmDB.deleteGenre(genreService.getGenreByID(Long.parseLong(id)));
+		
+		if (filmService.editFilm(filmDB) == null) {
+			return "redirect:/film/genres?error=error&filmId="+filmDB.getContentId();
+		}
+		
+		return "redirect:/film/genres?deletedFilm=ok&filmId="+filmDB.getContentId();
+	}
+	
+	@GetMapping("/film/persons")
+	public String addPersonFilmGet(@RequestParam(required = true, name = "filmId") String id, 
+			@RequestParam(required = false, name = "personAdded") String personAdded,
+			@RequestParam(required = false, name = "error") String error,
+			@RequestParam(required = false, name = "personDeleted") String personDeleted, Model model) {
+		
+		Film film = filmService.getFilmByID(Long.parseLong(id));
+		filmAux = new Film();
+		filmAux = film;
+	
+		List<Person> persons = personService.getAllPersons();
+		
+		Set<PersonContent> personContents = film.getPersonContent();
+		
+		PersonContentDTO pcDTO = new PersonContentDTO();
+		
+		model.addAttribute("persons", persons);
+		model.addAttribute("pcDTO", pcDTO);
+		model.addAttribute("personContents", personContents);
+		model.addAttribute("error", error);
+		model.addAttribute("personAdded", personAdded);
+		model.addAttribute("personDeleted", personDeleted);
+		
+		return "admin/content/filmPersons";
+	}
+	
+	@PostMapping("/film/persons")
+	public String addPersonsFilmPost(@ModelAttribute PersonContentDTO pcDTO, Model model) {
+		Film filmDB = filmAux;
+		
+		/*Set<PersonContent> personContents = filmDB.getPersonContent();*/
+		
+		PersonContent personContent = new PersonContent();
+		personContent.setRole(pcDTO.getRole());
+		personContent.setPerson(personService.getPersonByID(pcDTO.getPersonId()));
+		personContent.setContent(filmService.getFilmByID(filmDB.getContentId()));
+		
+		PersonContentKey pcKey = new PersonContentKey();
+		pcKey.setContentId(filmDB.getContentId());
+		pcKey.setPersonId(pcDTO.getPersonId());
+		
+		personContent.setId(pcKey);
+		
+		if (pcService.findPersonContentByContentAndPerson(personContent) != null) {
+			return "redirect:/film/persons?error=Exist&filmId="+filmDB.getContentId();
+		}
+		filmDB.addPersonContent(personContent);
+		
+		if (filmService.editFilm(filmDB) == null) {
+			return "redirect:/film/persons?error=error&filmId="+filmDB.getContentId();
+		}
+		return "redirect:/film/persons?personAdded=ok&filmId="+filmDB.getContentId();
+	}
+	
+	@GetMapping("/film/persons/delete")
+	public String deletePersonFilmGet(@RequestParam(required = false, name = "personId") String id) {
+		Film filmDB = filmAux;
+		Set<PersonContent> personContents = filmDB.getPersonContent();
+		PersonContent personContent = new PersonContent();
+		
+		for (PersonContent pc : personContents) {
+			if(pc.getPerson().getPersonId() == Long.parseLong(id)) {
+				personContent = pc;
+			}
+		}
+		
+		pcService.deletePersonContent(personContent);
+		
+		return "redirect:/film/persons?personDeleted=ok&filmId="+filmDB.getContentId();
+	}
+	
+	
 }

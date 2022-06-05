@@ -33,6 +33,9 @@ public class Person implements Serializable{
 
 	@Column(nullable = false, columnDefinition="varchar(10)")
 	private String BirthDate;
+	
+	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+	Set<PersonContent> personContents;
 
 	public Person() {
 
@@ -78,6 +81,14 @@ public class Person implements Serializable{
 		BirthDate = birthdate;
 	}
 
+	public Set<PersonContent> getPersonContent() {
+		return personContents;
+	}
+
+	public void setPersonContent(Set<PersonContent> personContent) {
+		this.personContents = personContent;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(BirthDate, name, personId, surname1, surname2);
@@ -109,7 +120,13 @@ public class Person implements Serializable{
 				&& Objects.equals(surname2, other.surname2);
 	}
 	
+	public void addPersonContent (PersonContent personContent) {
+		personContents.add(personContent);
+	}
 	
+	public void deletePersonContent (PersonContent personContent) {
+		personContents.remove(personContent);
+	}
 
 
 }

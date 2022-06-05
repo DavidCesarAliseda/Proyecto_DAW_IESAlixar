@@ -28,7 +28,7 @@ public class SerieServiceImpl implements SerieService{
 
 	@Override
 	public Serie addSerie(Serie serieDB) {
-		if (serieDB != null && getSerieByTitle(serieDB.getTitle()) == null) {
+		if (serieDB != null && getSerieByTitle(serieDB.getTitle()) == null && serieRepo.findByUrlPlatform(serieDB.getUrlPlatform()) == null) {
 			Serie Serie = serieRepo.save(serieDB);
 			return Serie;
 		}
@@ -67,7 +67,8 @@ public class SerieServiceImpl implements SerieService{
 
 	@Override
 	public Serie editSerie(Serie serieDB) {
-		if(serieDB == null || getSerieByID(serieDB.getContentId()) == null || serieRepo.findByTitleAndContentId(serieDB.getTitle(), serieDB.getContentId()) == null && getSerieByTitle(serieDB.getTitle())!=null) {
+		if(serieDB == null || getSerieByID(serieDB.getContentId()) == null || serieRepo.findByTitleAndContentId(serieDB.getTitle(), serieDB.getContentId()) == null && getSerieByTitle(serieDB.getTitle())!=null
+				|| serieRepo.findByContentIdAndUrlPlatform(serieDB.getContentId(), serieDB.getUrlPlatform()) == null && serieRepo.findByUrlPlatform(serieDB.getUrlPlatform())!=null) {
 			return null;
 		}
 		return serieRepo.save(serieDB);

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Géneros de la pelicula</title>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link th:insert="parts/link.html">
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/admin/general.css">
+</head>
+
+<body>
+	<div th:replace="parts/header.html :: admin_header"></div>
+	<main>
+
+		<form th:action="@{/film/genres}" method="post" id="addGenre">
+
+			<div class="">
+				<div class="input-field col s8 m4 inline">
+					<select name="newGenre" class="white">
+						<option th:each="a : ${allGenres}" th:value="${a.getGenreId()}"
+							th:text="${a.getName()}"></option>
+					</select> <label>Género</label>
+				</div>
+				<div id="añadir">
+					<input type="submit" value="Añadir género" />
+				</div>
+			</div>
+
+		</form>
+
+		<section>
+			<table th:if="${genres.size()!=0}">
+				<tr>
+					<th>Nombre</th>
+
+				</tr>
+				<tr th:each="g : ${genres}">
+					<td th:text="${g.getName()}"></td>
+					<td><a
+						th:href="@{'/film/genres/delete?genreId='+${g.getGenreId()}}"><span
+							class="material-symbols-outlined">delete</span></a></td>
+				</tr>
+			</table>
+		</section>
+
+		<h4 class="center-align white-text" th:if="${genres.size()==0}">¡Oh
+			No! ¡No hay ningún genero!</h4>
+		<h5 class="center-align white-text" th:if="${error=='Exist'}"
+			th:text="${'El género ya está añadido'}"></h5>
+		<h5 class="center-align white-text" th:if="${deletedFilm=='ok'}"
+			th:text="${'El género ha sido eliminado'}"></h5>
+	</main>
+</body>
+<script th:replace="parts/scripts.html :: select"></script>
+<script th:replace="parts/scripts.html :: sidenav"></script>
+</html>

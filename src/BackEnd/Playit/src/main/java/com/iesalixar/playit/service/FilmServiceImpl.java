@@ -21,7 +21,7 @@ public class FilmServiceImpl implements FilmService{
 	@Override
 	public Film addFilm(Film filmDB) {
 
-		if (filmDB != null && getFilmByTitle(filmDB.getTitle()) == null) {
+		if (filmDB != null && getFilmByTitle(filmDB.getTitle()) == null && filmRepo.findByUrlPlatform(filmDB.getUrlPlatform()) == null) {
 			Film film = filmRepo.save(filmDB);
 			return film;
 		}
@@ -71,7 +71,8 @@ public class FilmServiceImpl implements FilmService{
 
 	@Override
 	public Film editFilm(Film filmDB) {
-		if(filmDB == null || getFilmByID(filmDB.getContentId()) == null || filmRepo.findByTitleAndContentId(filmDB.getTitle(), filmDB.getContentId()) == null && getFilmByTitle(filmDB.getTitle())!=null) {
+		if(filmDB == null || getFilmByID(filmDB.getContentId()) == null || filmRepo.findByTitleAndContentId(filmDB.getTitle(), filmDB.getContentId()) == null && getFilmByTitle(filmDB.getTitle())!=null
+				|| filmRepo.findByContentIdAndUrlPlatform(filmDB.getContentId(), filmDB.getUrlPlatform()) == null && filmRepo.findByUrlPlatform(filmDB.getUrlPlatform())!=null) {
 			return null;
 		}
 		return filmRepo.save(filmDB);

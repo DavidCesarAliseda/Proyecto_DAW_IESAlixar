@@ -1,6 +1,7 @@
 package com.iesalixar.playit.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -26,6 +27,9 @@ public class Platform implements Serializable{
 	
 	@Column(unique = true, nullable = false)
 	private String logo;
+	
+	@OneToMany(mappedBy="platform",cascade=CascadeType.ALL, orphanRemoval=true)
+	private Set<Content> contents = new HashSet<>();
 
 	public Platform() {
 
@@ -54,5 +58,15 @@ public class Platform implements Serializable{
 	public void setLogo(String logo) {
 		this.logo = logo;
 	}
+
+	public Set<Content> getContents() {
+		return contents;
+	}
+
+	public void setContents(Set<Content> contents) {
+		this.contents = contents;
+	}
+	
+	
 
 }

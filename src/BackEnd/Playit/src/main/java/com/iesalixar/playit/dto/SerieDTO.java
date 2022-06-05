@@ -8,6 +8,8 @@ public class SerieDTO {
 	private String country;
 	private String synopsis;
 	private String trailer;
+	private String urlPlatform;
+	private Long platformId;
 
 	public SerieDTO() {
 
@@ -69,4 +71,21 @@ public class SerieDTO {
 		this.trailer = trailer;
 	}
 
+	public String getUrlPlatform() {
+		return urlPlatform;
+	}
+
+	public void setUrlPlatform(String urlPlatform) {
+		this.urlPlatform = urlPlatform;
+	}
+
+	public Long getPlatformId() {
+		return platformId;
+	}
+
+	public void setPlatformId(Long platformId) {
+		this.platformId = platformId;
+	}
+
+	
 }

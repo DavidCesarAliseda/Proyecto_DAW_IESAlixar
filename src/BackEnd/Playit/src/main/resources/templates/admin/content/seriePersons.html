@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Géneros de la pelicula</title>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<link th:insert="parts/link.html">
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/admin/general.css">
+<link rel="stylesheet" href="/css/admin/contentGenres.css">
+</head>
+
+<body>
+	<div th:replace="parts/header.html :: admin_header"></div>
+	<main>
+
+		<form th:action="@{/serie/persons}" method="post" id="addPerson" th:object="${pcDTO}">
+			<div>
+			
+				<div class="input-field col s8 m4 inline">
+					<select name="newPerson" class="white" th:field="*{personId}">
+						<option th:each="p : ${persons}" th:value="${p.getPersonId()}"
+							th:text="${p.getName()+ ' ' +p.getSurname1()+ ' ' +p.getSurname2()}"></option>
+					</select> <label>Persona</label>
+				</div>
+				
+				<div class="input-field col s8 m4 inline">
+					<select name="newPerson" class="white" th:field="*{role}">
+						<option th:value="Actor" th:text="Actor"></option>
+						<option th:value="Director" th:text="Director"></option>
+						<option th:value="Ambos">Actor y director</option>
+					</select> <label>Role</label>
+				</div>
+				
+				<div id="añadir">
+					<input type="submit" value="Añadir persona" />
+				</div>
+				
+			</div>
+		</form>
+>
+		<section>
+			<table th:if="${personContents.size()!=0}">
+				<tr>
+					<th>Nombre</th>
+					<th>Primer apellido</th>
+					<th>Segundo apellido</th>
+					<th>Role</th>
+				</tr>
+				<tr th:each="pc : ${personContents}">
+					<td th:text="${pc.getPerson().getName()}"></td>
+					<td th:text="${pc.getPerson().getSurname1()}"></td>
+					<td th:text="${pc.getPerson().getSurname2()}"></td>
+					<td th:text="${pc.getRole()}"></td>
+					<td><a
+						th:href="@{'/serie/persons/delete?personId='+${pc.getPerson().getPersonId()}}"><span
+							class="material-symbols-outlined">delete</span></a></td>
+				</tr>
+			</table>
+		</section>
+		<h4 class="center-align white-text"
+			th:if="${personContents.size()==0}">¡Oh No! ¡No hay ningúna
+			persona!</h4>
+			<h5 class="center-align white-text" th:if="${error=='Exist'}"
+			th:text="${'La persona ya está incluida'}"></h5>
+			<h5 class="center-align white-text" th:if="${deletedPerson=='ok'}"
+			th:text="${'La persona ha sido eliminada'}"></h5>
+
+	</main>
+</body>
+<script th:replace="parts/scripts.html :: select"></script>
+<script th:replace="parts/scripts.html :: sidenav"></script>
+</html>

@@ -28,15 +28,21 @@
 					<th>Título</th>
 					<th>Fecha de estreno</th>
 					<th>País</th>
+					<th>Plataforma</th>
 				</tr>
 				<tr th:each="f : ${films}">
 					<td th:text="${f.getTitle()}"></td>
 					<td th:text="${f.getPremiere()}"></td>
 					<td th:text="${f.getCountry()}"></td>
+					<td th:text="${f.getPlatform().getName()}"></td>
 					<td><a th:href="@{'/film/edit?filmId='+${f.getContentId()}}"><span
 							class="material-symbols-outlined">edit</span></a> <a
-						th:href="@{'/film/delete?filmId='+${f.getContentId()}}"><span
-							class="material-symbols-outlined">delete</span></a></td>
+						th:href="@{'/film/delete?filmId='+${f.getContentId()}}"> <span
+							class="material-symbols-outlined">delete</span></a> <a
+						th:href="@{'/film/genres?filmId='+${f.getContentId()}}"><span
+							class="material-symbols-outlined">add</span></a> <a
+						th:href="@{'/film/persons?filmId='+${f.getContentId()}}"><span
+							class="material-symbols-outlined">groups</span></a></td>
 				</tr>
 			</table>
 		</section>

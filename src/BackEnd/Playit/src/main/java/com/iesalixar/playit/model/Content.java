@@ -17,6 +17,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -46,9 +47,28 @@ public class Content implements Serializable {
 
 	@Column(nullable = false)
 	private String trailer;
+	
+	@Column(nullable = false)
+	private String urlPlatform;
+
 
 	@Column(nullable = false, unique = true)
 	private String cover;
+	
+	@ManyToOne
+	@JoinColumn(name="platform_id")
+	Platform platform;
+	
+	@JoinTable(
+			name = "contentGenre",
+			joinColumns = @JoinColumn(name = "fk_content", nullable = false),
+			inverseJoinColumns = @JoinColumn(name = "fk_genre", nullable = false)
+	)
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<Genre> genres = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "content", cascade = CascadeType.ALL)
+	Set<PersonContent> personContents;
 	
 	public Content() {
 
@@ -118,6 +138,40 @@ public class Content implements Serializable {
 		this.cover = cover;
 	}
 
+	public String getUrlPlatform() {
+		return urlPlatform;
+	}
+
+	public void setUrlPlatform(String urlPlatform) {
+		this.urlPlatform = urlPlatform;
+	}
+
+	public Platform getPlatform() {
+		return platform;
+	}
+
+	public void setPlatform(Platform platform) {
+		this.platform = platform;
+	}
+
+
+	public List<Genre> getGenres() {
+		return genres;
+	}
+
+	public void setGenres(List<Genre> genres) {
+		this.genres = genres;
+	}
+	
+
+	public Set<PersonContent> getPersonContent() {
+		return personContents;
+	}
+
+	public void setPersonContent(Set<PersonContent> personContent) {
+		this.personContents = personContent;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(contentId, country, cover, duration, premiere, synopsis, title, trailer);
@@ -137,6 +191,20 @@ public class Content implements Serializable {
 				&& Objects.equals(premiere, other.premiere) && Objects.equals(synopsis, other.synopsis)
 				&& Objects.equals(title, other.title) && Objects.equals(trailer, other.trailer);
 	}
-
 	
+	public void deleteGenre(Genre genre) {
+		genres.remove(genre);
+	}
+	
+	public void addGenre(Genre genre) {
+		genres.add(genre);
+	}
+	
+	public void addPersonContent (PersonContent personContent) {
+		personContents.add(personContent);
+	}
+	
+	public void deletePersonContent (PersonContent personContent) {
+		personContents.remove(personContent);
+	}
 }

@@ -11,7 +11,7 @@
 	<div th:replace="parts/header.html :: admin_header"></div>
 	<main>
 		<section>
-			<form th:action="@{/film/edit}" method="post" th:object="${film}"
+			<form th:action="@{/film/edit}" method="post" th:object="${filmDTO}"
 				enctype="multipart/form-data">
 
 				<div class="row">
@@ -50,6 +50,22 @@
 				</div>
 
 				<div class="row">
+
+					<div class="input-field col s12 m6 inline center-align">
+						<select th:field="*{platformId}">
+							<option th:each="p : ${platforms}"
+								th:value="${p.getPlatformId()}" th:text="${p.getName()}"></option>
+						</select> <label>Plataforma</label>
+					</div>
+
+					<div class="input-field col s12 m6 inline center-align">
+						<input id="urlPlatform" type="url" class="validate"
+							th:field="*{urlPlatform}" required> <label
+							for="urlPlatform">Enlace de la plataforma</label>
+					</div>
+				</div>
+
+				<div class="row">
 					<div class="input-field col s12 m12">
 						<textarea id="synopsis" class="materialize-textarea"
 							th:field="*{synopsis}"></textarea>
@@ -68,8 +84,10 @@
 
 			</form>
 		</section>
-		<h5 class="center-align white-text" th:if="${error=='Exist'}" th:text="${'La pelicula ya existe'}"></h5>
+		<h5 class="center-align white-text" th:if="${error=='Exist'}"
+			th:text="${'La pelicula ya existe'}"></h5>
 	</main>
 </body>
+<script th:replace="parts/scripts.html :: select"></script>
 <script th:replace="parts/scripts.html :: sidenav"></script>
 </html>

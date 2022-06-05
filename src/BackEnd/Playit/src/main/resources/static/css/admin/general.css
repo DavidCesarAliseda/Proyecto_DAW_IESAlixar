@@ -58,6 +58,10 @@ img {
 	max-width: 40% !important;
 }
 
+input[type="text"] {
+	color: rgb(214, 214, 214) !important;
+}
+
 @media screen and (min-width: 576px) {
 	img {
 		max-width: 18% !important;
@@ -68,4 +72,55 @@ img {
 	img {
 		max-width: 13% !important;
 	}
+}
+
+tr td:last-child {
+	display: flex;
+	justify-content: space-around;
+}
+/* Add Genre To Content */
+#addGenre {
+	display: flex !important;
+	flex-direction: row;
+	justify-content: center;
+}
+
+#addGenre div:last-child {
+	display: flex !important;
+	align-items: center !important;
+	margin-left: 10px;
+}
+
+#addGenre div :first-child {
+	margin-right: 10px;
+}
+
+#addGenre label {
+	margin-top: 4vh;
+}
+
+/* Add Person To Content */
+#addPerson * {
+	padding: 0;
+}
+
+#addPerson span{
+	padding: 14px 16px;
+}
+
+
+#addPerson {
+	display: flex;
+	justify-content: center;
+	align-items: space-around;
+}
+
+#addPerson>div {
+	display: flex;
+	align-items: center;
+	margin-top: 25px;
+}
+
+#addPerson>div>div {
+	margin-left: 50px;
 }

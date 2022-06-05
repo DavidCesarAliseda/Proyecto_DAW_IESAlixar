@@ -20,7 +20,7 @@
 							required> <label for="title">Título</label>
 					</div>
 					<div class="input-field col s12 m6 inline center-align">
-						<input id="trailer" type="text" class="validate"
+						<input id="trailer" type="url" class="validate"
 							th:field="*{trailer}" required> <label for="trailer">Enlace
 							a trailer</label>
 					</div>
@@ -44,8 +44,24 @@
 					</div>
 					<div class="input-field col s12 m6 inline center-align">
 						<input id="seasons" type="number" class="validate"
-							th:field="*{seasons}" required> <label
-							for="seasons">Número de temporadas</label>
+							th:field="*{seasons}" required> <label for="seasons">Número
+							de temporadas</label>
+					</div>
+				</div>
+
+				<div class="row">
+
+					<div class="input-field col s12 m6 inline center-align">
+						<select th:field="*{platformId}">
+							<option th:each="p : ${platforms}"
+								th:value="${p.getPlatformId()}" th:text="${p.getName()}"></option>
+						</select> <label>Plataforma</label>
+					</div>
+
+					<div class="input-field col s12 m6 inline center-align">
+						<input id="urlPlatform" type="url" class="validate"
+							th:field="*{urlPlatform}" required> <label
+							for="urlPlatform">Enlace de la plataforma</label>
 					</div>
 				</div>
 
@@ -68,8 +84,10 @@
 
 			</form>
 		</section>
-		<h5 class="center-align white-text" th:if="${error=='Exist'}" th:text="${'La serie ya existe'}"></h5>
+		<h5 class="center-align white-text" th:if="${error=='Exist'}"
+			th:text="${'La serie ya existe'}"></h5>
 	</main>
 </body>
+<script th:replace="parts/scripts.html :: select"></script>
 <script th:replace="parts/scripts.html :: sidenav"></script>
 </html>

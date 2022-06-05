@@ -38,7 +38,7 @@ form {
 	justify-content: flex-end !important;
 }
 
-input[type="text"], input[type="password"], input[type="email"], input[type="date"], input[type="number"], textarea {
+input[type="text"], input[type="password"], input[type="email"], input[type="date"], input[type="number"], input[type="url"], textarea {
 	color: rgb(214, 214, 214) !important;
 }
 
@@ -52,3 +52,4 @@ input[type="submit"] {
 h6, h5, h4{
 	color: white;
 }
+

@@ -1,5 +1,6 @@
 package com.iesalixar.playit.dto;
 
+
 public class FilmDTO {
 
 	private String title;
@@ -9,6 +10,8 @@ public class FilmDTO {
 	private String synopsis;
 	private String trailer;
 	private Long valoration;
+	private String urlPlatform;
+	private Long platformId;
 	
 	public FilmDTO() {
 		
@@ -69,6 +72,22 @@ public class FilmDTO {
 
 	public void setValoration(Long valoration) {
 		this.valoration = valoration;
+	}
+
+	public String getUrlPlatform() {
+		return urlPlatform;
+	}
+
+	public void setUrlPlatform(String urlPlatform) {
+		this.urlPlatform = urlPlatform;
+	}
+
+	public Long getPlatformId() {
+		return platformId;
+	}
+
+	public void setPlatformId(Long platformId) {
+		this.platformId = platformId;
 	}
 	
 	

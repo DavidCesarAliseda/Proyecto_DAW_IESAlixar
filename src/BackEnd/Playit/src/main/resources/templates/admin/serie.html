@@ -35,7 +35,11 @@
 					<td><a th:href="@{'/serie/edit?serieId='+${s.getContentId()}}"><span
 							class="material-symbols-outlined">edit</span></a> <a
 						th:href="@{'/serie/delete?serieId='+${s.getContentId()}}"><span
-							class="material-symbols-outlined">delete</span></a></td>
+							class="material-symbols-outlined">delete</span></a> <a
+						th:href="@{'/serie/genres?serieId='+${s.getContentId()}}"><span
+							class="material-symbols-outlined">add</span></a> <a
+						th:href="@{'/serie/persons?serieId='+${s.getContentId()}}"><span
+							class="material-symbols-outlined">groups</span></a></td>
 				</tr>
 			</table>
 		</section>
