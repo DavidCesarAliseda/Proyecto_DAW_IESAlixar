@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inicio</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link th:insert="parts/link.html">
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/user/main_user.css">
+<link rel="stylesheet" href="/css/user/info_film.css">
+<!-- <script defer src="/js/carousel.js"></script> -->
+
+</head>
+<header>
+
+	<div th:replace="parts/header.html :: user_header"></div>
+
+</header>
+
+<body>
+	<main>
+
+		<div id="contenedor">
+			<section id="info" class="row">
+				<div class="col s12 m2 center">
+					<img th:src="@{'/Recursos/Covers/'+${film.getCover()}}"
+						class="responsive-img">
+				</div>
+				<div class="col s12 m10 .data">
+					<div>
+						<div>
+							<h4 th:text="${film.getTitle()}"></h4>
+						</div>
+
+					</div>
+
+					<div class="row datos">
+						<div class="col s6 m3">
+							<p>Fecha de estreno</p>
+							<p th:text="${film.getPremiere()}"></p>
+						</div>
+						<div class="col s6 m3">
+							<p>Pais</p>
+							<p th:text="${film.getCountry()}"></p>
+						</div>
+						<div class="col s6 m3">
+							<p>Duración</p>
+							<p th:text="${film.getDuration()}"></p>
+						</div>
+						<div class="col s6 m3">
+							<p>Valoración</p>
+							<p th:text="${film.getValoration()+' / 10'}"></p>
+						</div>
+					</div>
+
+					<div class="row datos">
+						<div class="col s3">
+							<p>Director</p>
+							<a
+								th:href="${'https://es.wikipedia.org/wiki/'+director.getName()+ '_' +director.getSurname2()}">
+								<p
+									th:text="${director.getName()+ ' ' +director.getSurname1()+ ' ' +director.getSurname2()}"></p>
+							</a>
+						</div>
+						<div class="col s9">
+							<p>Género</p>
+							<div>
+								<p>Acción</p>
+								<p>Ciencia Ficción</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="row datos">
+						<div class="col s12 ">
+							<p>Reparto</p>
+							<div>
+								<a th:each="a : ${actors}"
+									th:href="${'https://es.wikipedia.org/wiki/'+a.getName()+'_'+a.getSurname2()}">
+									<p th:text="${a.getName()+' '+a.getSurname2()}"></p>
+								</a>
+							</div>
+						</div>
+
+					</div>
+
+				</div>
+			</section>
+			<section id="sinopsis" class="row">
+				<div class="col s12 m2 center" style="margin-left: 0;">
+					<form th:action="@{/film/info}" method="post" class="s4">
+					
+						<select name="status" class="browser-default" >
+							<option th:value="default" th:if="${status!='default'}">No vista</option>
+							<option th:if="${status=='default'}" th:value="default" selected>No vista</option>
+							
+							<option th:value="vista" th:if="${status!='vista'}">Vista</option>
+							<option th:if="${status=='vista'}" th:value="vista" selected>Vista</option>
+							
+							
+							<option th:value="pendiente" th:if="${status!='pendiente'}">Pendiente</option>
+							<option th:if="${status=='pendiente'}" th:value="pendiente" selected>Pendiente</option>
+							
+							
+							<option th:value="favorita" th:if="${status!='favorita'}">Favorita</option>
+							<option th:if="${status=='favorita'}" th:value="favorita" selected>Favorita</option>
+							
+							
+						</select> <input type="submit" value="Confirmar estado" style="margin-top:25px; border-radius:5px;"/>
+					
+					</form>
+
+				</div>
+				<div class="col s12 m10 ">
+					<h5>Sinopsis</h5>
+					<p th:text="${film.getSynopsis()}"></p>
+				</div>
+			</section>
+			<section id="plataforma" class="row">
+				<h5>Disponible en...</h5>
+				<div>
+					<a th:href="${film.getUrlPlatform()}">
+						<div class="col s3 m1">
+							<img
+								th:src="@{'/Recursos/PLatforms/'+${film.getPlatform().getLogo()}}"
+								class="responsive-img">
+						</div>
+					</a>
+					<div class="col s9 m11 valign-wrapper">
+						<p th:text="${film.getPlatform().getName()}"></p>
+					</div>
+
+				</div>
+			</section>
+			<section id="trailer">
+				<h5>Trailer</h5>
+				<div class="video-container">
+					<iframe height="300" th:src="${film.getTrailer()}" frameborder="0"
+						allowfullscreen></iframe>
+				</div>
+			</section>
+		</div>
+
+	</main>
+</body>
+<script th:replace="parts/scripts.html :: sidenav"></script>
+
+</html>

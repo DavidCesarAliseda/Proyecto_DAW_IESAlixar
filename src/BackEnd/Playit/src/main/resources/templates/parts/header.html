@@ -7,35 +7,60 @@
 </head>
 <body>
 	<header th:fragment="admin_header">
-			<nav>
-				<div class="nav-wrapper">
-					<a th:href="@{'/main'}" class="brand-logo logo">Play<span>it<span></a>
-					<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i
-						class="material-icons">menu</i></a>
-					<ul class="right hide-on-med-and-down">
-						<li><a th:href="@{'/film'}">Películas</a></li>
-						<li><a th:href="@{'/chapter'}">Capítulos</a></li>
-						<li><a th:href="@{'/serie'}">Series</a></li>
-						<li><a th:href="@{'/genre'}">Géneros</a></li>
-						<li><a th:href="@{'/user'}">Usuarios</a></li>
-						<li><a th:href="@{'/platform'}">Plataformas</a></li>
-						<li><a th:href="@{'/person'}">Personas</a></li>
-						<li><a th:href="@{'/logout'}">Cerrar sesión</a></li>
-					</ul>
+		<nav>
+			<div class="nav-wrapper">
+				<a th:href="@{'/main'}" class="brand-logo logo">Play<span>it<span></a>
+				<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i
+					class="material-icons">menu</i></a>
+				<ul class="right hide-on-med-and-down">
+					<li><a th:href="@{'/film'}">Películas</a></li>
+					<li><a th:href="@{'/chapter'}">Capítulos</a></li>
+					<li><a th:href="@{'/serie'}">Series</a></li>
+					<li><a th:href="@{'/genre'}">Géneros</a></li>
+					<li><a th:href="@{'/user'}">Usuarios</a></li>
+					<li><a th:href="@{'/platform'}">Plataformas</a></li>
+					<li><a th:href="@{'/person'}">Personas</a></li>
+					<li><a th:href="@{'/logout'}">Cerrar sesión</a></li>
+				</ul>
 
-					<!-- 	Barra lateral movil -->
-					<ul class="sidenav" id="mobile-demo">
-						<li><a th:href="@{'/film'}">Películas</a></li>
-						<li><a th:href="@{'/chapter'}">Capítulos</a></li>
-						<li><a th:href="@{'/serie'}">Series</a></li>
-						<li><a th:href="@{'/genre'}">Géneros</a></li>
-						<li><a th:href="@{'/user'}">Usuarios</a></li>
-						<li><a th:href="@{'/platform'}">Plataformas</a></li>
-						<li><a th:href="@{'/person'}">Personas</a></li>
-						<li><a th:href="@{'/logout'}">Cerrar sesión</a></li>
-					</ul>
-				</div>
-			</nav>
+				<!-- 	Barra lateral movil -->
+				<ul class="sidenav" id="mobile-demo">
+					<li><a th:href="@{'/film'}">Películas</a></li>
+					<li><a th:href="@{'/chapter'}">Capítulos</a></li>
+					<li><a th:href="@{'/serie'}">Series</a></li>
+					<li><a th:href="@{'/genre'}">Géneros</a></li>
+					<li><a th:href="@{'/user'}">Usuarios</a></li>
+					<li><a th:href="@{'/platform'}">Plataformas</a></li>
+					<li><a th:href="@{'/person'}">Personas</a></li>
+					<li><a th:href="@{'/logout'}">Cerrar sesión</a></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<header th:fragment="user_header">
+		<nav>
+			<div class="nav-wrapper">
+				<a th:href="@{'/main'}" class="brand-logo logo">Play<span>it<span></a>
+				<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i
+					class="material-icons">menu</i></a>
+				<ul class="valign-wrapper right hide-on-med-and-down"
+					style="height: 100%">
+					<li><a th:href="@{'/moviesC'}" class="material-icons valign-wrapper">movie</a></li>
+					<li><a th:href="@{'/seriesC'}" class="material-icons valign-wrapper">tv</a></li>
+					<li><a th:href="@{'/myList'}" class="material-icons valign-wrapper">list</a></li>
+					<li><a th:href="@{'/logout'}"
+						class="material-icons valign-wrapper">logout</a></li>
+				</ul>
+
+				<!-- 	Barra lateral movil -->
+				<ul class="sidenav" id="mobile-demo">
+					<li><a th:href="@{'/moviesC'}">Peliculas</a></li>
+					<li><a th:href="@{'/seriesC'}">Series</a></li>
+					<li><a th:href="@{'/myList'}">Listas</a></li>
+					<li><a th:href="@{'/logout'}">Logout</a></li>
+				</ul>
+			</div>
+		</nav>
 	</header>
 </body>
 <script th:replace="parts/scripts.html :: sidenav"></script>

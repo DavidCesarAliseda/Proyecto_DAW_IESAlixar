@@ -70,7 +70,7 @@ public class PlatformController {
 			 * Path directorioImagenes= Paths.get("src//main//resources//static/img");
 			 * String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
 			 */
-			String rutaAbsoluta = "C://Users//david//Documents//Recursos";
+			String rutaAbsoluta = "C://Users//david//Documents//Recursos//Platforms";
 
 			try {
 				byte[] bytesImg = logo.getBytes();
@@ -129,7 +129,7 @@ public class PlatformController {
 			 * Path directorioImagenes= Paths.get("src//main//resources//static/img");
 			 * String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath();
 			 */
-			String rutaAbsoluta = "C://Users//david//Documents//Recursos";
+			String rutaAbsoluta = "C://Users//david//Documents//Recursos//Platforms";
 
 			try {
 				byte[] bytesImg = logo.getBytes();

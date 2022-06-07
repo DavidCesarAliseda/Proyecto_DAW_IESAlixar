@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,11 +27,17 @@ import com.iesalixar.playit.model.Person;
 import com.iesalixar.playit.model.PersonContent;
 import com.iesalixar.playit.model.PersonContentKey;
 import com.iesalixar.playit.model.Platform;
+import com.iesalixar.playit.model.Usuario;
+import com.iesalixar.playit.model.UsuarioContent;
+import com.iesalixar.playit.model.UsuarioContentKey;
+import com.iesalixar.playit.service.CookiesServiceImpl;
 import com.iesalixar.playit.service.FilmServiceImpl;
 import com.iesalixar.playit.service.GenreServiceImpl;
 import com.iesalixar.playit.service.PersonContentServiceImpl;
 import com.iesalixar.playit.service.PersonServiceImpl;
 import com.iesalixar.playit.service.PlatformServiceImpl;
+import com.iesalixar.playit.service.UsuarioContentServiceImpl;
+import com.iesalixar.playit.service.UsuarioServiceImpl;
 
 @Controller
 public class FilmController {
@@ -46,6 +55,15 @@ public class FilmController {
 	
 	@Autowired
 	PersonContentServiceImpl pcService;
+	
+	@Autowired
+	CookiesServiceImpl cookieService;
+	
+	@Autowired
+	UsuarioServiceImpl userService;
+	
+	@Autowired
+	UsuarioContentServiceImpl ucService;
 	
 	Film filmAux;
 
@@ -316,8 +334,73 @@ public class FilmController {
 		
 		pcService.deletePersonContent(personContent);
 		
-		return "redirect:/film/persons?personDeleted=ok&filmId="+filmDB.getContentId();
+		return "redirect:/userFilm/persons?personDeleted=ok&filmId="+filmDB.getContentId();
 	}
 	
-	
+	@GetMapping("/film/info")
+	public String infoFilmGet(@RequestParam(required = true, name = "filmId") String id, 
+			HttpServletRequest request, Model model) {
+		filmAux = new Film();
+		Film film = filmService.getFilmByID(Long.parseLong(id));
+		filmAux = film;
+
+		Set<PersonContent> personContents = film.getPersonContent();
+		List<Person> actors = new ArrayList();
+		Person director = new Person();
+
+		for (PersonContent personContent : personContents) {
+			if (personContent.getRole().equals("Director") || personContent.getRole().equals("Ambos")) {
+				director = personContent.getPerson();
+			} else if (personContent.getRole().equals("Actor") || personContent.getRole().equals("Ambos")) {
+				actors.add(personContent.getPerson());
+			}
+		}
+		
+		Set<UsuarioContent> userContents = film.getUserContents();
+		String status = new String();
+		for (UsuarioContent usuarioContent : userContents) {
+			if(usuarioContent.getId().getContentId().equals(film.getContentId())) {
+				status = usuarioContent.getStatus();
+				System.out.println(status);
+			}
+		}
+
+		model.addAttribute("status", status);
+		model.addAttribute("film", film);
+		model.addAttribute("director", director);
+		model.addAttribute("actors", actors);
+
+		return "user/info/film";
+	}
+
+	@PostMapping("/film/info")
+	public String infoFilmPost(@RequestParam(required = true, name = "status") String status,
+			HttpServletRequest request, Model model) {
+
+		Usuario user = userService.getUserById(Long.parseLong(cookieService.getUserIdOnSession(request)));
+		
+		UsuarioContent userContent = new UsuarioContent();
+		UsuarioContentKey ucKey = new UsuarioContentKey();
+
+		ucKey.setContentId(filmAux.getContentId());
+		ucKey.setUsuarioId(user.getId_usuario());
+
+		userContent.setStatus(status);
+		userContent.setUsuario(user);
+		userContent.setContent(filmAux);
+		userContent.setId(ucKey);
+		
+		
+		UsuarioContent userContentExist = ucService.findUsuarioContentByContentAndUsuario(userContent);
+		
+		if(userContentExist == null) {
+			user.addUsuarioContent(userContent);
+		}else {
+			user.deleteUsuarioContent(userContentExist);
+			user.addUsuarioContent(userContent);
+		}
+		
+		userService.editUsuario(user);
+		return "redirect:/film/info?filmId="+filmAux.getContentId();
+	}
 }

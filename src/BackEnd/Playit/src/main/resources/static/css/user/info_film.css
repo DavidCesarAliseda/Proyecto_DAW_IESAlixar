@@ -1,0 +1,67 @@
+main {
+    display: flex;
+    justify-content: center;
+}
+
+#contenedor {
+    width: 95%;
+    background: rgba(128, 128, 128, 0.322);
+    margin-top: 30px;
+    padding: 1%;
+}
+
+
+* {
+    color: white;
+    font-family: 'Roboto Slab', Roboto;
+}
+
+#info>div:first-child {
+    padding-top: 10px;
+}
+
+#info,
+#sinopsis,
+#plataforma,
+#trailer {
+    padding: 0 30px;
+}
+
+#info>div:first-child,
+#info>div:nth-child(2) {
+    padding-left: 0;
+}
+
+p {
+    margin: 0;
+}
+
+.datos>div>p:first-child {
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.datos>div>div {
+    display: flex !important;
+}
+
+.datos>div>div p {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.datos>div>div p:hover {
+    font-weight: bold;
+}
+
+#plataforma p {
+    margin-top: 10px;
+}
+
+a:hover{
+	font-weight: bold;
+}
+
+select, input[type="submit"]{
+    background: rgba(128, 128, 128, 0);
+}

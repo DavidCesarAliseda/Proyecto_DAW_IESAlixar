@@ -70,6 +70,25 @@ public class Content implements Serializable {
 	@OneToMany(mappedBy = "content", cascade = CascadeType.ALL)
 	Set<PersonContent> personContents;
 	
+	@OneToMany(mappedBy = "content", cascade = CascadeType.ALL)
+	Set<UsuarioContent> userContents;
+	
+	public Set<PersonContent> getPersonContents() {
+		return personContents;
+	}
+
+	public void setPersonContents(Set<PersonContent> personContents) {
+		this.personContents = personContents;
+	}
+
+	public Set<UsuarioContent> getUserContents() {
+		return userContents;
+	}
+
+	public void setUserContents(Set<UsuarioContent> userContents) {
+		this.userContents = userContents;
+	}
+
 	public Content() {
 
 	}

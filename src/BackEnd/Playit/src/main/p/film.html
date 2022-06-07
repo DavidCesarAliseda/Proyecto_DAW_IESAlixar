@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" th:fragment="user_index">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!-- FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- MATERIAL ICON -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- MATERIALIZE -->
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+    <link rel="stylesheet" href="./main_user.css">
+    <link rel="stylesheet" href="./info_film.css">
+    <link rel="stylesheet" href="./index.css">
+    <!-- <script defer src="/js/carousel.js"></script> -->
+
+</head>
+<header>
+
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#!" class="brand-logo logo">Play<span>it<span></a>
+            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <ul class="valign-wrapper right hide-on-med-and-down" style="height: 100%">
+                <li><a th:href="@{''}" class="material-icons valign-wrapper">movie</a></li>
+                <li><a th:href="@{''}" class="material-icons valign-wrapper">tv</a></li>
+                <li><a th:href="@{''}" class="material-icons valign-wrapper">list</a></li>
+                <li><a th:href="@{'/logout'}" class="material-icons valign-wrapper">logout</a></li>
+            </ul>
+
+            <!-- 	Barra lateral movil -->
+            <ul class="sidenav" id="mobile-demo">
+                <li><a th:href="@{''}">Peliculas</a></li>
+                <li><a th:href="@{''}">Series</a></li>
+                <li><a th:href="@{''}">Listas</a></li>
+                <li><a th:href="@{'/logout'}">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+</header>
+
+<body>
+    <main>
+
+        <div id="contenedor">
+            <section id="info" class="row">
+                <div class="col s12 m2">
+                    <img src="./bladerunner.jpg" class="responsive-img">
+                </div>
+                <div class="col s12 m10 .data">
+                    <div class="row valign-wrapper">
+                        <div class="col s12 m10" style="margin-left: 0;">
+                            <h4 class="left-align">Blade Runner</h4>
+                        </div>
+                        <div class="col m2 " style="margin-left: 0;">
+                            <select class="browser-default">
+                                <option value="default">No vista</option>
+                                <option value="vista">Vista</option>
+                                <option value="pendiente">Pendiente</option>
+                                <option value="favorita">Favorita</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row datos">
+                        <div class="col s6 m3">
+                            <p>Fecha de estreno</p>
+                            <p>14/05/1983</p>
+                        </div>
+                        <div class="col s6 m3">
+                            <p>Pais</p>
+                            <p>Estados Unidos</p>
+                        </div>
+                        <div class="col s6 m3">
+                            <p>Duración</p>
+                            <p>2 horas 30 minutos.</p>
+                        </div>
+                        <div class="col s6 m3">
+                            <p>Valoracion</p>
+                            <p>8</p>
+                        </div>
+                    </div>
+
+                    <div class="row datos">
+                        <div class="col s3">
+                            <p>Director</p>
+                            <p>Ridley Scott</p>
+                        </div>
+                        <div class="col s9">
+                            <p>Genero</p>
+                            <div>
+                                <p>Acción</p>
+                                <p>Ciencia Ficción</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row datos">
+                        <div class="col s12 ">
+                            <p>Reparto</p>
+                            <div>
+                                <p>Harrisond Ford</p>
+                                <p>Rutger Hauer</p>
+                                <p>Sean Young</p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </section>
+            <section id="sinopsis">
+                <h5>Sinopsis</h5>
+                <p>Rick Deckard (Harrison Ford) es un blade runner, un agente de policía destinado al retiro de
+                    replicantes ilegales. Su misión es dar caza a un grupo de cuatro de estos androides, sofisticados
+                    NEXUS 6 superiores en fuerza e inteligencia a los humanos, pero diseñados para vivir una corta
+                    existencia de cuatro años.</p>
+            </section>
+            <section id="plataforma" class="row">
+                <h5>Disponible en...</h5>
+                <div>
+                    <a href="https://play.hbomax.com/page/urn:hbo:page:GYYPxFQc0cIWXvwEAAADP:type:feature">
+                        <div class="col s3 m1">
+                            <img src="./HBOMax.jpg" class="responsive-img">
+                        </div>
+                    </a>
+                    <div class="col s9 m11 valign-wrapper">
+                        <p>HBO Max</p>
+                    </div>
+
+                </div>
+            </section>
+            <section id="trailer">
+                <h5>Trailer</h5>
+                <div class="video-container">
+                    <iframe height="300" src="https://www.youtube.com/watch?v=eogpIG53Cis" frameborder="0"
+                        allowfullscreen></iframe>
+                </div>
+            </section>
+        </div>
+
+    </main>
+</body>
+<script th:replace="parts/scripts.html :: select"></script>
+<script th:replace="parts/scripts.html :: sidenav"></script>
+
+</html>

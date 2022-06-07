@@ -10,45 +10,82 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <link th:insert="parts/link.html">
 <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/user/main_user.css">
+<!-- <script defer src="/js/carousel.js"></script> -->
 
 </head>
 <header>
 
-	<nav>
-		<div class="nav-wrapper">
-			<a href="#!" class="brand-logo logo">Play<span>it<span></a>
-			<a href="#" data-target="mobile-demo" class="sidenav-trigger"><i
-				class="material-icons">menu</i></a>
-			<ul class="valign-wrapper right hide-on-med-and-down"
-				style="height: 100%">
-				<li><a th:href="@{''}" class="material-icons valign-wrapper">movie</a></li>
-				<li><a th:href="@{''}" class="material-icons valign-wrapper">tv</a></li>
-				<li><a th:href="@{''}" class="material-icons valign-wrapper">list</a></li>
-				<li><a th:href="@{'/logout'}"
-					class="material-icons valign-wrapper">logout</a></li>
-			</ul>
-
-			<!-- 	Barra lateral movil -->
-			<ul class="sidenav" id="mobile-demo">
-				<li><a th:href="@{''}">Peliculas</a></li>
-				<li><a th:href="@{''}">Series</a></li>
-				<li><a th:href="@{''}">Listas</a></li>
-				<li><a th:href="@{'/logout'}">Logout</a></li>
-			</ul>
-		</div>
-	</nav>
+	<div th:replace="parts/header.html :: user_header"></div>
 
 </header>
 
 <body>
+	<main>
+<div class="row">
+		<div class="col s12 m6 l6">
+			<h3 class="white-text">Drama</h3>
+			<div class="carousel">
+				<a class="carousel-item"
+					th:href="@{'/film/info?filmId='+${f.getContentId()}}"
+					th:each="f : ${films}"> <img
+					th:src="@{'/Recursos/Covers/'+${f.cover}}">
+				</a>
+			</div>
+		</div>
+		
+		<div class="col s12 m6 l6">
+			<h3 class="white-text">Suspense</h3>
+			<div class="carousel">
+				<a class="carousel-item"
+					th:href="@{'/userFilm/info?filmId='+${f.getContentId()}}"
+					th:each="f : ${films}"> <img
+					th:src="@{'/Recursos/Covers/'+${f.cover}}">
+				</a>
+			</div>
+		</div>
+</div>
 
+
+		<!-- <div class="peliculas-recomendadas contenedor">
+			<div class="contenedor-titulo-controles">
+				<h3>Drama</h3>
+				<div class="indicadores"></div>
+			</div>
+
+			<div class="contenedor-principal">
+				<button role="button" id="flecha-izquierda" class="flecha-izquierda"><i
+						class="fas fa-angle-left"></i></button>
+
+				<div class="contenedor-carousel">
+					<div class="carousel" >
+
+						<div class="pelicula" th:each="f : ${films}">
+							<a th:href="@{'/film/info?filmId='+${f.getContentId()}}">
+								<img th:src="@{'/Recursos/Covers/'+${f.cover}}">
+							</a>
+						</div>
+
+
+					</div>
+				</div>
+
+				<button role="button" id="flecha-derecha" class="flecha-derecha"><i
+						class="fas fa-angle-right"></i></button>
+			</div>
+		</div> -->
+	</main>
 </body>
-
 <script>
-	document.addEventListener('DOMContentLoaded', function () {
-		var elems = document.querySelectorAll('.sidenav');
-		var instances = M.Sidenav.init(elems);
-	});
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.carousel');
+    var instances = M.Carousel.init(elems);
+  });
 </script>
+<script src="https://kit.fontawesome.com/2c36e9b7b1.js"
+	crossorigin="anonymous"></script>
+<script th:replace="parts/scripts.html :: sidenav"></script>
+
+
 
 </html>

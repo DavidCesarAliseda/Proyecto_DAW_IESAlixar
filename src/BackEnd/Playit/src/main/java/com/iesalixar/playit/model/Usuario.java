@@ -46,6 +46,8 @@ public class Usuario implements Serializable{
 	@Column(nullable=false)
 	private String role;
 	
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	Set<UsuarioContent> userContents;
 	
 	public Usuario() {
 		
@@ -115,6 +117,12 @@ public class Usuario implements Serializable{
 		this.role = role;
 	}
 
-
+	public void addUsuarioContent (UsuarioContent usuarioContent) {
+		userContents.add(usuarioContent);
+	}
+	
+	public void deleteUsuarioContent (UsuarioContent usuarioContent) {
+		userContents.remove(usuarioContent);
+	}
 
 }

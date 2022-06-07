@@ -25,13 +25,13 @@
 					<th>Nombre de la plataforma</th>
 				</tr>
 				<tr th:each="p : ${platforms}">
-					<td><img th:src="@{'/Recursos/'+${p.logo}}"
+					<td><img th:src="@{'/Recursos/Platforms/'+${p.logo}}"
 						class="responsive-img"></td>
 					<td th:text="${p.getName()}"></td>
 					<td><a
-						th:href="@{'/platform/edit?platformId='+${p.getPlatformId}}"><span
+						th:href="@{'/platform/edit?platformId='+${p.getPlatformId()}}"><span
 							class="material-symbols-outlined">edit</span></a> <a
-						th:href="@{'/platform/delete?platformId='+${p.getPlatformId}}"><span
+						th:href="@{'/platform/delete?platformId='+${p.getPlatformId()}}"><span
 							class="material-symbols-outlined">delete</span></a></td>
 				</tr>
 			</table>
