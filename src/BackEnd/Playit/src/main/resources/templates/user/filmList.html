@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" th:fragment="user_index">
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mis listas</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link th:insert="parts/link.html">
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/user/main_user.css">
+<!-- <script defer src="/js/carousel.js"></script> -->
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+	background-color: rgba(66, 141, 185, 0.788);
+	color: #fff;
+	cursor: pointer;
+	padding: 18px;
+	width: 100%;
+	border: none;
+	text-align: left;
+	outline: none;
+	font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+	background-color: rgba(66, 141, 185, 0.788);
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+	padding: 0 18px;
+	display: none;
+	
+}
+</style>
+</head>
+<header>
+
+	<div th:replace="parts/header.html :: user_header"></div>
+
+</header>
+
+<body>
+	<main>
+
+		<button type="button" class="collapsible">Peliculas
+			pendientes</button>
+		<div class="content">
+			<div class="row">
+				<div class="col s3 m3 l1" th:each="p : ${pendientes}"
+					style="overflow: hidden;">
+					<img th:src="@{'/Recursos/Covers/'+${p.cover}}"
+						class="responsive-img">
+				</div>
+			</div>
+		</div>
+		
+		<button type="button" class="collapsible">Peliculas
+			vistas</button>
+		<div class="content">
+			<div class="row">
+				<div class="col s3 m3 l1" th:each="p : ${vistas}"
+					style="overflow: hidden;">
+					<img th:src="@{'/Recursos/Covers/'+${p.cover}}"
+						class="responsive-img">
+				</div>
+			</div>
+		</div>
+		
+		<button type="button" class="collapsible">Peliculas
+			favoritas</button>
+		<div class="content">
+			<div class="row">
+				<div class="col s3 m3 l1" th:each="p : ${favoritas}"
+					style="overflow: hidden;">
+					<img th:src="@{'/Recursos/Covers/'+${p.cover}}"
+						class="responsive-img">
+				</div>
+			</div>
+		</div>
+		
+		
+
+
+	</main>
+</body>
+
+<script th:replace="parts/scripts.html :: sidenav"></script>
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+} 
+</script>
+<script th:replace="parts/scripts.html :: dropdown"></script>
+<script th:replace="parts/scripts.html :: sidenav"></script>
+</html>

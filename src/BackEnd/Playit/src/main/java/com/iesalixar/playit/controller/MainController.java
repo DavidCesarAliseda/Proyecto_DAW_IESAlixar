@@ -22,8 +22,10 @@ import com.iesalixar.playit.model.Content;
 import com.iesalixar.playit.model.Film;
 import com.iesalixar.playit.model.Genre;
 import com.iesalixar.playit.model.JPAUserDetails;
+import com.iesalixar.playit.model.Serie;
 import com.iesalixar.playit.service.FilmServiceImpl;
 import com.iesalixar.playit.service.GenreServiceImpl;
+import com.iesalixar.playit.service.SerieServiceImpl;
 import com.iesalixar.playit.service.UsuarioServiceImpl;
 
 
@@ -39,6 +41,9 @@ public class MainController {
 	@Autowired
 	FilmServiceImpl filmService;
 	
+	@Autowired
+	SerieServiceImpl serieService;
+	
 	@RequestMapping("/main")
 	public String main(Model model, HttpServletRequest request, HttpServletResponse response) {
 		String user_role = "ROLE_USER"	;
@@ -53,18 +58,18 @@ public class MainController {
 		String role = usuarioService.getUsuarioByUserName(user.getUsername()).getRole();
 		if(role.equals(user_role)) {
 			
-			Genre genre = genreService.getGenreByName("Drama");
-			
-			List<Content> contents = genre.getContents();
-			List<Film> films = new ArrayList();
-			
-			for (Content content : contents) {
-				films.add(filmService.getFilmByID(content.getContentId()));
-				
+			Genre drama = genreService.getGenreByName("Drama");
+		
+			List<Film> films = filmService.getAllFilmsByGenre(drama);
+			List<Serie> series = serieService.getAllSeriesByGenre(drama);
+			for (int i = 0; i < 5; i++) {
+				series.addAll(series);
 			}
 			
+
 			model.addAttribute("films", films);
-		
+			model.addAttribute("series", series);
+			
 			return "user/index_user";
 		}
 

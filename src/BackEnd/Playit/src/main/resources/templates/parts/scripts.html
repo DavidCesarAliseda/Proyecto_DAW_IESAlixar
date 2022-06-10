@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title></title>
 </head>
 <body>
 
@@ -18,5 +18,17 @@
 		var elems = document.querySelectorAll('select');
 		var instances = M.FormSelect.init(elems);
 	});
+</script>
+<script th:fragment="carousel">
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.carousel');
+    var instances = M.Carousel.init(elems);
+  });
+</script>
+<script th:fragment="dropdown">
+var dropdowns = document.querySelectorAll('.dropdown-trigger')
+for (var i = 0; i < dropdowns.length; i++){
+    M.Dropdown.init(dropdowns[i]);
+}   
 </script>
 </html>

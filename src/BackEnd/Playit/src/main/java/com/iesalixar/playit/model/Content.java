@@ -226,4 +226,5 @@ public class Content implements Serializable {
 	public void deletePersonContent (PersonContent personContent) {
 		personContents.remove(personContent);
 	}
+
 }

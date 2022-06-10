@@ -6,6 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.iesalixar.playit.model.Content;
+import com.iesalixar.playit.model.Film;
+import com.iesalixar.playit.model.Genre;
 import com.iesalixar.playit.model.Serie;
 import com.iesalixar.playit.repository.SerieRepository;
 
@@ -72,6 +75,24 @@ public class SerieServiceImpl implements SerieService{
 			return null;
 		}
 		return serieRepo.save(serieDB);
+	}
+
+	@Override
+	public boolean isSerie(Content content) {
+		return serieRepo.existsById(content.getContentId());
+	}
+
+	@Override
+	public List<Serie> getAllSeriesByGenre(Genre genre) {
+		List<Content> contents = genre.getContents();
+		List<Serie> series = new ArrayList();
+
+		for (Content content : contents) {
+			if (isSerie(content)) {
+				series.add(getSerieByID(content.getContentId()));
+			}
+		}
+		return series;
 	}
 
 }

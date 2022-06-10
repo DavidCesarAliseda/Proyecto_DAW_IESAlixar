@@ -4,8 +4,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +22,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.iesalixar.playit.dto.PersonContentDTO;
 import com.iesalixar.playit.dto.SerieDTO;
+import com.iesalixar.playit.dto.SeenChapterDTO;
+import com.iesalixar.playit.model.Chapter;
+import com.iesalixar.playit.model.Content;
 import com.iesalixar.playit.model.Film;
 import com.iesalixar.playit.model.Genre;
 import com.iesalixar.playit.model.Person;
@@ -25,12 +32,19 @@ import com.iesalixar.playit.model.PersonContent;
 import com.iesalixar.playit.model.PersonContentKey;
 import com.iesalixar.playit.model.Platform;
 import com.iesalixar.playit.model.Serie;
-
+import com.iesalixar.playit.model.Usuario;
+import com.iesalixar.playit.model.UsuarioContent;
+import com.iesalixar.playit.model.UsuarioContentKey;
+import com.iesalixar.playit.service.ChapterServiceImpl;
+import com.iesalixar.playit.service.CookiesServiceImpl;
 import com.iesalixar.playit.service.GenreServiceImpl;
 import com.iesalixar.playit.service.PersonContentServiceImpl;
 import com.iesalixar.playit.service.PersonServiceImpl;
 import com.iesalixar.playit.service.PlatformServiceImpl;
 import com.iesalixar.playit.service.SerieServiceImpl;
+import com.iesalixar.playit.service.UsuarioContentServiceImpl;
+import com.iesalixar.playit.service.UsuarioServiceImpl;
+import com.iesalixar.playit.utils.seasonChapterCompareTo;
 
 @Controller
 public class SerieController {
@@ -48,6 +62,18 @@ public class SerieController {
 	
 	@Autowired
 	PersonContentServiceImpl pcService;
+	
+	@Autowired
+	CookiesServiceImpl cookieService;
+
+	@Autowired
+	UsuarioServiceImpl userService;
+
+	@Autowired
+	UsuarioContentServiceImpl ucService;
+	
+	@Autowired
+	ChapterServiceImpl chapterService;
 	
 	Serie serieAux;
 
@@ -318,4 +344,134 @@ public class SerieController {
 		
 		return "redirect:/serie/persons?personDeleted=ok&serieId="+serieDB.getContentId();
 	}
+	
+	@GetMapping("/serie/info")
+	public String infoSerieGet(@RequestParam(required = true, name = "serieId") String id, HttpServletRequest request,
+			Model model) {
+		
+		Usuario user = userService.getUserById(Long.parseLong(cookieService.getUserIdOnSession(request)));
+		serieAux = new Serie();
+		Serie serie = serieService.getSerieByID(Long.parseLong(id));
+		serieAux = serie;
+
+		Set<PersonContent> personContents = serie.getPersonContent();
+		List<Person> actors = new ArrayList();
+		Person director = new Person();
+
+		for (PersonContent personContent : personContents) {
+			if (personContent.getRole().equals("Director") || personContent.getRole().equals("Ambos")) {
+				director = personContent.getPerson();
+			} else if (personContent.getRole().equals("Actor") || personContent.getRole().equals("Ambos")) {
+				actors.add(personContent.getPerson());
+			}
+		}
+
+		Set<UsuarioContent> userContents = serie.getUserContents();
+		String status = new String();
+		for (UsuarioContent usuarioContent : userContents) {
+			if (usuarioContent.getId().getUsuarioId().equals(user.getId_usuario())) {
+				status = usuarioContent.getStatus();
+				System.out.println(status);
+			}
+		}
+		//Chapters
+		List<Chapter> chaptersList = new ArrayList<>(serie.getChapters());
+		chaptersList.sort(new seasonChapterCompareTo());
+		
+		List<Chapter> chaptersListUser = user.getChapters();
+		chaptersListUser.sort(new seasonChapterCompareTo());
+		
+		List<SeenChapterDTO> chapters =  new ArrayList<>();
+		SeenChapterDTO chapter;
+		
+		for (Chapter chapterList : chaptersList) {
+			chapter = new SeenChapterDTO();
+			if(chaptersListUser.contains(chapters)) {
+				chapter.setSeen(true);
+				chapter.setChapter(chapterList);
+			}else {
+				chapter.setChapter(chapterList);
+			}
+			chapters.add(chapter);
+		}
+		
+		model.addAttribute("status", status);
+		model.addAttribute("serie", serie);
+		model.addAttribute("director", director);
+		model.addAttribute("actors", actors);
+		model.addAttribute("chapters", chapters);
+
+		return "user/info/serie";
+	}
+	
+	@PostMapping("/serie/info")
+	public String infoSeriePost(@RequestParam(required = true, name = "status") String status,
+			HttpServletRequest request, Model model) {
+
+		Usuario user = userService.getUserById(Long.parseLong(cookieService.getUserIdOnSession(request)));
+
+		UsuarioContent userContent = new UsuarioContent();
+		UsuarioContentKey ucKey = new UsuarioContentKey();
+
+		ucKey.setContentId(serieAux.getContentId());
+		ucKey.setUsuarioId(user.getId_usuario());
+
+		userContent.setStatus(status);
+		userContent.setUsuario(user);
+		userContent.setContent(serieAux);
+		userContent.setId(ucKey);
+
+		UsuarioContent userContentExist = ucService.findUsuarioContentByContentAndUsuario(userContent);
+
+		if (!status.equals("default")) {
+			if (userContentExist == null) {
+				user.addUsuarioContent(userContent);
+			} else {
+				user.deleteUsuarioContent(userContentExist);
+				user.addUsuarioContent(userContent);
+			}
+			userService.editUsuario(user);
+		}else {
+			if (userContentExist != null) {
+				ucService.deleteUsuarioContent(userContentExist);
+			} 
+		}
+
+		userService.editUsuario(user);
+		return "redirect:/serie/info?serieId=" + serieAux.getContentId();
+	}
+	
+	@GetMapping("/serie/chapter")
+	public String chapterSerieGet(@RequestParam(required = true, name = "chapterId") String id, 
+			@RequestParam(required = true, name = "seen") String seen, HttpServletRequest request,
+			Model model) {
+		Usuario user = userService.getUserById(Long.parseLong(cookieService.getUserIdOnSession(request)));
+		
+		if(seen.equals("true") && !user.getChapters().contains(chapterService.getChapterByID(Long.parseLong(id)))) {
+			user.addChapter(chapterService.getChapterByID(Long.parseLong(id)));
+		} else if (seen.equals("false") && user.getChapters().contains(chapterService.getChapterByID(Long.parseLong(id)))) {
+			user.deleteChapter(chapterService.getChapterByID(Long.parseLong(id)));
+		}
+		userService.editUsuario(user);
+
+		return "redirect:/serie/info?serieId=" + serieAux.getContentId();
+	}
+	
+	@GetMapping("/seriesC")
+	public String genreGet(Model model) {
+
+		Genre genre = genreService.getGenreByName("Drama");
+		List<Content> contents = genre.getContents();
+		List<Serie> series = new ArrayList();
+
+		for (Content content : contents) {
+			if (serieService.isSerie(content)) {
+				series.add(serieService.getSerieByID(content.getContentId()));
+			}
+		}
+
+		model.addAttribute("series", series);
+		return "/user/serieByGenre";
+	}
+
 }

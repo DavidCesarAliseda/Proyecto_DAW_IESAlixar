@@ -47,11 +47,6 @@ p {
 
 .datos>div>div p {
     margin-right: 10px;
-    cursor: pointer;
-}
-
-.datos>div>div p:hover {
-    font-weight: bold;
 }
 
 #plataforma p {

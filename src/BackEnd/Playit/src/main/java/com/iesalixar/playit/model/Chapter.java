@@ -40,6 +40,9 @@ public class Chapter implements Serializable{
 	@JoinColumn(name="serie_id")
 	Serie serie;
 	
+	@ManyToMany(mappedBy = "chapters")
+	private List<Usuario> users = new ArrayList<>();
+	
 	public Chapter() {
 		
 	}

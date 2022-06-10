@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title th:text="${serie.getTitle()}"></title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link th:insert="parts/link.html">
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/user/main_user.css">
+<link rel="stylesheet" href="/css/user/info_film.css">
+<!-- <script defer src="/js/carousel.js"></script> -->
+<style>
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+	background-color: #eee;
+	color: #444;
+	cursor: pointer;
+	padding: 18px;
+	width: 100%;
+	border: none;
+	text-align: left;
+	outline: none;
+	font-size: 15px;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+	background-color: #ccc;
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+	padding: 0 18px;
+	display: none;
+	background-color: #f1f1f1;
+}
+</style>
+</head>
+<header>
+
+	<div th:replace="parts/header.html :: user_header"></div>
+
+</header>
+
+<body>
+	<main>
+
+		<div id="contenedor">
+			<section id="info" class="row">
+				<div class="col s12 m2 center">
+					<img th:src="@{'/Recursos/Covers/'+${serie.getCover()}}"
+						class="responsive-img">
+				</div>
+				<div class="col s12 m10 .data">
+					<div>
+						<div>
+							<h4 th:text="${serie.getTitle()}"></h4>
+						</div>
+
+					</div>
+
+					<div class="row datos">
+						<div class="col s6 m3">
+							<p>Fecha de estreno</p>
+							<p th:text="${serie.getPremiere()}"></p>
+						</div>
+						<div class="col s6 m3">
+							<p>Pais</p>
+							<p th:text="${serie.getCountry()}"></p>
+						</div>
+						<div class="col s6 m3">
+							<p>Duración</p>
+							<p th:text="${serie.getDuration()}"></p>
+						</div>
+						<div class="col s6 m3">
+							<p>Valoración</p>
+							<p th:text="${serie.getSeasons()+' / 10'}"></p>
+						</div>
+					</div>
+
+					<div class="row datos">
+						<div class="col s3">
+							<p>Director</p>
+							<p th:text="${director.getName()+ ' ' +director.getSurname1()+ ' ' +director.getSurname2()}"></p>
+						</div>
+						<div class="col s9">
+							<p>Género</p>
+							<div>
+								<p>Acción</p>
+								<p>Ciencia Ficción</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="row datos">
+						<div class="col s12 ">
+							<p>Reparto</p>
+							<div>
+								<p th:each="a : ${actors}" th:text="${a.getName()+' '+a.getSurname2()}"></p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<section id="sinopsis" class="row">
+				<div class="col s12 m2 center" style="margin-left: 0;">
+					<form th:action="@{/serie/info}" method="post" class="s4">
+
+						<select name="status" class="browser-default">
+							<option th:value="default" th:if="${status!='default'}">No
+								vista</option>
+							<option th:if="${status=='default'}" th:value="default" selected>No
+								vista</option>
+
+							<option th:value="vista" th:if="${status!='vista'}">Vista</option>
+							<option th:if="${status=='vista'}" th:value="vista" selected>Vista</option>
+
+
+							<option th:value="pendiente" th:if="${status!='pendiente'}">Pendiente</option>
+							<option th:if="${status=='pendiente'}" th:value="pendiente"
+								selected>Pendiente</option>
+
+
+							<option th:value="favorita" th:if="${status!='favorita'}">Favorita</option>
+							<option th:if="${status=='favorita'}" th:value="favorita"
+								selected>Favorita</option>
+
+							<option th:value="siguiendo" th:if="${status!='siguiendo'}">Siguiendo</option>
+							<option th:if="${status=='siguiendo'}" th:value="siguiendo"
+								selected>Siguiendo</option>
+
+
+						</select> <input type="submit" value="Confirmar estado"
+							style="margin-top: 25px; border-radius: 5px;" />
+
+					</form>
+
+				</div>
+				<div class="col s12 m10 ">
+					<h5>Sinopsis</h5>
+					<p th:text="${serie.getSynopsis()}"></p>
+				</div>
+			</section>
+			<section id="plataforma" class="row">
+				<h5>Disponible en...</h5>
+				<div>
+					<a th:href="${serie.getUrlPlatform()}">
+						<div class="col s3 m1">
+							<img
+								th:src="@{'/Recursos/PLatforms/'+${serie.getPlatform().getLogo()}}"
+								class="responsive-img">
+						</div>
+					</a>
+					<div class="col s9 m11 valign-wrapper">
+						<p th:text="${serie.getPlatform().getName()}"></p>
+					</div>
+
+				</div>
+			</section>
+			<section id="capitulos">
+
+
+				<table>
+					<tr>
+						<th>Temporada</th>
+						<th>Capítulo</th>
+						<th>Nombre del capitulo</th>
+
+						<th>Vista</th>
+					</tr>
+					<tr th:each="c : ${chapters}">
+						<td th:text="${c.getChapter().getSeason()}"></td>
+						<td th:text="${c.getChapter().getNumber()}"></td>
+						<td th:text="${c.getChapter().getName()}"></td>
+
+						<td th:if="${c.isSeen()==false}"><a th:href="${'/serie/chapter?chapterId='+c.getChapter().getChapterId()+'&seen=true'}" ><span class="material-icons">visibility_off</span></a></td>
+						<td th:if="${c.isSeen()==true}"><a th:href="${'/serie/chapter?chapterId='+c.getChapter().getChapterId()+'&seen=false'}" ><span class="material-icons">visibility</span></a></td>
+					</tr>
+				</table>
+
+
+			</section>
+			<section id="trailer">
+				<h5>Trailer</h5>
+				<div class="video-container">
+					<iframe height="300" th:src="${serie.getTrailer()}" frameborder="0"
+						allowfullscreen></iframe>
+				</div>
+			</section>
+		</div>
+
+	</main>
+</body>
+<script th:replace="parts/scripts.html :: dropdown"></script>
+<script th:replace="parts/scripts.html :: sidenav"></script>
+</html>

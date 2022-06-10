@@ -18,39 +18,43 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="usuario")
-public class Usuario implements Serializable{
+@Table(name = "usuario")
+public class Usuario implements Serializable {
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id_usuario;
-	
-	@Column(name="nombre_usuario", nullable=false)
+
+	@Column(name = "nombre_usuario", nullable = false)
 	private String userName;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private String password;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private String email;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private String nombre;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private String apellido1;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private String apellido2;
 
-	@Column(nullable=false)
+	@Column(nullable = false)
 	private String role;
-	
+
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	Set<UsuarioContent> userContents;
-	
+
+	@JoinTable(name = "chapterUser", joinColumns = @JoinColumn(name = "fk_user", nullable = false), inverseJoinColumns = @JoinColumn(name = "fk_chapter", nullable = false))
+	@ManyToMany(cascade = CascadeType.ALL)
+	private List<Chapter> chapters;
+
 	public Usuario() {
-		
+
 	}
 
 	public Long getId_usuario() {
@@ -59,7 +63,7 @@ public class Usuario implements Serializable{
 
 	public void setId_usuario(Long id) {
 		this.id_usuario = id;
-	}	
+	}
 
 	public String getUserName() {
 		return userName;
@@ -92,7 +96,7 @@ public class Usuario implements Serializable{
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
+
 	public String getApellido1() {
 		return apellido1;
 	}
@@ -117,12 +121,56 @@ public class Usuario implements Serializable{
 		this.role = role;
 	}
 
-	public void addUsuarioContent (UsuarioContent usuarioContent) {
+	public List<Chapter> getChapters() {
+		return chapters;
+	}
+
+	public void setChapters(List<Chapter> chapters) {
+		this.chapters = chapters;
+	}
+
+	public Set<UsuarioContent> getUserContents() {
+		return userContents;
+	}
+
+	public void setUserContents(Set<UsuarioContent> userContents) {
+		this.userContents = userContents;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(apellido1, apellido2, chapters, email, id_usuario, nombre, password, role);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		return Objects.equals(apellido1, other.apellido1) && Objects.equals(apellido2, other.apellido2)
+				&& Objects.equals(chapters, other.chapters) && Objects.equals(email, other.email)
+				&& Objects.equals(id_usuario, other.id_usuario) && Objects.equals(nombre, other.nombre)
+				&& Objects.equals(password, other.password) && Objects.equals(role, other.role);
+	}
+
+	public void addUsuarioContent(UsuarioContent usuarioContent) {
 		userContents.add(usuarioContent);
 	}
-	
-	public void deleteUsuarioContent (UsuarioContent usuarioContent) {
+
+	public void deleteUsuarioContent(UsuarioContent usuarioContent) {
 		userContents.remove(usuarioContent);
+	}
+
+	public void deleteChapter(Chapter chapter) {
+		this.chapters.remove(chapter);
+	}
+
+	public void addChapter(Chapter chapter) {
+		this.chapters.add(chapter);
 	}
 
 }

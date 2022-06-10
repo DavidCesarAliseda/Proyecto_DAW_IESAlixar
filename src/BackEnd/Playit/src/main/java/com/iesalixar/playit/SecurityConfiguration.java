@@ -49,7 +49,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()
 		.antMatchers("/", "/formulario","/login").not().authenticated()
 		.antMatchers("/main").authenticated()
-		.antMatchers("/chapter/*", "/serie/*", "/genre/*", "/user/*", "/platform/*", "/person/*").hasRole("ADMIN")
+		.antMatchers("/chapter/*", "/genre/*", "/user/*", "/platform/*", "/person/*").hasRole("ADMIN")
 		.and()
 		.formLogin().loginPage("/login").defaultSuccessUrl("/main");
 			

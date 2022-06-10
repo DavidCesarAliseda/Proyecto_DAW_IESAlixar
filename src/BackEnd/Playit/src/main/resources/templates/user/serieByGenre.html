@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Series</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link th:insert="parts/link.html">
+<link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/user/main_user.css">
+<!-- <script defer src="/js/carousel.js"></script> -->
+
+</head>
+<header>
+
+	<div th:replace="parts/header.html :: user_header"></div>
+
+</header>
+
+<body>
+	<main>
+<div class="row">
+		<div class="col s12 m6 l6">
+			<h3 class="white-text"><a>Drama</a></h3>
+			<div class="carousel">
+				<a class="carousel-item"
+					th:href="@{'/serie/info?serieId='+${f.getContentId()}}"
+					th:each="f : ${series}"> <img
+					th:src="@{'/Recursos/Covers/'+${f.cover}}">
+				</a>
+			</div>
+		</div>
+		
+</div>
+
+	</main>
+</body>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.carousel');
+    var instances = M.Carousel.init(elems);
+  });
+</script>
+
+<script th:replace="parts/scripts.html :: sidenav"></script>
+<script th:replace="parts/scripts.html :: carousel"></script>
+<script th:replace="parts/scripts.html :: dropdown"></script>
+
+</html>

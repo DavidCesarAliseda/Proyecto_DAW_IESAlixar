@@ -5,6 +5,12 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/index.css">
 </head>
+<style>
+.dropdown-content {
+	width: max-content !important;
+	height: auto !important;
+}
+</style>
 <body>
 	<header th:fragment="admin_header">
 		<nav>
@@ -38,6 +44,16 @@
 		</nav>
 	</header>
 	<header th:fragment="user_header">
+		<ul id="dropdown1" class="dropdown-content">
+			<li><a th:href="@{'/myList/films'}">Mis peliculas</a></li>
+			<li><a th:href="@{'/myList/series'}">Mis Series</a></li>
+		</ul>
+
+		<ul id="dropdown2" class="dropdown-content">
+			<li><a th:href="@{'/myList/films'}">Mis peliculas</a></li>
+			<li><a th:href="@{'/myList/series'}">Mis series</a></li>
+		</ul>
+
 		<nav>
 			<div class="nav-wrapper">
 				<a th:href="@{'/main'}" class="brand-logo logo">Play<span>it<span></a>
@@ -45,23 +61,41 @@
 					class="material-icons">menu</i></a>
 				<ul class="valign-wrapper right hide-on-med-and-down"
 					style="height: 100%">
-					<li><a th:href="@{'/moviesC'}" class="material-icons valign-wrapper">movie</a></li>
-					<li><a th:href="@{'/seriesC'}" class="material-icons valign-wrapper">tv</a></li>
-					<li><a th:href="@{'/myList'}" class="material-icons valign-wrapper">list</a></li>
+					<li><a th:href="@{'/moviesC'}"
+						class="material-icons valign-wrapper">movie</a></li>
+					<li><a th:href="@{'/seriesC'}"
+						class="material-icons valign-wrapper">tv</a></li>
+					<li><a class="dropdown-trigger material-icons valign-wrapper"
+						href="#!" data-target="dropdown1">list</a></li>
+
 					<li><a th:href="@{'/logout'}"
 						class="material-icons valign-wrapper">logout</a></li>
+
 				</ul>
 
 				<!-- 	Barra lateral movil -->
 				<ul class="sidenav" id="mobile-demo">
 					<li><a th:href="@{'/moviesC'}">Peliculas</a></li>
 					<li><a th:href="@{'/seriesC'}">Series</a></li>
-					<li><a th:href="@{'/myList'}">Listas</a></li>
+					<li><a class="dropdown-trigger valign-wrapper" href="#!"
+						data-target="dropdown2">Listas</a></li>
+
 					<li><a th:href="@{'/logout'}">Logout</a></li>
+
+
 				</ul>
 			</div>
 		</nav>
 	</header>
 </body>
 <script th:replace="parts/scripts.html :: sidenav"></script>
+<script>
+
+var dropdowns = document.querySelectorAll('.dropdown-trigger')
+for (var i = 0; i < dropdowns.length; i++){
+    M.Dropdown.init(dropdowns[i]);
+}
+
+        
+</script>
 </html>
