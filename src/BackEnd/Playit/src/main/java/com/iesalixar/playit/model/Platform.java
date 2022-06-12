@@ -28,7 +28,7 @@ public class Platform implements Serializable{
 	@Column(unique = true, nullable = false)
 	private String logo;
 	
-	@OneToMany(mappedBy="platform",cascade=CascadeType.ALL, orphanRemoval=true)
+	@OneToMany(mappedBy="platform", orphanRemoval=true)
 	private Set<Content> contents = new HashSet<>();
 
 	public Platform() {

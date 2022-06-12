@@ -3,6 +3,7 @@ package com.iesalixar.playit.service;
 import java.util.List;
 
 import com.iesalixar.playit.model.Chapter;
+import com.iesalixar.playit.model.Serie;
 
 public interface ChapterService {
 	
@@ -17,5 +18,7 @@ public interface ChapterService {
 	public Chapter getChapterByID(Long id);
 
 	public Chapter editChapter(Chapter chapter);
+	
+	public void deleteChapters(Serie serie);
 	
 }

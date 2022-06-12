@@ -67,6 +67,8 @@ public class FilmController {
 	UsuarioContentServiceImpl ucService;
 
 	Film filmAux;
+	
+	String statusAux;
 
 	@GetMapping("/film")
 	public String filmGet(@RequestParam(required = false, name = "deletedFilm") String deletedFilm,
@@ -333,7 +335,7 @@ public class FilmController {
 
 		pcService.deletePersonContent(personContent);
 
-		return "redirect:/userFilm/persons?personDeleted=ok&filmId=" + filmDB.getContentId();
+		return "redirect:/film/persons?personDeleted=ok&filmId=" + filmDB.getContentId();
 	}
 
 	@GetMapping("/film/info")
@@ -367,10 +369,13 @@ public class FilmController {
 			}
 		}
 
+		List<Genre> genres = film.getGenres();
+		statusAux = status;
 		model.addAttribute("status", status);
 		model.addAttribute("film", film);
 		model.addAttribute("director", director);
 		model.addAttribute("actors", actors);
+		model.addAttribute("genres", genres);
 
 		return "user/info/film";
 	}
@@ -390,22 +395,15 @@ public class FilmController {
 		userContent.setUsuario(user);
 		userContent.setContent(filmAux);
 		userContent.setId(ucKey);
-
-		UsuarioContent userContentExist = ucService.findUsuarioContentByContentAndUsuario(userContent);
-
-		if (!status.equals("default")) {
-			if (userContentExist == null) {
-				user.addUsuarioContent(userContent);
-			} else {
-				user.deleteUsuarioContent(userContentExist);
-				user.addUsuarioContent(userContent);
-			}
-			userService.editUsuario(user);
+		
+		if(status.equals("default")) {
+			userContent.setStatus(statusAux);
+			ucService.deleteUsuarioContent(userContent);
+			
 		}else {
-			if (userContentExist != null) {
-				ucService.deleteUsuarioContent(userContentExist);
-			} 
+			ucService.addUsuarioContent(user, filmAux, status);
 		}
+		
 
 		return "redirect:/film/info?filmId=" + filmAux.getContentId();
 	}

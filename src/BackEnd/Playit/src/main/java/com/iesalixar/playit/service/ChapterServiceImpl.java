@@ -2,6 +2,7 @@ package com.iesalixar.playit.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -76,6 +77,16 @@ public class ChapterServiceImpl implements ChapterService{
 			return null;
 		}
 		return chapterRepo.save(chapterDB);
+	}
+
+	@Override
+	public void deleteChapters(Serie serie) {
+		Chapter chapterDeleted = new Chapter();
+		Set<Chapter> chapters = serie.getChapters();
+		
+		for (Chapter chapter : chapters) {
+			chapterDeleted = deleteChapter(chapter.getChapterId());
+		}
 	}
 
 }

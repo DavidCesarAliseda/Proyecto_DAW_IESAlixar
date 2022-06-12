@@ -47,42 +47,49 @@
 <body>
 	<main>
 
-		<button type="button" class="collapsible">Peliculas
-			pendientes</button>
+		<button type="button" class="collapsible">Series en seguimiento</button>
+		<div class="content">
+			<div class="row">
+				<div class="col s3 m3 l1" th:each="s : ${siguiendo}"
+					style="overflow: hidden;">
+					<a th:href="@{'/serie/info?serieId='+${s.getContentId()}}"><img
+						th:src="@{'/Recursos/Covers/'+${s.cover}}" class="responsive-img"></a>
+				</div>
+			</div>
+		</div>
+
+		<button type="button" class="collapsible">Series pendientes</button>
 		<div class="content">
 			<div class="row">
 				<div class="col s3 m3 l1" th:each="p : ${pendientes}"
 					style="overflow: hidden;">
-					<a th:href="@{'/film/info?filmId='+${p.getContentId()}}"><img
+					<a th:href="@{'/serie/info?serieId='+${p.getContentId()}}"><img
 						th:src="@{'/Recursos/Covers/'+${p.cover}}" class="responsive-img"></a>
 				</div>
 			</div>
 		</div>
 
-		<button type="button" class="collapsible">Peliculas vistas</button>
+		<button type="button" class="collapsible">Series vistas</button>
 		<div class="content">
 			<div class="row">
 				<div class="col s3 m3 l1" th:each="v : ${vistas}"
 					style="overflow: hidden;">
-					<a th:href="@{'/film/info?filmId='+${v.getContentId()}}"><img
+					<a th:href="@{'/serie/info?serieId='+${v.getContentId()}}"><img
 						th:src="@{'/Recursos/Covers/'+${v.cover}}" class="responsive-img"></a>
 				</div>
 			</div>
 		</div>
 
-		<button type="button" class="collapsible">Peliculas favoritas</button>
+		<button type="button" class="collapsible">Series favoritas</button>
 		<div class="content">
 			<div class="row">
 				<div class="col s3 m3 l1" th:each="f : ${favoritas}"
 					style="overflow: hidden;">
-					<a th:href="@{'/film/info?filmId='+${f.getContentId()}}"><img
+					<a th:href="@{'/serie/info?serieId='+${f.getContentId()}}"><img
 						th:src="@{'/Recursos/Covers/'+${f.cover}}" class="responsive-img"></a>
 				</div>
 			</div>
 		</div>
-
-
-
 
 	</main>
 </body>

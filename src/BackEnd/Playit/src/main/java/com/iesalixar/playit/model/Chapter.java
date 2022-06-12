@@ -102,7 +102,7 @@ public class Chapter implements Serializable{
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(chapterId, name, number, season, serie);
+		return Objects.hash(chapterId, name, number, season);
 	}
 
 	@Override
@@ -115,9 +115,11 @@ public class Chapter implements Serializable{
 			return false;
 		Chapter other = (Chapter) obj;
 		return Objects.equals(chapterId, other.chapterId) && Objects.equals(name, other.name)
-				&& Objects.equals(number, other.number) && Objects.equals(season, other.season)
-				&& Objects.equals(serie, other.serie);
+				&& Objects.equals(number, other.number) && Objects.equals(season, other.season);
 	}
-	
-	
+
+	public void deleteUser(Usuario user) {
+		this.users.remove(user);
+		user.getChapters().remove(this);
+	}
 }

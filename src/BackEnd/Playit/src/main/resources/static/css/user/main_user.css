@@ -1,13 +1,16 @@
-html,
-body {
+html, body {
 	min-height: 100%;
+}
+
+* {
+	font-family: 'Roboto Slab', Roboto;
 }
 
 body {
 	background: rgb(0, 0, 0);
 	background: linear-gradient(180deg, rgba(0, 0, 0, 1) 0%,
-			rgba(20, 63, 88, 1) 39%, rgba(20, 63, 88, 0.9275911048012955) 65%,
-			rgba(41, 131, 182, 1) 100%);
+		rgba(20, 63, 88, 1) 39%, rgba(20, 63, 88, 0.9275911048012955) 65%,
+		rgba(41, 131, 182, 1) 100%);
 	background-repeat: no-repeat;
 }
 
@@ -17,41 +20,10 @@ h4 {
 	margin-bottom: 5vh;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+h3 {
+	color: white;
+	margin-bottom: 0;
+}
 
 /*-------------------Carousel-------------------*/
 .contenedor {
@@ -81,7 +53,7 @@ h4 {
 }
 
 .contenedor-titulo-controles .indicadores button:hover,
-.contenedor-titulo-controles .indicadores button.activo {
+	.contenedor-titulo-controles .indicadores button.activo {
 	background: red;
 }
 
@@ -97,7 +69,7 @@ h4 {
 }
 
 .peliculas-recomendadas .contenedor-principal .flecha-izquierda,
-.peliculas-recomendadas .contenedor-principal .flecha-derecha {
+	.peliculas-recomendadas .contenedor-principal .flecha-derecha {
 	position: absolute;
 	border: none;
 	background: rgba(0, 0, 0, 0.3);
@@ -113,7 +85,7 @@ h4 {
 }
 
 .peliculas-recomendadas .contenedor-principal .flecha-izquierda:hover,
-.peliculas-recomendadas .contenedor-principal .flecha-derecha:hover {
+	.peliculas-recomendadas .contenedor-principal .flecha-derecha:hover {
 	background: rgba(0, 0, 0, 0.9);
 }
 
@@ -155,21 +127,17 @@ h4 {
 }
 
 /* Media queries*/
-
 @media screen and (max-width: 800px) {
 	.peliculas-recomendadas .contenedor-carousel {
 		overflow: visible;
 	}
-
 	.peliculas-recomendadas .contenedor-carousel .carousel {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		gap: 20px;
 	}
-
-	.peliculas-recomendadas .indicadores,
-	.peliculas-recomendadas .flecha-derecha,
-	.peliculas-recomendadas .flecha-izquierda {
+	.peliculas-recomendadas .indicadores, .peliculas-recomendadas .flecha-derecha,
+		.peliculas-recomendadas .flecha-izquierda {
 		display: none;
 	}
 }

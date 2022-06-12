@@ -93,7 +93,12 @@ public class ChapterController {
 		chapterDTO.setName(chapter.getName());
 		chapterDTO.setNumber(chapter.getNumber());
 		chapterDTO.setSeason(chapter.getSeason());
-		chapterDTO.setSerieId(chapter.getSerie().getContentId());
+		
+		if(chapter.getSerie() == null) {
+			
+		}else {
+			chapterDTO.setSerieId(chapter.getSerie().getContentId());
+		}
 
 		model.addAttribute("chapterDTO", chapterDTO);
 		model.addAttribute("error", error);

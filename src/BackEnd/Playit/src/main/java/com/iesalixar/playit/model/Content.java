@@ -64,7 +64,7 @@ public class Content implements Serializable {
 			joinColumns = @JoinColumn(name = "fk_content", nullable = false),
 			inverseJoinColumns = @JoinColumn(name = "fk_genre", nullable = false)
 	)
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany
 	private List<Genre> genres = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "content", cascade = CascadeType.ALL)
@@ -191,9 +191,12 @@ public class Content implements Serializable {
 		this.personContents = personContent;
 	}
 
+	
+	
 	@Override
 	public int hashCode() {
-		return Objects.hash(contentId, country, cover, duration, premiere, synopsis, title, trailer);
+		return Objects.hash(contentId, country, cover, duration, genres, premiere, synopsis, title, trailer,
+				urlPlatform);
 	}
 
 	@Override
@@ -207,10 +210,11 @@ public class Content implements Serializable {
 		Content other = (Content) obj;
 		return Objects.equals(contentId, other.contentId) && Objects.equals(country, other.country)
 				&& Objects.equals(cover, other.cover) && Objects.equals(duration, other.duration)
-				&& Objects.equals(premiere, other.premiere) && Objects.equals(synopsis, other.synopsis)
-				&& Objects.equals(title, other.title) && Objects.equals(trailer, other.trailer);
+				&& Objects.equals(genres, other.genres) && Objects.equals(premiere, other.premiere)
+				&& Objects.equals(synopsis, other.synopsis) && Objects.equals(title, other.title)
+				&& Objects.equals(trailer, other.trailer) && Objects.equals(urlPlatform, other.urlPlatform);
 	}
-	
+
 	public void deleteGenre(Genre genre) {
 		genres.remove(genre);
 	}

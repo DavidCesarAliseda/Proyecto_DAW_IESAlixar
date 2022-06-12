@@ -47,7 +47,7 @@ public class Usuario implements Serializable {
 	@Column(nullable = false)
 	private String role;
 
-	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "usuario")
 	Set<UsuarioContent> userContents;
 
 	@JoinTable(
@@ -55,7 +55,7 @@ public class Usuario implements Serializable {
 			joinColumns = @JoinColumn(name = "fk_user", nullable = false),
 			inverseJoinColumns = @JoinColumn(name = "fk_chapter", nullable = false)
 	)
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany
 	private List<Chapter> chapters = new ArrayList<>();
 
 	public Usuario() {

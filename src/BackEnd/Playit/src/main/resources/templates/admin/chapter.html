@@ -34,7 +34,8 @@
 					<td th:text="${c.getName()}"></td>
 					<td th:text="${c.getNumber()}"></td>
 					<td th:text="${c.getSeason()}"></td>
-					<td th:text="${c.getSerie().getTitle()}"></td>
+					<td th:if="${c.getSerie()!=null}" th:text="${c.getSerie().getTitle()}"></td>
+					<td th:if="${c.getSerie()==null}" th:text="${'Sin serie asignada'}"></td>
 					<td><a th:href="@{'/chapter/edit?chapterId='+${c.getChapterId()}}"><span
 							class="material-symbols-outlined">edit</span></a> <a
 						th:href="@{'/chapter/delete?chapterId='+${c.getChapterId()}}"><span

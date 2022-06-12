@@ -18,6 +18,9 @@ public class SerieServiceImpl implements SerieService{
 	@Autowired
 	SerieRepository serieRepo;
 	
+	@Autowired
+	ChapterServiceImpl chapterService;
+	
 	@Override
 	public List<Serie> getAllSeries() {
 		List<Serie> SerieDB = serieRepo.findAll();
@@ -51,7 +54,9 @@ public class SerieServiceImpl implements SerieService{
 	@Override
 	public Serie deleteSerie(Long id) {
 		if (id != null) {
+			
 			Serie serie = serieRepo.findById(id).get();
+			//chapterService.deleteChapters(serie);
 			serieRepo.delete(serie);
 	
 			return serie;

@@ -75,8 +75,9 @@ public class SerieController {
 	@Autowired
 	ChapterServiceImpl chapterService;
 
-
 	Serie serieAux;
+	
+	String statusAux;
 
 	@GetMapping("/serie")
 	public String genreGet(@RequestParam(required = false, name = "deletedSerie") String deletedSerie,
@@ -217,8 +218,18 @@ public class SerieController {
 
 	@GetMapping("/serie/delete")
 	public String deleteSerieGet(@RequestParam(required = false, name = "serieId") String id) {
-		Serie serie = new Serie();
-		serie = serieService.deleteSerie(Long.parseLong(id));
+		Serie serie = serieService.getSerieByID(Long.parseLong(id));
+		List<Chapter> chapters = new ArrayList<>( serie.getChapters());
+		List<Usuario> users = userService.getAllUsuarios();
+		for (Chapter chapter : chapters) {
+			serie.deleteChapter(chapter);
+			for (Usuario usuario : users) {
+				chapter.deleteUser(usuario);
+			}
+		}
+		
+		//serieService.editSerie(serie);
+		serie = serieService.deleteSerie(serie.getContentId());
 		return "redirect:/serie?deletedSerie=ok";
 	}
 
@@ -393,7 +404,9 @@ public class SerieController {
 			}
 			chapters.add(chapter);
 		}
-
+		
+		List<Genre> genres = serie.getGenres();
+		statusAux = status;
 		model.addAttribute("status", status);
 		model.addAttribute("serie", serie);
 		model.addAttribute("director", director);
@@ -420,20 +433,12 @@ public class SerieController {
 		userContent.setContent(serieAux);
 		userContent.setId(ucKey);
 
-		UsuarioContent userContentExist = ucService.findUsuarioContentByContentAndUsuario(userContent);
-
-		if (!status.equals("default")) {
-			if (userContentExist == null) {
-				user.addUsuarioContent(userContent);
-			} else {
-				user.deleteUsuarioContent(userContentExist);
-				user.addUsuarioContent(userContent);
-			}
-			userService.editUsuario(user);
-		} else {
-			if (userContentExist != null) {
-				ucService.deleteUsuarioContent(userContentExist);
-			}
+		if(status.equals("default")) {
+			userContent.setStatus(statusAux);
+			ucService.deleteUsuarioContent(userContent);
+			
+		}else {
+			ucService.addUsuarioContent(user, serieAux, status);
 		}
 
 		userService.editUsuario(user);

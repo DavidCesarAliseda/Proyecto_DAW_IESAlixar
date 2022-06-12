@@ -56,7 +56,7 @@ p {
 a:hover{
 	font-weight: bold;
 }
-
 select, input[type="submit"]{
     background: rgba(128, 128, 128, 0);
 }
+

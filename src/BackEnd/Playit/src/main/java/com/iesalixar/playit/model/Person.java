@@ -34,7 +34,7 @@ public class Person implements Serializable{
 	@Column(nullable = false, columnDefinition="varchar(10)")
 	private String BirthDate;
 	
-	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "person")
 	Set<PersonContent> personContents;
 
 	public Person() {

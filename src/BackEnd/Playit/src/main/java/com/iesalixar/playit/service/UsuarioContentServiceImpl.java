@@ -5,8 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.iesalixar.playit.model.Content;
 import com.iesalixar.playit.model.Usuario;
 import com.iesalixar.playit.model.UsuarioContent;
+import com.iesalixar.playit.model.UsuarioContentKey;
 import com.iesalixar.playit.repository.UsuarioContentRepository;
 
 @Service
@@ -48,6 +50,33 @@ public class UsuarioContentServiceImpl implements UsuarioContentService {
 	public void deleteUsuarioContent(UsuarioContent uc) {
 		ucRepo.delete(uc);
 		
+	}
+
+	@Override
+	public UsuarioContent existUsuarioContent(UsuarioContent uc) {
+			List<UsuarioContent> usuarioContents = ucRepo.findAll();
+			for (UsuarioContent usuarioContent : usuarioContents) {
+				if(usuarioContent.getContent().equals(uc.getContent()) && usuarioContent.getUsuario().equals(uc.getUsuario())) {
+					return usuarioContent;
+				}
+			}
+			return null;
+	}
+
+	@Override
+	public UsuarioContent addUsuarioContent(Usuario usuario, Content content, String status) {
+		UsuarioContent userContent = new UsuarioContent();
+		userContent.setStatus(status);
+		userContent.setUsuario(usuario);
+		userContent.setContent(content);
+		
+		UsuarioContentKey ucKey = new UsuarioContentKey();
+		ucKey.setContentId(content.getContentId());
+		ucKey.setUsuarioId(usuario.getId_usuario());
+		
+		userContent.setId(ucKey);
+		
+		return ucRepo.save(userContent);
 	}
 
 }

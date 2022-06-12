@@ -20,7 +20,7 @@ public class Serie extends Content implements Serializable {
 	@Column(nullable = false)
 	private Long seasons;
 	
-	@OneToMany(mappedBy="serie",cascade=CascadeType.ALL, orphanRemoval=true)
+	@OneToMany(mappedBy="serie")
 	private Set<Chapter> chapters = new HashSet<>();
 
 	public Serie() {
@@ -61,5 +61,10 @@ public class Serie extends Content implements Serializable {
 			return false;
 		Serie other = (Serie) obj;
 		return Objects.equals(seasons, other.seasons);
+	}
+	
+	public void deleteChapter(Chapter chapter) {
+		this.chapters.remove(chapter);
+		chapter.setSerie(null);
 	}
 }

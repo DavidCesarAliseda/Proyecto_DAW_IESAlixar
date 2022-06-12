@@ -66,6 +66,10 @@ public class MainController {
 				series.addAll(series);
 			}
 			
+			for (int i = 0; i < 5; i++) {
+				films.addAll(films);
+			}
+			
 
 			model.addAttribute("films", films);
 			model.addAttribute("series", series);

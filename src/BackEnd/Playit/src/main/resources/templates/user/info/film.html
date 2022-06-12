@@ -60,17 +60,13 @@
 					<div class="row datos">
 						<div class="col s3">
 							<p>Director</p>
-							<a
-								th:href="${'https://es.wikipedia.org/wiki/'+director.getName()+ '_' +director.getSurname2()}">
-								<p
-									th:text="${director.getName()+ ' ' +director.getSurname1()+ ' ' +director.getSurname2()}"></p>
-							</a>
+							<p
+								th:text="${director.getName()+ ' ' +director.getSurname1()+ ' ' +director.getSurname2()}"></p>
 						</div>
 						<div class="col s9">
 							<p>Género</p>
 							<div>
-								<p>Acción</p>
-								<p>Ciencia Ficción</p>
+								<p th:each="g : ${genres}" th:text="${g.getName()}"></p>
 							</div>
 						</div>
 					</div>
@@ -79,10 +75,8 @@
 						<div class="col s12 ">
 							<p>Reparto</p>
 							<div>
-								<a th:each="a : ${actors}"
-									th:href="${'https://es.wikipedia.org/wiki/'+a.getName()+'_'+a.getSurname2()}">
-									<p th:text="${a.getName()+' '+a.getSurname2()}"></p>
-								</a>
+								<p th:each="a : ${actors}"
+									th:text="${a.getName()+' '+a.getSurname2()}"></p>
 							</div>
 						</div>
 
@@ -93,25 +87,30 @@
 			<section id="sinopsis" class="row">
 				<div class="col s12 m2 center" style="margin-left: 0;">
 					<form th:action="@{/film/info}" method="post" class="s4">
-					
-						<select name="status" class="browser-default" >
-							<option th:value="default" th:if="${status!='default'}">No vista</option>
-							<option th:if="${status=='default'}" th:value="default" selected>No vista</option>
-							
+
+						<select name="status" class="browser-default">
+							<option th:value="default" th:if="${status!='default'}">No
+								vista</option>
+							<option th:if="${status=='default'}" th:value="default" selected>No
+								vista</option>
+
 							<option th:value="vista" th:if="${status!='vista'}">Vista</option>
 							<option th:if="${status=='vista'}" th:value="vista" selected>Vista</option>
-							
-							
+
+
 							<option th:value="pendiente" th:if="${status!='pendiente'}">Pendiente</option>
-							<option th:if="${status=='pendiente'}" th:value="pendiente" selected>Pendiente</option>
-							
-							
+							<option th:if="${status=='pendiente'}" th:value="pendiente"
+								selected>Pendiente</option>
+
+
 							<option th:value="favorita" th:if="${status!='favorita'}">Favorita</option>
-							<option th:if="${status=='favorita'}" th:value="favorita" selected>Favorita</option>
-							
-							
-						</select> <input type="submit" value="Confirmar estado" style="margin-top:25px; border-radius:5px;"/>
-					
+							<option th:if="${status=='favorita'}" th:value="favorita"
+								selected>Favorita</option>
+
+
+						</select> <input type="submit" value="Confirmar estado"
+							style="margin-top: 25px; border-radius: 5px;" />
+
 					</form>
 
 				</div>
