@@ -5,10 +5,10 @@ import com.iesalixar.playit.model.Chapter;
 public class SeenChapterDTO {
 
 	private Chapter chapter;
-	private boolean seen;
+	private String seen;
 	
 	public SeenChapterDTO() {
-		this.seen = false;
+
 	}
 
 	public Chapter getChapter() {
@@ -19,13 +19,15 @@ public class SeenChapterDTO {
 		this.chapter = chapter;
 	}
 
-	public boolean isSeen() {
+	public String getSeen() {
 		return seen;
 	}
 
-	public void setSeen(boolean seen) {
+	public void setSeen(String seen) {
 		this.seen = seen;
 	}
+
+	
 	
 	
 }

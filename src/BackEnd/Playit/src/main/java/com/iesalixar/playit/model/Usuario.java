@@ -1,6 +1,7 @@
 package com.iesalixar.playit.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -49,9 +50,13 @@ public class Usuario implements Serializable {
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
 	Set<UsuarioContent> userContents;
 
-	@JoinTable(name = "chapterUser", joinColumns = @JoinColumn(name = "fk_user", nullable = false), inverseJoinColumns = @JoinColumn(name = "fk_chapter", nullable = false))
+	@JoinTable(
+			name = "userChapter",
+			joinColumns = @JoinColumn(name = "fk_user", nullable = false),
+			inverseJoinColumns = @JoinColumn(name = "fk_chapter", nullable = false)
+	)
 	@ManyToMany(cascade = CascadeType.ALL)
-	private List<Chapter> chapters;
+	private List<Chapter> chapters = new ArrayList<>();
 
 	public Usuario() {
 
@@ -121,6 +126,16 @@ public class Usuario implements Serializable {
 		this.role = role;
 	}
 
+	public Set<UsuarioContent> getUserContents() {
+		return userContents;
+	}
+
+	public void setUserContents(Set<UsuarioContent> userContents) {
+		this.userContents = userContents;
+	}
+	
+	
+
 	public List<Chapter> getChapters() {
 		return chapters;
 	}
@@ -129,17 +144,9 @@ public class Usuario implements Serializable {
 		this.chapters = chapters;
 	}
 
-	public Set<UsuarioContent> getUserContents() {
-		return userContents;
-	}
-
-	public void setUserContents(Set<UsuarioContent> userContents) {
-		this.userContents = userContents;
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(apellido1, apellido2, chapters, email, id_usuario, nombre, password, role);
+		return Objects.hash(apellido1, apellido2, email, id_usuario, nombre, password, role, userName);
 	}
 
 	@Override
@@ -152,9 +159,9 @@ public class Usuario implements Serializable {
 			return false;
 		Usuario other = (Usuario) obj;
 		return Objects.equals(apellido1, other.apellido1) && Objects.equals(apellido2, other.apellido2)
-				&& Objects.equals(chapters, other.chapters) && Objects.equals(email, other.email)
-				&& Objects.equals(id_usuario, other.id_usuario) && Objects.equals(nombre, other.nombre)
-				&& Objects.equals(password, other.password) && Objects.equals(role, other.role);
+				&& Objects.equals(email, other.email) && Objects.equals(id_usuario, other.id_usuario)
+				&& Objects.equals(nombre, other.nombre) && Objects.equals(password, other.password)
+				&& Objects.equals(role, other.role) && Objects.equals(userName, other.userName);
 	}
 
 	public void addUsuarioContent(UsuarioContent usuarioContent) {
@@ -165,12 +172,12 @@ public class Usuario implements Serializable {
 		userContents.remove(usuarioContent);
 	}
 
-	public void deleteChapter(Chapter chapter) {
-		this.chapters.remove(chapter);
-	}
-
 	public void addChapter(Chapter chapter) {
-		this.chapters.add(chapter);
+		chapters.add(chapter);
+	}
+	
+	public void deleteChapter(Chapter chapter) {
+		chapters.remove(chapter);
 	}
 
 }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -14,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -42,6 +44,7 @@ public class Chapter implements Serializable{
 	
 	@ManyToMany(mappedBy = "chapters")
 	private List<Usuario> users = new ArrayList<>();
+
 	
 	public Chapter() {
 		
@@ -85,6 +88,16 @@ public class Chapter implements Serializable{
 
 	public void setSerie(Serie serie) {
 		this.serie = serie;
+	}
+
+
+
+	public List<Usuario> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<Usuario> users) {
+		this.users = users;
 	}
 
 	@Override

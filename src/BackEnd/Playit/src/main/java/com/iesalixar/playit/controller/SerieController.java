@@ -50,19 +50,19 @@ import com.iesalixar.playit.utils.seasonChapterCompareTo;
 public class SerieController {
 	@Autowired
 	SerieServiceImpl serieService;
-	
+
 	@Autowired
 	PlatformServiceImpl platformService;
-	
+
 	@Autowired
 	GenreServiceImpl genreService;
-	
+
 	@Autowired
 	PersonServiceImpl personService;
-	
+
 	@Autowired
 	PersonContentServiceImpl pcService;
-	
+
 	@Autowired
 	CookiesServiceImpl cookieService;
 
@@ -71,16 +71,17 @@ public class SerieController {
 
 	@Autowired
 	UsuarioContentServiceImpl ucService;
-	
+
 	@Autowired
 	ChapterServiceImpl chapterService;
-	
+
+
 	Serie serieAux;
 
 	@GetMapping("/serie")
 	public String genreGet(@RequestParam(required = false, name = "deletedSerie") String deletedSerie,
-			@RequestParam(required = false, name = "editedSerie") String editedSerie ,
-			@RequestParam(required = false, name = "addedSerie") String addedSerie ,Model model) {
+			@RequestParam(required = false, name = "editedSerie") String editedSerie,
+			@RequestParam(required = false, name = "addedSerie") String addedSerie, Model model) {
 		List<Serie> series = serieService.getAllSeries();
 
 		model.addAttribute("series", series);
@@ -91,22 +92,21 @@ public class SerieController {
 	}
 
 	@GetMapping("/serie/add")
-	public String addSerieGet(@RequestParam(required = false, name = "error") String error,
-			 Model model) {
+	public String addSerieGet(@RequestParam(required = false, name = "error") String error, Model model) {
 
 		SerieDTO serie = new SerieDTO();
 		List<Platform> platforms = platformService.getAllPlatforms();
-		
+
 		model.addAttribute("serie", serie);
 		model.addAttribute("platforms", platforms);
 		model.addAttribute("error", error);
 		return "admin/addSerie";
 	}
-	
+
 	@PostMapping("/serie/add")
 	public String addSeriePost(@ModelAttribute SerieDTO serie,
 			@RequestParam(required = true, name = "cover") MultipartFile cover, Model model) {
-		
+
 		if (!cover.isEmpty()) {
 			/*
 			 * Path directorioImagenes= Paths.get("src//main//resources//static/img");
@@ -116,16 +116,16 @@ public class SerieController {
 
 			try {
 				byte[] bytesImg = cover.getBytes();
-				
+
 				Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + cover.getOriginalFilename());
 				Files.write(rutaCompleta, bytesImg);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-		
+
 		Serie serieDB = new Serie();
-		
+
 		serieDB.setTitle(serie.getTitle());
 		serieDB.setSynopsis(serie.getSynopsis());
 		serieDB.setCountry(serie.getCountry());
@@ -136,14 +136,14 @@ public class SerieController {
 		serieDB.setCover(cover.getOriginalFilename());
 		serieDB.setPlatform(platformService.getPlatformByID(serie.getPlatformId()));
 		serieDB.setUrlPlatform(serie.getUrlPlatform());
-		
-		if(serieService.addSerie(serieDB) == null) {
+
+		if (serieService.addSerie(serieDB) == null) {
 			return "redirect:/serie/add?error=Exist";
 		}
-		
+
 		return "redirect:/serie?addedSerie=ok";
 	}
-	
+
 	@GetMapping("/serie/edit")
 	public String editSerieGet(@RequestParam(required = true, name = "serieId") String id,
 			@RequestParam(required = false, name = "error") String error, Model model) {
@@ -153,9 +153,9 @@ public class SerieController {
 		serieAux.setContentId(serie.getContentId());
 		serieAux.setCover(serie.getCover());
 		serieAux.setGenres(serie.getGenres());
-		
+
 		SerieDTO serieDTO = new SerieDTO();
-		
+
 		serieDTO.setTitle(serie.getTitle());
 		serieDTO.setSynopsis(serie.getSynopsis());
 		serieDTO.setCountry(serie.getCountry());
@@ -171,7 +171,7 @@ public class SerieController {
 		model.addAttribute("error", error);
 		return "admin/editSerie";
 	}
-	
+
 	@PostMapping("/serie/edit")
 	public String editSeriePost(@ModelAttribute SerieDTO serie,
 			@RequestParam(required = true, name = "cover") MultipartFile cover, Model model) {
@@ -209,146 +209,146 @@ public class SerieController {
 		serieDB.setUrlPlatform(serie.getUrlPlatform());
 
 		if (serieService.editSerie(serieDB) == null) {
-			return "redirect:/serie/edit?error=Exist&serieId="+serieDB.getContentId();
+			return "redirect:/serie/edit?error=Exist&serieId=" + serieDB.getContentId();
 		}
 
 		return "redirect:/serie?editedSerie=ok";
 	}
-	
+
 	@GetMapping("/serie/delete")
 	public String deleteSerieGet(@RequestParam(required = false, name = "serieId") String id) {
 		Serie serie = new Serie();
 		serie = serieService.deleteSerie(Long.parseLong(id));
 		return "redirect:/serie?deletedSerie=ok";
 	}
-	
+
 	@GetMapping("/serie/genres")
-	public String addGenreSerieGet(@RequestParam(required = true, name = "serieId") String id, 
+	public String addGenreSerieGet(@RequestParam(required = true, name = "serieId") String id,
 			@RequestParam(required = false, name = "error") String error,
-			@RequestParam(required = false, name = "deletedSerie") String deletedSerie,Model model) {
-		
+			@RequestParam(required = false, name = "deletedSerie") String deletedSerie, Model model) {
+
 		Serie serie = serieService.getSerieByID(Long.parseLong(id));
 		serieAux = new Serie();
 		serieAux = serie;
-		
+
 		List<Genre> genres = serie.getGenres();
 		List<Genre> allGenres = genreService.getAllGenres();
-		
+
 		model.addAttribute("deletedSerie", deletedSerie);
 		model.addAttribute("genres", genres);
 		model.addAttribute("error", error);
 		model.addAttribute("allGenres", allGenres);
-		
+
 		return "admin/content/serieGenres";
 	}
-	
+
 	@PostMapping("/serie/genres")
 	public String addGenreSeriePost(@RequestParam(required = true, name = "newGenre") String newGenre, Model model) {
 		Serie serieDB = serieAux;
-		
+
 		List<Genre> genres = serieDB.getGenres();
 		Genre genre = genreService.getGenreByID(Long.parseLong(newGenre));
-		
-		if(genres.contains(genre)) {
-			return "redirect:/serie/genres?error=Exist&serieId="+serieDB.getContentId();
+
+		if (genres.contains(genre)) {
+			return "redirect:/serie/genres?error=Exist&serieId=" + serieDB.getContentId();
 		}
-		
+
 		serieDB.addGenre(genreService.getGenreByID(Long.parseLong(newGenre)));
-		
+
 		if (serieService.editSerie(serieDB) == null) {
-			return "redirect:/serie/genres?error=error&serieId="+serieDB.getContentId();
+			return "redirect:/serie/genres?error=error&serieId=" + serieDB.getContentId();
 		}
-		
-		return "redirect:/serie/genres?genreAdded=ok&serieId="+serieDB.getContentId();
+
+		return "redirect:/serie/genres?genreAdded=ok&serieId=" + serieDB.getContentId();
 	}
-	
+
 	@GetMapping("/serie/genres/delete")
 	public String deleteGenreSerieGet(@RequestParam(required = false, name = "genreId") String id) {
 		Serie serieDB = serieAux;
 		serieDB.deleteGenre(genreService.getGenreByID(Long.parseLong(id)));
-		
+
 		if (serieService.editSerie(serieDB) == null) {
-			return "redirect:/serie/genres?error=error&serieId="+serieDB.getContentId();
+			return "redirect:/serie/genres?error=error&serieId=" + serieDB.getContentId();
 		}
-		
-		return "redirect:/serie/genres?deletedSerie=ok&serieId="+serieDB.getContentId();
+
+		return "redirect:/serie/genres?deletedSerie=ok&serieId=" + serieDB.getContentId();
 	}
-	
+
 	@GetMapping("/serie/persons")
-	public String addPersonSerieGet(@RequestParam(required = true, name = "serieId") String id, 
+	public String addPersonSerieGet(@RequestParam(required = true, name = "serieId") String id,
 			@RequestParam(required = false, name = "personAdded") String personAdded,
 			@RequestParam(required = false, name = "error") String error,
 			@RequestParam(required = false, name = "personDeleted") String personDeleted, Model model) {
-		
+
 		Serie serie = serieService.getSerieByID(Long.parseLong(id));
 		serieAux = new Serie();
 		serieAux = serie;
-	
+
 		List<Person> persons = personService.getAllPersons();
-		
+
 		Set<PersonContent> personContents = serie.getPersonContent();
-		
+
 		PersonContentDTO pcDTO = new PersonContentDTO();
-		
+
 		model.addAttribute("persons", persons);
 		model.addAttribute("pcDTO", pcDTO);
 		model.addAttribute("personContents", personContents);
 		model.addAttribute("error", error);
 		model.addAttribute("personAdded", personAdded);
 		model.addAttribute("personDeleted", personDeleted);
-		
+
 		return "admin/content/seriePersons";
 	}
-	
+
 	@PostMapping("/serie/persons")
 	public String addPersonsSeriePost(@ModelAttribute PersonContentDTO pcDTO, Model model) {
 		Serie serieDB = serieAux;
-		
-		/*Set<PersonContent> personContents = serieDB.getPersonContent();*/
-		
+
+		/* Set<PersonContent> personContents = serieDB.getPersonContent(); */
+
 		PersonContent personContent = new PersonContent();
 		personContent.setRole(pcDTO.getRole());
 		personContent.setPerson(personService.getPersonByID(pcDTO.getPersonId()));
 		personContent.setContent(serieService.getSerieByID(serieDB.getContentId()));
-		
+
 		PersonContentKey pcKey = new PersonContentKey();
 		pcKey.setContentId(serieDB.getContentId());
 		pcKey.setPersonId(pcDTO.getPersonId());
-		
+
 		personContent.setId(pcKey);
-		
+
 		if (pcService.findPersonContentByContentAndPerson(personContent) != null) {
-			return "redirect:/serie/persons?error=Exist&serieId="+serieDB.getContentId();
+			return "redirect:/serie/persons?error=Exist&serieId=" + serieDB.getContentId();
 		}
 		serieDB.addPersonContent(personContent);
-		
+
 		if (serieService.editSerie(serieDB) == null) {
-			return "redirect:/serie/persons?error=error&serieId="+serieDB.getContentId();
+			return "redirect:/serie/persons?error=error&serieId=" + serieDB.getContentId();
 		}
-		return "redirect:/serie/persons?personAdded=ok&serieId="+serieDB.getContentId();
+		return "redirect:/serie/persons?personAdded=ok&serieId=" + serieDB.getContentId();
 	}
-	
+
 	@GetMapping("/serie/persons/delete")
 	public String deletePersonSerieGet(@RequestParam(required = false, name = "personId") String id) {
 		Serie serieDB = serieAux;
 		Set<PersonContent> personContents = serieDB.getPersonContent();
 		PersonContent personContent = new PersonContent();
-		
+
 		for (PersonContent pc : personContents) {
-			if(pc.getPerson().getPersonId() == Long.parseLong(id)) {
+			if (pc.getPerson().getPersonId() == Long.parseLong(id)) {
 				personContent = pc;
 			}
 		}
-		
+
 		pcService.deletePersonContent(personContent);
-		
-		return "redirect:/serie/persons?personDeleted=ok&serieId="+serieDB.getContentId();
+
+		return "redirect:/serie/persons?personDeleted=ok&serieId=" + serieDB.getContentId();
 	}
-	
+
 	@GetMapping("/serie/info")
 	public String infoSerieGet(@RequestParam(required = true, name = "serieId") String id, HttpServletRequest request,
 			Model model) {
-		
+
 		Usuario user = userService.getUserById(Long.parseLong(cookieService.getUserIdOnSession(request)));
 		serieAux = new Serie();
 		Serie serie = serieService.getSerieByID(Long.parseLong(id));
@@ -374,27 +374,26 @@ public class SerieController {
 				System.out.println(status);
 			}
 		}
+		
 		//Chapters
-		List<Chapter> chaptersList = new ArrayList<>(serie.getChapters());
-		chaptersList.sort(new seasonChapterCompareTo());
-		
-		List<Chapter> chaptersListUser = user.getChapters();
-		chaptersListUser.sort(new seasonChapterCompareTo());
-		
-		List<SeenChapterDTO> chapters =  new ArrayList<>();
+		List<Chapter> allChaptersSerie = new ArrayList<>(serie.getChapters()); 
+		List<Chapter> allChaptersUser = user.getChapters();
+		allChaptersSerie.sort(new seasonChapterCompareTo());
+		allChaptersUser.sort(new seasonChapterCompareTo());
+		List<SeenChapterDTO> chapters = new ArrayList<>();
 		SeenChapterDTO chapter;
 		
-		for (Chapter chapterList : chaptersList) {
+		for (Chapter chapterSerie : allChaptersSerie) {
 			chapter = new SeenChapterDTO();
-			if(chaptersListUser.contains(chapters)) {
-				chapter.setSeen(true);
-				chapter.setChapter(chapterList);
+			chapter.setChapter(chapterSerie);
+			if(allChaptersUser.contains(chapterSerie)) {
+				chapter.setSeen("true");
 			}else {
-				chapter.setChapter(chapterList);
+				chapter.setSeen("false");
 			}
 			chapters.add(chapter);
 		}
-		
+
 		model.addAttribute("status", status);
 		model.addAttribute("serie", serie);
 		model.addAttribute("director", director);
@@ -403,7 +402,7 @@ public class SerieController {
 
 		return "user/info/serie";
 	}
-	
+
 	@PostMapping("/serie/info")
 	public String infoSeriePost(@RequestParam(required = true, name = "status") String status,
 			HttpServletRequest request, Model model) {
@@ -431,32 +430,30 @@ public class SerieController {
 				user.addUsuarioContent(userContent);
 			}
 			userService.editUsuario(user);
-		}else {
+		} else {
 			if (userContentExist != null) {
 				ucService.deleteUsuarioContent(userContentExist);
-			} 
+			}
 		}
 
 		userService.editUsuario(user);
 		return "redirect:/serie/info?serieId=" + serieAux.getContentId();
 	}
-	
+
 	@GetMapping("/serie/chapter")
-	public String chapterSerieGet(@RequestParam(required = true, name = "chapterId") String id, 
-			@RequestParam(required = true, name = "seen") String seen, HttpServletRequest request,
-			Model model) {
+	public String chapterSerieGet(@RequestParam(required = true, name = "chapterId") String id,
+			@RequestParam(required = true, name = "seen") String seen, HttpServletRequest request, Model model) {
 		Usuario user = userService.getUserById(Long.parseLong(cookieService.getUserIdOnSession(request)));
-		
-		if(seen.equals("true") && !user.getChapters().contains(chapterService.getChapterByID(Long.parseLong(id)))) {
+
+		if(seen.equals("true")) {
 			user.addChapter(chapterService.getChapterByID(Long.parseLong(id)));
-		} else if (seen.equals("false") && user.getChapters().contains(chapterService.getChapterByID(Long.parseLong(id)))) {
+		}else {
 			user.deleteChapter(chapterService.getChapterByID(Long.parseLong(id)));
 		}
 		userService.editUsuario(user);
-
 		return "redirect:/serie/info?serieId=" + serieAux.getContentId();
 	}
-	
+
 	@GetMapping("/seriesC")
 	public String genreGet(Model model) {
 

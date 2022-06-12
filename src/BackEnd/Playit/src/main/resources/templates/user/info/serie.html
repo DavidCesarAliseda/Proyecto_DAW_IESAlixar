@@ -177,8 +177,8 @@
 						<td th:text="${c.getChapter().getNumber()}"></td>
 						<td th:text="${c.getChapter().getName()}"></td>
 
-						<td th:if="${c.isSeen()==false}"><a th:href="${'/serie/chapter?chapterId='+c.getChapter().getChapterId()+'&seen=true'}" ><span class="material-icons">visibility_off</span></a></td>
-						<td th:if="${c.isSeen()==true}"><a th:href="${'/serie/chapter?chapterId='+c.getChapter().getChapterId()+'&seen=false'}" ><span class="material-icons">visibility</span></a></td>
+						<td th:if="${c.getSeen()=='false'}"><a th:href="${'/serie/chapter?chapterId='+c.getChapter().getChapterId()+'&seen=true'}" ><span class="material-icons">visibility_off</span></a></td>
+						<td th:if="${c.getSeen()=='true'}"><a th:href="${'/serie/chapter?chapterId='+c.getChapter().getChapterId()+'&seen=false'}" ><span class="material-icons">visibility</span></a></td>
 					</tr>
 				</table>
 
