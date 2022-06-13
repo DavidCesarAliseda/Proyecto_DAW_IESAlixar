@@ -67,7 +67,7 @@ public class FilmController {
 	UsuarioContentServiceImpl ucService;
 
 	Film filmAux;
-	
+
 	String statusAux;
 
 	@GetMapping("/film")
@@ -353,9 +353,11 @@ public class FilmController {
 		Person director = new Person();
 
 		for (PersonContent personContent : personContents) {
+			System.out.println(personContent.getPerson().getName());
 			if (personContent.getRole().equals("Director") || personContent.getRole().equals("Ambos")) {
 				director = personContent.getPerson();
-			} else if (personContent.getRole().equals("Actor") || personContent.getRole().equals("Ambos")) {
+			}
+			if (personContent.getRole().equals("Actor") || personContent.getRole().equals("Ambos")) {
 				actors.add(personContent.getPerson());
 			}
 		}
@@ -365,7 +367,7 @@ public class FilmController {
 		for (UsuarioContent usuarioContent : userContents) {
 			if (usuarioContent.getId().getUsuarioId().equals(user.getId_usuario())) {
 				status = usuarioContent.getStatus();
-				System.out.println(status);
+
 			}
 		}
 
@@ -395,15 +397,14 @@ public class FilmController {
 		userContent.setUsuario(user);
 		userContent.setContent(filmAux);
 		userContent.setId(ucKey);
-		
-		if(status.equals("default")) {
+
+		if (status.equals("default")) {
 			userContent.setStatus(statusAux);
 			ucService.deleteUsuarioContent(userContent);
-			
-		}else {
+
+		} else {
 			ucService.addUsuarioContent(user, filmAux, status);
 		}
-		
 
 		return "redirect:/film/info?filmId=" + filmAux.getContentId();
 	}
@@ -418,7 +419,12 @@ public class FilmController {
 		for (Content content : contents) {
 			if (filmService.isFilm(content)) {
 				films.add(filmService.findFilmById(content.getContentId()));
+
 			}
+		}
+
+		for (int i = 0; i < 3; i++) {
+			films.addAll(films);
 		}
 
 		model.addAttribute("films", films);

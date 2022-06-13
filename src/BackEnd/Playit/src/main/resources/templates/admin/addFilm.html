@@ -4,74 +4,94 @@
 <meta charset="UTF-8">
 <title>Crear película</title>
 <link th:insert="parts/link.html">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<link th:insert="parts/link.html">
 <link rel="stylesheet" href="/css/index.css">
 <link rel="stylesheet" href="/css/admin/add.css">
+<script defer src="/js/filmData.js"></script>
+
 </head>
 <body>
 	<div th:replace="parts/header.html :: admin_header"></div>
 	<main>
 		<section>
-			<form th:action="@{/film/add}" method="post" th:object="${film}" enctype="multipart/form-data">
+			<div class="row">
+				<div class="input-field col s6 inline center-align">
+					<input id="code" type="text"> <label for="code">Codigo
+						IMDB</label>
+				</div>
+				<div class="row center-align" id="crear">
+					<button id="cargar" style="height: 30px; margin-top: 30px;">IMDB</button>
+				</div>
+			</div>
+		</section>
+		<section>
+			<form th:action="@{/film/add}" method="post" th:object="${film}"
+				enctype="multipart/form-data">
 
 				<div class="row">
-					<div class="input-field col s12 m6 inline center-align">
-						<input id="title" type="text" class="validate" th:field="*{title}" required> <label
-							for="title">Título</label>
+					<div class="col  s12 m6 inline center-align input-field ">
+						<input id="title" type="text" class="validate" th:field="*{title}"
+							required> <label for="title">Título</label>
 					</div>
-					<div class="input-field col s12 m6 inline center-align">
-						<input id="trailer" type="url" class="validate" th:field="*{trailer}" required>
-						<label for="trailer">Enlace a trailer</label>
+					<div class="col  s12 m6 inline center-align input-field">
+						<input id="trailer" type="url" class="validate"
+							th:field="*{trailer}" required> <label for="trailer">Enlace
+							a trailer</label>
 					</div>
 				</div>
 
 				<div class="row">
 					<div class="input-field col s12 m6 inline center-align">
-						<input id="premiere" type="date" class="validate" th:field="*{premiere}" required>
-						<label for="premiere">Estreno</label>
+						<input id="premiere" type="date" class="validate"
+							th:field="*{premiere}" required> <label for="premiere">Estreno</label>
 					</div>
 					<div class="input-field col s12 m6 inline center-align">
-						<input id="duration" type="text" class="validate" th:field="*{duration}" required>
-						<label for="duration">Duración</label>
+						<input id="duration" type="text" class="validate"
+							th:field="*{duration}" required> <label for="duration">Duración</label>
 					</div>
 				</div>
 
 				<div class="row">
 					<div class="input-field col s12 m6 inline center-align">
-						<input id="country" type="text" class="validate" th:field="*{country}" required>
-						<label for="country">Pais</label>
+						<input id="country" type="text" class="validate"
+							th:field="*{country}" required> <label for="country">Pais</label>
 					</div>
 					<div class="input-field col s12 m6 inline center-align">
-						<input id="valoration" type="number" class="validate" th:field="*{valoration}" required>
-						<label for="valoration">Valoración</label>
+						<input id="valoration" type="number" class="validate"
+							th:field="*{valoration}" required> <label
+							for="valoration">Valoración</label>
 					</div>
 				</div>
-				
+
 				<div class="row">
-					
+
 					<div class="input-field col s12 m6 inline center-align">
 						<select th:field="*{platformId}">
-							<option th:each="p : ${platforms}" th:value="${p.getPlatformId()}"
-								th:text="${p.getName()}"></option>
+							<option th:each="p : ${platforms}"
+								th:value="${p.getPlatformId()}" th:text="${p.getName()}"></option>
 						</select> <label>Plataforma</label>
 					</div>
-					
+
 					<div class="input-field col s12 m6 inline center-align">
-						<input id="urlPlatform" type="url" class="validate" th:field="*{urlPlatform}"  required>
-						<label for="urlPlatform">Enlace de la plataforma</label>
+						<input id="urlPlatform" type="url" class="validate"
+							th:field="*{urlPlatform}" required> <label
+							for="urlPlatform">Enlace de la plataforma</label>
 					</div>
 				</div>
 
 				<div class="row">
 					<div class="input-field col s12 m12">
-						<textarea id="synopsis" class="materialize-textarea" th:field="*{synopsis}" 
-							></textarea>
+						<textarea id="synopsis" class="materialize-textarea"
+							th:field="*{synopsis}"></textarea>
 						<label for="synopsis">Sinopsis</label>
 					</div>
 				</div>
 
 
-				<label for="cover">Portada</label> </br> 
-				<input type="file" id="cover" name="cover">
+				<label for="cover">Portada</label> </br> <input type="file" id="cover"
+					name="cover">
 
 
 				<div class="row center-align" id="crear">

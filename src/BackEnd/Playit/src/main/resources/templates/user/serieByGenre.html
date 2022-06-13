@@ -11,6 +11,7 @@
 <link th:insert="parts/link.html">
 <link rel="stylesheet" href="/css/index.css">
 <link rel="stylesheet" href="/css/user/main_user.css">
+<link rel="stylesheet" href="/css/footer.css">
 <!-- <script defer src="/js/carousel.js"></script> -->
 
 </head>
@@ -22,21 +23,55 @@
 
 <body>
 	<main>
-<div class="row">
-		<div class="col s12 m6 l6">
-			<h3 class="white-text">Drama</h3>
-			<div class="carousel">
-				<a class="carousel-item"
-					th:href="@{'/serie/info?serieId='+${f.getContentId()}}"
-					th:each="f : ${series}"> <img
-					th:src="@{'/Recursos/Covers/'+${f.cover}}">
-				</a>
+		<div class="row">
+			<div class="col s12 m6 l6">
+				<h3 class="white-text">Drama</h3>
+				<div class="carousel">
+					<a class="carousel-item"
+						th:href="@{'/serie/info?serieId='+${f.getContentId()}}"
+						th:each="f : ${series}"> <img
+						th:src="@{'/Recursos/Covers/'+${f.cover}}">
+					</a>
+				</div>
 			</div>
+
+			<div class="col s12 m6 l6">
+				<h3 class="white-text">Acción</h3>
+				<div class="carousel">
+					<a class="carousel-item"
+						th:href="@{'/serie/info?serieId='+${f.getContentId()}}"
+						th:each="f : ${series}"> <img
+						th:src="@{'/Recursos/Covers/'+${f.cover}}">
+					</a>
+				</div>
+			</div>
+
+			<div class="col s12 m6 l6">
+				<h3 class="white-text">Aventura</h3>
+				<div class="carousel">
+					<a class="carousel-item"
+						th:href="@{'/serie/info?serieId='+${f.getContentId()}}"
+						th:each="f : ${series}"> <img
+						th:src="@{'/Recursos/Covers/'+${f.cover}}">
+					</a>
+				</div>
+			</div>
+
+			<div class="col s12 m6 l6">
+				<h3 class="white-text">Comedia</h3>
+				<div class="carousel">
+					<a class="carousel-item"
+						th:href="@{'/serie/info?serieId='+${f.getContentId()}}"
+						th:each="f : ${series}"> <img
+						th:src="@{'/Recursos/Covers/'+${f.cover}}">
+					</a>
+				</div>
+			</div>
+
 		</div>
-		
-</div>
 
 	</main>
+	<div th:replace="parts/footer.html :: footer"></div>
 </body>
 <script>
 document.addEventListener('DOMContentLoaded', function() {

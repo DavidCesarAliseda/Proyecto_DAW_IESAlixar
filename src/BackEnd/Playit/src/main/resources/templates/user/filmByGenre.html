@@ -10,6 +10,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <link th:insert="parts/link.html">
 <link rel="stylesheet" href="/css/index.css">
+<link rel="stylesheet" href="/css/footer.css">
 <link rel="stylesheet" href="/css/user/main_user.css">
 <!-- <script defer src="/js/carousel.js"></script> -->
 
@@ -22,21 +23,56 @@
 
 <body>
 	<main>
-<div class="row">
-		<div class="col s12 m6 l6">
-			<h3 class="white-text">Drama</h3>
-			<div class="carousel">
-				<a class="carousel-item"
-					th:href="@{'/film/info?filmId='+${f.getContentId()}}"
-					th:each="f : ${films}"> <img
-					th:src="@{'/Recursos/Covers/'+${f.cover}}">
-				</a>
+		<h2 style="text-align: center; color: white">Peliculas</h2>
+		<div class="row">
+			<div class="col s12 m6 l6">
+				<h3 class="white-text">Drama</h3>
+				<div class="carousel">
+					<a class="carousel-item"
+						th:href="@{'/film/info?filmId='+${f.getContentId()}}"
+						th:each="f : ${films}"> <img
+						th:src="@{'/Recursos/Covers/'+${f.cover}}">
+					</a>
+				</div>
 			</div>
+
+			<div class="col s12 m6 l6">
+				<h3 class="white-text">Comedia</h3>
+				<div class="carousel">
+					<a class="carousel-item"
+						th:href="@{'/film/info?filmId='+${f.getContentId()}}"
+						th:each="f : ${films}"> <img
+						th:src="@{'/Recursos/Covers/'+${f.cover}}">
+					</a>
+				</div>
+			</div>
+
+			<div class="col s12 m6 l6">
+				<h3 class="white-text">Aventura</h3>
+				<div class="carousel">
+					<a class="carousel-item"
+						th:href="@{'/film/info?filmId='+${f.getContentId()}}"
+						th:each="f : ${films}"> <img
+						th:src="@{'/Recursos/Covers/'+${f.cover}}">
+					</a>
+				</div>
+			</div>
+
+			<div class="col s12 m6 l6">
+				<h3 class="white-text">Acción</h3>
+				<div class="carousel">
+					<a class="carousel-item"
+						th:href="@{'/film/info?filmId='+${f.getContentId()}}"
+						th:each="f : ${films}"> <img
+						th:src="@{'/Recursos/Covers/'+${f.cover}}">
+					</a>
+				</div>
+			</div>
+
 		</div>
-		
-</div>
 
 	</main>
+	<div th:replace="parts/footer.html :: footer"></div>
 </body>
 <script th:replace="parts/scripts.html :: dropdown"></script>
 <script th:replace="parts/scripts.html :: sidenav"></script>

@@ -1,0 +1,27 @@
+/*Footer*/
+footer {
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 33%, rgba(0, 0, 0, 0.81) 100%) !important;
+}
+
+footer ul {
+    display: flex;
+    justify-content: space-around;
+}
+
+footer a,
+footer a:visited {
+    color: #fff !important;
+}
+
+footer ul {
+    margin: 0;
+}
+
+footer a:hover {
+    font-weight: bold;
+}
+
+.error-msg {
+    color: red;
+    margin-top: 0;
+}

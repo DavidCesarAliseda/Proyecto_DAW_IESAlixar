@@ -9,6 +9,7 @@
 <link th:insert="parts/link.html">
 
 <link rel="stylesheet" href="/css/formulario.css">
+<link rel="stylesheet" href="/css/footer.css">
 <script defer src="/js/formulario.js"></script>
 </head>
 
@@ -113,20 +114,7 @@
 			</div>
 		</main>
 
-		<footer class="page-footer">
-			<div class="container">
-				<div class="row">
-					<ul>
-						<li><a href="">Condiciones de uso</a></li>
-						<li><a href="">Politica de privacidad</a></li>
-						<li><a href="">Info</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="footer-copyright">
-				<div class="container">© 2022 Playit</div>
-			</div>
-		</footer>
+		<div th:replace="parts/footer.html :: footer"></div>
 
 	</div>
 </body>

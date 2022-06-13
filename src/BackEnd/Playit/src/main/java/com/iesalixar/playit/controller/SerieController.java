@@ -471,6 +471,10 @@ public class SerieController {
 				series.add(serieService.getSerieByID(content.getContentId()));
 			}
 		}
+		
+		for (int i = 0; i < 3; i++) {
+			series.addAll(series);
+		}
 
 		model.addAttribute("series", series);
 		return "/user/serieByGenre";
